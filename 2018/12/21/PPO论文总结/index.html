@@ -1,0 +1,442 @@
+<!DOCTYPE HTML>
+<html lang="zh-CN">
+<head><meta name="generator" content="Hexo 3.8.0">
+    <!-- hexo-inject:begin --><!-- hexo-inject:end --><!--Setting-->
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1">
+    <meta http-equiv="Cache-Control" content="no-siteapp">
+    <meta http-equiv="Cache-Control" content="no-transform">
+    <meta name="renderer" content="webkit|ie-comp|ie-stand">
+    <meta name="apple-mobile-web-app-capable" content="Hexo">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <meta name="format-detection" content="telephone=no,email=no,adress=no">
+    <meta name="browsermode" content="application">
+    <meta name="screen-orientation" content="portrait">
+    <link rel="dns-prefetch" href="http://yoursite.com">
+    <!--SEO-->
+
+
+
+
+
+<meta name="robots" content="all">
+<meta name="google" content="all">
+<meta name="googlebot" content="all">
+<meta name="verify" content="all">
+    <!--Title-->
+
+
+<title>PPO论文总结 | Hexo</title>
+
+
+    <link rel="alternate" href="/atom.xml" title="Hexo" type="application/atom+xml">
+
+
+    <link rel="icon" href="/favicon.ico">
+
+    
+
+
+
+<link rel="stylesheet" href="/css/bootstrap.min.css?rev=3.3.7">
+<link rel="stylesheet" href="/css/font-awesome.min.css?rev=4.5.0">
+<link rel="stylesheet" href="/css/style.css?rev=@@hash">
+
+
+
+
+    
+	<div class="hide">
+		<script type="text/javascript">
+			var cnzz_protocol = (("https:" == document.location.protocol) ? " https://" : " http://");document.write(unescape("%3Cspan class='cnzz_stat_icon_1263868967 hide' %3E%3Cscript%20src%3D%22https%3A%2F%2Fs95.cnzz.com%2Fz_stat.php%3Fweb_id%3D1272564536%22%3E%3C%2Fscript%3E%3C/span%3E%3Cscript src='" + cnzz_protocol + "s19.cnzz.com/z_stat.php%3Fid%3D1263868967%26show%3Dpic1' type='text/javascript'%3E%3C/script%3E"));
+		</script>
+	</div><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+
+
+
+
+
+
+    
+
+</head>
+
+</html>
+<!--[if lte IE 8]>
+<style>
+    html{ font-size: 1em }
+</style>
+<![endif]-->
+<!--[if lte IE 9]>
+<div style="ie">你使用的浏览器版本过低，为了你更好的阅读体验，请更新浏览器的版本或者使用其他现代浏览器，比如Chrome、Firefox、Safari等。</div>
+<![endif]-->
+
+<body>
+    <!-- hexo-inject:begin --><!-- hexo-inject:end --><header class="main-header" style="background-image:url(/./img/whitequeen4.jpg)">
+    <div class="main-header-box">
+        <a class="header-avatar" href="/" title="Joy Xh">
+            <img src="/img/avatar.jpg" alt="logo头像" class="img-responsive center-block">
+        </a>
+        <div class="branding">
+        	<!--<h2 class="text-hide">Snippet主题,从未如此简单有趣</h2>-->
+            
+                <h2> 终身学习，终身成长！ </h2>
+            
+    	</div>
+    </div>
+</header>
+    <nav class="main-navigation">
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-12">
+                <div class="navbar-header"><span class="nav-toggle-button collapsed pull-right" data-toggle="collapse" data-target="#main-menu" id="mnav">
+                    <span class="sr-only"></span>
+                        <i class="fa fa-bars"></i>
+                    </span>
+                    <a class="navbar-brand" href="http://yoursite.com">Hexo</a>
+                </div>
+                <div class="collapse navbar-collapse" id="main-menu">
+                    <ul class="menu">
+                        
+                            <li role="presentation" class="text-center">
+                                <a href="/"><i class="fa "></i>首页</a>
+                            </li>
+                        
+                            <li role="presentation" class="text-center">
+                                <a href="/categories/AI/"><i class="fa "></i>AI</a>
+                            </li>
+                        
+                            <li role="presentation" class="text-center">
+                                <a href="/categories/统计/"><i class="fa "></i>统计</a>
+                            </li>
+                        
+                            <li role="presentation" class="text-center">
+                                <a href="/categories/数学/"><i class="fa "></i>数学</a>
+                            </li>
+                        
+                            <li role="presentation" class="text-center">
+                                <a href="/categories/工具/"><i class="fa "></i>工具</a>
+                            </li>
+                        
+                            <li role="presentation" class="text-center">
+                                <a href="/archives/"><i class="fa "></i>归档</a>
+                            </li>
+                        
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</nav>
+    <section class="content-wrap">
+        <div class="container">
+            <div class="row">
+                <main class="col-md-8 main-content m-post">
+                    <p id="process"></p>
+<article class="post">
+    <div class="post-head">
+        <h1 id="PPO论文总结">
+            
+	            PPO论文总结
+            
+        </h1>
+        <div class="post-meta">
+    
+    
+    <span class="categories-meta fa-wrap">
+        <i class="fa fa-folder-open-o"></i>
+        <a href="/categories/ ">
+             
+        </a>
+    </span>
+    
+
+    
+    <span class="fa-wrap">
+        <i class="fa fa-tags"></i>
+        <span class="tags-meta">
+            
+                
+                    <a href="/tags/RL算法" title="RL算法">
+                        RL算法
+                    </a>
+                
+            
+        </span>
+    </span>
+    
+
+    
+        
+        <span class="fa-wrap">
+            <i class="fa fa-clock-o"></i>
+            <span class="date-meta">2018/12/21</span>
+        </span>
+        
+    
+</div>
+
+            
+            
+    </div>
+    
+    <div class="post-body post-content">
+        <p>[TOC]</p>
+<div style="page-break-after:always;"></div>
+
+<h2 id="1-问题及创新点"><a href="#1-问题及创新点" class="headerlink" title="1 问题及创新点"></a>1 问题及创新点</h2><p><strong>应用层面</strong></p>
+<p>现在很多使用神经网络近似函数的RL算法都各有各的缺点，如Q-learning在很多简单问题上失败了，且 is poorly understood， vanilla PG算法样本效率低、不鲁棒，TRPO相对比较复杂，且无法容忍带噪声(如dropout)和参数共享(策略和价值函数)的网络结构，目前缺少一种可扩展的、样本效率高的、鲁棒的方法。</p>
+<p>为改进以上问题，本文提出一种结合了TRPO的高样本效率和可靠表现的一阶优化算法，它使用进行了clipped的重要性权重对策略的表现进行保守的估计，通过轮换进行采样和利用采样数据执行几个epoches的优化来更新策略。它更加鲁棒，且实现起来很简单，只需在vanilla PG implementation的基础上更改一些行的代码，本文把这种算法称为PPO1。</p>
+<p><strong>技术层面</strong></p>
+<p>为解决样本效率低，算法不鲁棒、扩展性差等问题，本文使用两种方法对原始策略梯度算法的目标函数进行了调整，得到了两种PPO算法：</p>
+<ol>
+<li><p>PPO1算法：对目标函数中的重要性权重进行clip，限制其在1附近的某个领域内。</p>
+</li>
+<li><p>PPO2算法：在目标函数中加入惩罚项，并使用新旧策略的KL散度作为惩罚。</p>
+</li>
+</ol>
+<p><strong>创新点总结</strong></p>
+<ol>
+<li>PPO1对目标函数进行了clip，限制了策略的更新，使得迭代更加稳定。</li>
+<li>PPO2在目标函数中加入了惩罚项，通过调整惩罚项系数来保证新旧策略的KL散度不会与目标值相差太大，从而限制了策略的更新，使得迭代更加稳定。</li>
+<li>在目标函数上加入了 entropy bonus，保证有效探索。</li>
+<li>使用一种截断版本的优势函数。</li>
+</ol>
+<h2 id="2-技术细节"><a href="#2-技术细节" class="headerlink" title="2 技术细节"></a>2 技术细节</h2><h3 id="2-1-预备知识"><a href="#2-1-预备知识" class="headerlink" title="2.1 预备知识"></a>2.1 预备知识</h3><p><strong>策略梯度方法</strong></p>
+<p>策略梯度方法通过计算策略梯度的估计值进行随机梯度上升来最大化目标函数，一般使用的策略梯度估计为：$\hat{g}=\hat{E}_t[\nabla_\theta\log\pi_\theta(a_t|s_t)\hat A_t]$。其中$\pi_\theta$是随机策略，$\hat{A}_t$是优势函数在时间步$t$的估计值。</p>
+<p>在实践中，为便于使用自动微分方法求梯度，常常构造以下形式的目标函数：$L^{PG}(\theta)=\hat{E}_t[\log\pi_\theta(a_t|s_t)\hat{A}_t]$，其梯度和我们真正要优化的目标函数的梯度是一样的。即：我们只用$L^{PG}$来求梯度，然后将梯度作用在要优化的目标函数上。但这样会由于使用相同的轨迹在损失函数$L^{PG}$上执行多步优化，而造成不准确，且常常会造成较大的策略更新，因此后面提出的PPO算法是在TRPO目标函数的基础上进行了调整。</p>
+<p><strong>TRPO算法</strong></p>
+<p>TRPO算法是在约束策略更新大小的条件下最大化目标函数，即求解以下优化问题：</p>
+<p>$\underset{\theta}{maxmize}\;\hat E_t[\frac{\pi_\theta(a_t|s_t)}{\pi_{\theta_{old}(a_t|s_t)}}\hat A_t]\\subject\;to\;\hat E_t[KL[\pi_\theta(\cdot|s_t),\pi_{\theta_{old}}(\cdot|s_t)]\leq \delta$</p>
+<p>通过对目标函数进行线性近似，对约束条件进行二次近似，可以利用共轭梯度法有效地近似求解上述优化问题。此外，理论证明TRPO实际上更建议使用惩罚而不是约束，即求解以下无约束优化问题：</p>
+<p>$\underset{\theta}{maxmize}\;\hat E_t[\frac{\pi_\theta(a_t|s_t)}{\pi_{\theta_{old}(a_t|s_t)}}\hat A_t-\beta KL[\pi_\theta(\cdot|s_t),\pi_{\theta_{old}}(\cdot|s_t)]]$</p>
+<p> 上述目标函数实际上为策略$\pi$的表现构造了一个更低的下界，但由于对不同问题甚至是对一个问题，我们难以找到一个合适的$\beta$，故TRPO使用一个强约束而不是一个惩罚。另外，实验证明，使用一个固定的惩罚系数$\beta$，然后用SGD算法优化带惩罚的目标函数是低效的，还需要进行更多调整。</p>
+<h3 id="2-2-RL算法"><a href="#2-2-RL算法" class="headerlink" title="2.2 RL算法"></a>2.2 RL算法</h3><p>作者提出了两种PPO算法，一种是对目标函数进行clip，另一种是在目标函数中加入惩罚项，然后调整惩罚系数，第一种PPO算法要比第二种PPO算法表现好，后面介绍第二种算法是为了与第一种进行对比。</p>
+<p><strong>PPO1-Clipped Surrogate Objective</strong></p>
+<p>令$r_t(\theta)=\frac{\pi_\theta(a_t|s_t)}{\pi_{\theta_{old}(a_t|s_t)}}$，故$r(\theta_{old})=1$。TRPO最大化以下目标函数：$L^{CPI}(\theta)=E_t[\frac{\pi_\theta(a_t|s_t)}{\pi_{\theta_{old}(a_t|s_t)}}\hat A_t]=E_t[r_t(\theta)\hat A_t]$。其中，上标$CPI$代表论文[KL02]中保守策略迭代所提出的目标函数，在无约束情况下，最大化$L^{CPI}$会导致策略更新过度。因此，为了使得当$r_t(\theta)$远离1时可以惩罚策略的改变，作者得到以下更改过的目标函数：</p>
+<p>$L^{CLIP}(\theta)=E_t[\min \{r_t(\theta)\hat A_t,clip(r_t(\theta),1-\epsilon,1+\epsilon)\hat A_t\}]\\\qquad\quad\quad=\begin{cases} E_t[\min \{r_t(\theta),1+\epsilon\}\hat A_t] &amp; \hat A_t&gt;0 \ E_t[\min \{r_t(\theta),1-\epsilon\}\hat A_t] &amp; \hat A_t&lt;0 \end{cases}$ </p>
+<p>其中$clip(r_t(\theta),1-\epsilon,1+\epsilon)=\begin{cases} 1+\epsilon &amp; r_t(\theta)&gt;1+\epsilon \ 1-\epsilon &amp; r_t(\theta)&lt;1-\epsilon\end{cases}$ ，$\epsilon$是一超参，取$\epsilon=0.2$。注意：$L^{CLIP}$相比没有进行clip的$L^{CPI}$会有一个更低的下界，且$L^{CLIP}=L^{CPI}\;,\text{when}\;r_t(\theta)\in[1-\epsilon,1+\epsilon]$。</p>
+<p>下图为固定$\hat A=\pm1$时，一个时间步下$L^{CLIP}$随$r_t(\theta)$的变化图像：</p>
+<p><img src="/images/RL/PPO-L_clip.png" alt=""></p>
+<p>当$\hat A_t&gt;0​$时，说明当前行动比较好，$\max E_t[r_t(\theta)\hat A_t]​$会使得$r_t(\theta)​$增大，即$\pi_\theta​$增大；当$\hat A_t<0​$时，说明当前行动的效果比平均效果还要差，$\max e_t[r_t(\theta)\hat="" a_t]​$会使得$r_t(\theta)​$减小，即$\pi_\theta​$减小。但是$\hat="" a_t​$是通过采样计算出的估计值，是不准确的，因此随机梯度上升的方向是局部极小值方向，故步长不宜更新太大，我们希望$r_t(\theta)\in[1-\epsilon,1+\epsilon]​$。因此进行clip：当$\hat="" a_t="">0​$时（$r​$会增大），令$r=1+\epsilon\;\;\text{if}\;r&gt;1+\epsilon​$；当$\hat A_t&lt;0​$时（$r​$会减小），令$r=1-\epsilon\;\;\text{if}\;r&lt;1+\epsilon​$。注意一般初始化$r=1​$，两种情况下$r​$分别朝一侧更新，故只需对相应一侧进行clip。</0​$时，说明当前行动的效果比平均效果还要差，$\max></p>
+<p>使用PPO算法对连续控制任务Hopper-v1进行第一次策略优化（超参设置见表一），插值后的目标函数随策略更新方向的变化情况如下图所示：</p>
+<p><img src="assets/PPO-surrogate objective.png" alt="PPO-surrogate objective"></p>
+<p>上图中，横轴为使用PPO迭代一次策略参数的更新值$\Delta\theta$，纵轴为各目标函数的值。设使用PPO迭代一次得到的策略更新值为$\Delta\theta_1$，则图中竖直虚线1所对应的横轴坐标为$\Delta\theta_1$，对$\Delta\theta$进行插值，拟合得到上图。由上图可知，$L^{CLIP}$的下界比$L^{CPI}$低，它因为策略更新太大而受到了惩罚；更新的策略和初始策略之间的KL散度大约为0.02，此时$L^{CLIP}$达到极大值。</p>
+<p><strong>PPO2-Adaptive KL Penalty Coefficient</strong></p>
+<p>PPO2在目标函数中加入新旧策略的KL散度作为惩罚，然后在每次策略更新时，通过调整惩罚系数来保证KL散度与其目标值$d_{targ}$的差距不会太大。其策略更新过程如下：</p>
+<blockquote>
+<ul>
+<li><p>使用几个epoches的minibatch SGD，优化KL-惩罚目标函数：</p>
+<p>$L^{KLPEN}(\theta)=\hat E_t[\frac{\pi_\theta(a_t|s_t)}{\pi_{\theta_{old}(a_t|s_t)}}\hat A_t-\beta KL[\pi_\theta(\cdot|s_t),\pi_{\theta_{old}}(\cdot|s_t)]]$</p>
+</li>
+<li><p>计算$d=\hat E_t[KL[\pi_\theta(\cdot|s_t),\pi_{\theta_{old}}(\cdot|s_t)]]$ </p>
+<ul>
+<li><p>$\text{if}\;d&lt;d_{targ}/1.5，\beta\gets\beta/2$</p>
+</li>
+<li><p>$\text{if}\;d&gt;d_{targ}×1.5，\beta\gets\beta×2$</p>
+</li>
+</ul>
+</li>
+</ul>
+</blockquote>
+<p>按上述方式进行优化，策略更新偶尔会使得KL散度与$d_{targ}$差距很大，但这很罕见，因为$\beta$会快速调整它。上述参数1.5和2是启发式选择得到的，但算法对其并不敏感。$\beta$的初始值是另一超参，但这不重要，算法会快速调整它。</p>
+<p><strong>PPO算法伪代码</strong></p>
+<p>在implement过程中基于典型策略梯度算法的代码结构，针对PPO1和PPO2分别构造损失函数$L^{CLIP}$和$L^{KLPEN}$，使用简单易行的自动微分方法计算损失和梯度，然后对目标函数执行多步随机梯度上升。</p>
+<p>很多算法常常在优势函数中使用一个学得的值函数$V(s)$作为baseline来缩减方差，且若使用共享参数的策略和价值网络结构，则必须在损失函数中考虑值函数的误差，另外为保证有效探索，还可以在该目标函数上扩展性地加一个 entropy bonus，从而得到以下广义拉格朗日函数形式的目标函数：</p>
+<p>$L_t^{CLIP+VF+S}=\hat E_t[L_t^{CLIP}(\theta)-c_1L_t^{VF}(\theta)+c_2S<a href="s_t">\pi_\theta</a>]$ </p>
+<p>其中$c_1,c_2$为系数，$S$为entropy bonus，$L_t^{VF}=(V_\theta(s_t)-V_t^{targ})^2$为均方误差损失，PPO1算法使用上述形式的目标函数。</p>
+<p>此外关于优势函数，论文[Mni+16]广泛使用了一种适用于RNN的策略梯度implement方式：run policy $T$个时间步，然后使用收集的样本进行一次更新。其使用的优势函数为：$\hat A_t=-V(s_t)+r_t+\gamma r_{t+1}+\cdots+\gamma^{T-t-1}r_{T-1}+\gamma^{T-t}V(s_T)$ ，作者对以上公式进行拓展，得到一种一般优势函数估计的截断版本（当$\lambda=1$时，和以上公式相等）：</p>
+<p>$\hat A_t=\delta_t+(\gamma\lambda)\delta_{t+1}+\cdots+(\gamma\lambda)^{T-t-1}\delta_{T-1}$ </p>
+<p>其中$\delta_t=r_t+\gamma V(s_{t+1})-V(s_t)$，PPO算法使用上述形式的优势函数。</p>
+<p>此外PPO使用固定长度的轨迹片段，每次迭代都由N个并行的actors分别收集T个时间步的数据，然后基于这NT个时间步的数据计算损失，并使用minibatch SGD优化K个epoches。PPO算法的伪代码如下：</p>
+<p><img src="assets/PPO.png" alt="PPO"></p>
+<h2 id="3-实验细节"><a href="#3-实验细节" class="headerlink" title="3 实验细节"></a>3 实验细节</h2><h3 id="3-1-训练细节"><a href="#3-1-训练细节" class="headerlink" title="3.1 训练细节"></a>3.1 训练细节</h3><p><strong>简单MuJoCo任务</strong></p>
+<p>作者基于7个简单的MuJoCo任务，对原始策略梯度算法、PPO1、PPO2三种算法（三者主要是使用的目标函数不同）进行了对比，发现PPO1算法表现最好，因此又基于这7个任务，将PPO1算法与连续领域中其它五种算法进行了对比。对于简单MuJoCo任务，使用PPO算法每次训练100万个时间步，参数设置见表3：</p>
+<p><img src="../../../RL%E8%AE%BA%E6%96%87/policy-based/policy_gradient/assets/PPO-T3.png" alt="PPO-T3"></p>
+<p>为近似策略函数，作者使用含两个隐藏层（各含64个单元）的全连接MLP和tanh非线性激活函数，输出具有可变标准差的高斯分布的均值，且不使用共享参数的策略和价值函数以及entropy bonus。</p>
+<p><strong>高维连续控制任务</strong></p>
+<p>为测试PPO算法在高维连续控制任务中的表现，作者使用PPO算法训练了三个3D humanoid任务：RoboschoolHumanoid、RoboschoolHumanoidFlagrun、RoboschoolHumanoid<br>FlagrunHarder。对于3D humanoid任务，PPO算法的超参设置见表4：</p>
+<p><img src="assets/PPO-T4.png" alt="PPO-T4"></p>
+<p>注意，此任务所使用的网络结构尚不明确，作者未做任何说明。</p>
+<p><strong>Atari离散任务</strong></p>
+<p>作者基于49个Atari游戏，对PPO1、well-tuned implementations of A2C、ACER三种算法进行了对比。对于Atari游戏，将其它两种算法的超参数设置为使算法表现最好的值，PPO算法的超参设置见表5：</p>
+<p><img src="assets/PPO-T5.png" alt="PPO-T5"></p>
+<p>对于该任务，作者在三种算法中使用和[Mni+16]中相同的策略网络结构。</p>
+<h3 id="3-2-训练结果"><a href="#3-2-训练结果" class="headerlink" title="3.2 训练结果"></a>3.2 训练结果</h3><p><strong>简单MuJoCo任务</strong></p>
+<ul>
+<li>三种目标函数的对比</li>
+</ul>
+<p>作者在简单MuJoCo任务上对以下三种目标函数（分别对应原始策略梯度算法、PPO1、PPO2）的效果进行了对比：</p>
+<p><img src="assets/PPO-comparation.png" alt="PPO-comparation"></p>
+<p>其中，对于KL惩罚项，既可以使用固定的惩罚系数$\beta$，也可以使用PPO2算法中的方式对$\beta$进行调整。作者还在log空间进行了clip，但表现并没有改进。</p>
+<p>在对比三种目标函数时，由于要对各个算法的超参进行探索，作者选择了一个计算简单的benchmark来评估算法：让三种算法分别在7个环境中run 3次（每次设置不同的随机种子），即每个算法各run了21次。通过计算最后100个episodes的平均总reward对每次run进行评分，并对各个环境下的得分分别进行缩放，使得随机策略得分为0，最优策略得分为1，最后计算这21次run的平均得分作为各个算法的最终得分。实验结果见表1：</p>
+<p><img src="../../../RL%E8%AE%BA%E6%96%87/policy-based/policy_gradient/assets/PPO-T1.png" alt="PPO-T1"></p>
+<p>由上表可知，clip参数取0.2的PPO1算法平均得分最高，且PPO1和PPO2算法都很鲁棒，没有使用clip或惩罚的原始策略梯度算法表现要差很多。注意，由于原始策略梯度算法在half cheetah环境中训练得到的策略得分非常低，甚至比初始化的随机策略还要差，所以出现了负的得分。</p>
+<ul>
+<li>与连续领域中其它算法进行对比</li>
+</ul>
+<p>作者将PPO1与A2C、A2C+Trust Region、CEM、Vanilla PG with adaptive stepsize、TRPO 五种算法在7个MuJoCo任务上进行了对比，PPO1的参数设置见表3，并设置$\epsilon=0.2$。训练100万个时间步后的结果如图3所示：</p>
+<p><img src="../../../RL%E8%AE%BA%E6%96%87/policy-based/policy_gradient/assets/PPO-F3.png" alt="PPO-F3"></p>
+<p>上图中，横轴表示timesteps，纵轴表示total reward。由图可知，PPO1算法几乎在所有7个连续任务中都表现得最好。</p>
+<p> <strong>高维连续控制任务</strong></p>
+<p>PPO算法在三个3D humanoid任务上的表现如图四所示：</p>
+<p><img src="assets/PPO-F4.png" alt="PPO-F4"></p>
+<p>上图中，横轴表示timesteps，纵轴猜测为total reward。由于作者在论文对上图未做任何说明，无法明确两条曲线的含义。</p>
+<p><strong>Atari离散任务</strong></p>
+<p>作者将PPO1、well-tuned implementations of A2C、ACER三种算法在49个Atari游戏上进行了对比，结果如下：</p>
+<ul>
+<li>结果1：使用Arcade Learning Environment [Bel+15] 中的benchmark对三种算法进行评估，benchmark的含义及三种算法在两种基准下的得分（最好的算法得分为1，其余得分为0）如下所示：</li>
+</ul>
+<p><img src="assets/PPO-T2-1541654553868.png" alt="PPO-T2"></p>
+<div style="page-break-after:always;"></div>
+
+<ul>
+<li>结果2：使用3种随机种子设置下的三种算法分别训练49个Atari游戏，各算法的学习曲线如下图所示：</li>
+</ul>
+<p><img src="assets/PPO-F6.png" alt="PPO-F6"></p>
+<div style="page-break-after:always;"></div>
+
+<ul>
+<li>结果3：使用三种算法分别训练40万个Frames（10万个时间步）后，各游戏最后100个episodes的平均得分见下表：</li>
+</ul>
+<p><img src="assets/PPO-T6.png" alt="PPO-T6"></p>
+
+    </div>
+    
+    <div class="post-footer">
+        <div>
+            
+                转载声明：商业转载请联系作者获得授权,非商业转载请注明出处 © <a href="" target="_blank">Snippet</a>
+            
+        </div>
+        <div>
+            
+        </div>
+    </div>
+</article>
+
+<div class="article-nav prev-next-wrap clearfix">
+    
+        <a href="/2018/12/27/ACER论文总结/" class="pre-post btn btn-default" title="ACER论文总结">
+            <i class="fa fa-angle-left fa-fw"></i><span class="hidden-lg">上一篇</span>
+            <span class="hidden-xs">ACER论文总结</span>
+        </a>
+    
+    
+        <a href="/2018/11/28/K-FAC方法总结/" class="next-post btn btn-default" title="K-FAC方法总结">
+            <span class="hidden-lg">下一篇</span>
+            <span class="hidden-xs">K-FAC方法总结</span><i class="fa fa-angle-right fa-fw"></i>
+        </a>
+    
+</div>
+
+
+    <div id="comments">
+        
+	
+    <div id="vcomments" class="valine"></div>
+    <script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+<script src="/assets/valine.min.js"></script>
+
+    <script>
+        new Valine({
+            av: AV,
+            el: '#vcomments',
+            appId: 'xOKV9J4UeQAtVkvnJC7Kq2Jn-gzGzoHsz',
+            appKey: 'erIpQac4azoCmgfBB7Dl9maa',
+            placeholder: '说点什么吧',
+            notify: false,
+            verify: false,
+            avatar: 'mm',
+            meta: 'nick,mail'.split(','),
+            pageSize: '10',
+            path: window.location.pathname,
+            lang: 'zh-CN'.toLowerCase()
+        })
+    </script>
+
+
+    </div>
+
+
+
+
+
+                </main>
+                
+                    <aside id="article-toc" role="navigation" class="col-md-4">
+    <div class="widget">
+        <h3 class="title">文章目录</h3>
+        
+            <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#1-问题及创新点"><span class="toc-text">1 问题及创新点</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2-技术细节"><span class="toc-text">2 技术细节</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#2-1-预备知识"><span class="toc-text">2.1 预备知识</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-2-RL算法"><span class="toc-text">2.2 RL算法</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#3-实验细节"><span class="toc-text">3 实验细节</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#3-1-训练细节"><span class="toc-text">3.1 训练细节</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-2-训练结果"><span class="toc-text">3.2 训练结果</span></a></li></ol></li></ol>
+        
+    </div>
+</aside>
+
+                
+            </div>
+        </div>
+    </section>
+    <footer class="main-footer">
+    <div class="container">
+        <div class="row">
+        </div>
+    </div>
+</footer>
+
+<a id="back-to-top" class="icon-btn hide">
+	<i class="fa fa-chevron-up"></i>
+</a>
+
+
+
+
+    <div class="copyright">
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-12">
+                <div class="busuanzi">
+    
+</div>
+
+            </div>
+            <div class="col-sm-12">
+                <span>Copyright &copy; 2017
+                </span> |
+                <span>
+                    Powered by <a href="//hexo.io" class="copyright-links" target="_blank" rel="nofollow">Hexo</a>
+                </span> |
+                <span>
+                    Theme by <a href="//github.com/shenliyang/hexo-theme-snippet.git" class="copyright-links" target="_blank" rel="nofollow">Snippet</a>
+                </span>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+
+
+
+<script src="/js/app.js?rev=@@hash"></script>
+
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+        tex2jax: {
+            inlineMath: [ ["$","$"], ["\\(","\\)"] ],
+            skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'],
+            processEscapes: true
+        }
+    });
+    MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax();
+        for (var i = 0; i < all.length; ++i)
+            all[i].SourceElement().parentNode.className += ' has-jax';
+    });
+</script>
+<script src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+</body>
+</html>

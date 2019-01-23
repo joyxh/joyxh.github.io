@@ -1,0 +1,467 @@
+<!DOCTYPE HTML>
+<html lang="zh-CN">
+<head><meta name="generator" content="Hexo 3.8.0">
+    <!-- hexo-inject:begin --><!-- hexo-inject:end --><!--Setting-->
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1">
+    <meta http-equiv="Cache-Control" content="no-siteapp">
+    <meta http-equiv="Cache-Control" content="no-transform">
+    <meta name="renderer" content="webkit|ie-comp|ie-stand">
+    <meta name="apple-mobile-web-app-capable" content="Hexo">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <meta name="format-detection" content="telephone=no,email=no,adress=no">
+    <meta name="browsermode" content="application">
+    <meta name="screen-orientation" content="portrait">
+    <link rel="dns-prefetch" href="http://yoursite.com">
+    <!--SEO-->
+
+
+
+
+
+<meta name="robots" content="all">
+<meta name="google" content="all">
+<meta name="googlebot" content="all">
+<meta name="verify" content="all">
+    <!--Title-->
+
+
+<title>ACER论文总结 | Hexo</title>
+
+
+    <link rel="alternate" href="/atom.xml" title="Hexo" type="application/atom+xml">
+
+
+    <link rel="icon" href="/favicon.ico">
+
+    
+
+
+
+<link rel="stylesheet" href="/css/bootstrap.min.css?rev=3.3.7">
+<link rel="stylesheet" href="/css/font-awesome.min.css?rev=4.5.0">
+<link rel="stylesheet" href="/css/style.css?rev=@@hash">
+
+
+
+
+    
+	<div class="hide">
+		<script type="text/javascript">
+			var cnzz_protocol = (("https:" == document.location.protocol) ? " https://" : " http://");document.write(unescape("%3Cspan class='cnzz_stat_icon_1263868967 hide' %3E%3Cscript%20src%3D%22https%3A%2F%2Fs95.cnzz.com%2Fz_stat.php%3Fweb_id%3D1272564536%22%3E%3C%2Fscript%3E%3C/span%3E%3Cscript src='" + cnzz_protocol + "s19.cnzz.com/z_stat.php%3Fid%3D1263868967%26show%3Dpic1' type='text/javascript'%3E%3C/script%3E"));
+		</script>
+	</div><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+
+
+
+
+
+
+    
+
+</head>
+
+</html>
+<!--[if lte IE 8]>
+<style>
+    html{ font-size: 1em }
+</style>
+<![endif]-->
+<!--[if lte IE 9]>
+<div style="ie">你使用的浏览器版本过低，为了你更好的阅读体验，请更新浏览器的版本或者使用其他现代浏览器，比如Chrome、Firefox、Safari等。</div>
+<![endif]-->
+
+<body>
+    <!-- hexo-inject:begin --><!-- hexo-inject:end --><header class="main-header" style="background-image:url(/./img/whitequeen4.jpg)">
+    <div class="main-header-box">
+        <a class="header-avatar" href="/" title="Joy Xh">
+            <img src="/img/avatar.jpg" alt="logo头像" class="img-responsive center-block">
+        </a>
+        <div class="branding">
+        	<!--<h2 class="text-hide">Snippet主题,从未如此简单有趣</h2>-->
+            
+                <h2> 终身学习，终身成长！ </h2>
+            
+    	</div>
+    </div>
+</header>
+    <nav class="main-navigation">
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-12">
+                <div class="navbar-header"><span class="nav-toggle-button collapsed pull-right" data-toggle="collapse" data-target="#main-menu" id="mnav">
+                    <span class="sr-only"></span>
+                        <i class="fa fa-bars"></i>
+                    </span>
+                    <a class="navbar-brand" href="http://yoursite.com">Hexo</a>
+                </div>
+                <div class="collapse navbar-collapse" id="main-menu">
+                    <ul class="menu">
+                        
+                            <li role="presentation" class="text-center">
+                                <a href="/"><i class="fa "></i>首页</a>
+                            </li>
+                        
+                            <li role="presentation" class="text-center">
+                                <a href="/categories/AI/"><i class="fa "></i>AI</a>
+                            </li>
+                        
+                            <li role="presentation" class="text-center">
+                                <a href="/categories/统计/"><i class="fa "></i>统计</a>
+                            </li>
+                        
+                            <li role="presentation" class="text-center">
+                                <a href="/categories/数学/"><i class="fa "></i>数学</a>
+                            </li>
+                        
+                            <li role="presentation" class="text-center">
+                                <a href="/categories/工具/"><i class="fa "></i>工具</a>
+                            </li>
+                        
+                            <li role="presentation" class="text-center">
+                                <a href="/archives/"><i class="fa "></i>归档</a>
+                            </li>
+                        
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</nav>
+    <section class="content-wrap">
+        <div class="container">
+            <div class="row">
+                <main class="col-md-8 main-content m-post">
+                    <p id="process"></p>
+<article class="post">
+    <div class="post-head">
+        <h1 id="ACER论文总结">
+            
+	            ACER论文总结
+            
+        </h1>
+        <div class="post-meta">
+    
+    
+    <span class="categories-meta fa-wrap">
+        <i class="fa fa-folder-open-o"></i>
+        <a href="/categories/ ">
+             
+        </a>
+    </span>
+    
+
+    
+    <span class="fa-wrap">
+        <i class="fa fa-tags"></i>
+        <span class="tags-meta">
+            
+                
+                    <a href="/tags/RL算法" title="RL算法">
+                        RL算法
+                    </a>
+                
+            
+        </span>
+    </span>
+    
+
+    
+        
+        <span class="fa-wrap">
+            <i class="fa fa-clock-o"></i>
+            <span class="date-meta">2018/12/27</span>
+        </span>
+        
+    
+</div>
+
+            
+            
+    </div>
+    
+    <div class="post-body post-content">
+        <p>[TOC]</p>
+<div style="page-break-after:always;"></div>
+
+<h1 id="1-问题及创新点"><a href="#1-问题及创新点" class="headerlink" title="1 问题及创新点"></a>1 问题及创新点</h1><p><strong>应用层面</strong></p>
+<p>AI领域最近的一些核心突破都是在获得更加真实的模拟环境上，这使得更多的环境信息可被agent观测到，但这也增加了模拟代价，因为问题变得更复杂了，agent需要探索的范围更大了。且agent每采取一次行动，就需要进行一次采样，就会引入模拟代价，因此我们应减少模拟步数（采样次数），这就使得样本效率在模拟过程中尤为重要。另外，很多优秀的策略梯度算法都被限制在连续领域或非常具体的任务上，但也存在能够同时应用于连续和离散领域的变体形式，如：样本效率低的A3C算法。</p>
+<p>为了保证使用Actor-Critic方法时，能够具有足够的网络稳定性和样本有效性，本文提出了一种基于A3C算法的使用Retrace、截断重要性采样和efficient TRPO的算法。特别地，针对连续空间问题，使用dueling network进一步提高样本效率。本文把这样的方法称为 actor critic with experience replay (ACER) 。</p>
+<p><strong>技术层面</strong></p>
+<p>样本效率对一些能够获得更加真实模拟环境的算法十分关键，因为它们需要更高的样本效率，而经验回放是一种有效增加样本效率的方法，且优先回放和dueling network都能进一步提高样本效率，但这对本文使用的Actor-Critic方法来说还不够，第一是因为最优策略的确定性限制了它在对抗领域的应用，第二是对Q函数在高维行动空间上使用贪心算法代价太大。</p>
+<p>为得到样本效率高且网络稳定的Actor-Critic方法，本文基于A3C算法，提出了以下4个技术：</p>
+<ol>
+<li>使用Retrace估计$Q^\pi$，用于降低策略梯度的偏差，加速the critic的学习。Retrace是return-based的且使用的是多步return，故可有效减少对偏差的引入，且用其作为target训练the critic，可加快学习速度。</li>
+<li>带偏差纠正的截断重要性采样(Important weight truncation)，用于权衡偏差和方差，在降低方差、增加稳定性的同时，又纠正了偏差，保证无偏。</li>
+<li>一种新的efficient TRPO方法，用于降低策略梯度的方差，保证网络的稳定性，且计算代价不会很大。</li>
+<li>连续行动问题上的Stochastic Dueling Networks，用于同时获得$Q^\pi$和$V^\pi$的近似，解决难以在连续行动空间上对$Q(s,a)$求期望获得$V(s)$的问题。</li>
+</ol>
+<p><strong>创新点总结</strong></p>
+<ol>
+<li>使用Retrace代替λ return来估计$Q^\pi$，降低偏差，提高样本效率。</li>
+<li>使用带偏差纠正的截断重要性采样来权衡偏差和方差，提高样本效率。</li>
+<li>提出了一种新的efficient TRPO方法来稳定网络参数的收敛过程，该方法计算效率高，在大型问题上也是可行的。</li>
+<li>使用Stochastic Dueling Networks近似$Q^\pi$和$V^\pi$。</li>
+</ol>
+<h1 id="2-技术细节"><a href="#2-技术细节" class="headerlink" title="2 技术细节"></a>2 技术细节</h1><h2 id="2-1-离散的ACER算法"><a href="#2-1-离散的ACER算法" class="headerlink" title="2.1 离散的ACER算法"></a>2.1 离散的ACER算法</h2><h3 id="2-1-1-离散RL算法"><a href="#2-1-1-离散RL算法" class="headerlink" title="2.1.1 离散RL算法"></a>2.1.1 离散RL算法</h3><p>论文中针对离散行动问题使用的离散RL算法，就是在A3C算法的基础上，使用Retrace代替k-step return，并且添加了带偏差纠正的截断重要性采样和efficient TRPO方法。本节会着重讨论这三个部分，这里不会详细介绍A3C算法。下图中的伪代码展示了on-policy和off-policy下完整的离散ACER算法过程：</p>
+<p><img src="/images/RL/ACER-D.png" alt=""></p>
+<p>其中，Algorithm 1 表示通过按一定比率执行on-policy和off-policy ACER算法来实现经验回放比率为r的ACER算法，Algorithm 2 则包含了基本的on-policy和off-policy ACER算法。</p>
+<p><strong>（1）Retrace</strong></p>
+<p>使用off-PAC算法中证明了是正确的边缘策略梯度$g^{marg}(\theta)$：</p>
+<p>$\nabla J(\theta)\approx g^{marg}(\theta)=E_{x_t\sim\beta,a_t\sim\mu}[\rho_t\nabla_\theta\log\pi_\theta(a_t|x_t)Q^\pi(x_t,a_t)]$</p>
+<p>其中，$\beta$为behavior policy $\mu$下的极限状态分布，$Q^\pi(x_t,a_t)$可使用它的无偏估计$G_t^λ$来代替$G_t^λ=R_{t+1}+\gamma[(1-\lambda)V^\pi(S_{t+1})+\lambda G_{t+1}^\lambda]=R_{t+1}+\gamma V^\pi(S_{t+1})+\gamma\lambda(G_{t+1}^\lambda-V^\pi(S_{t+1}))$ </p>
+<p>现定义和λ return具有相似性质的Retrace(λ) ：<br>$Q_t^λ=R_{t+1}+\gamma V^\pi(x_{t+1})+\gamma\lambda \bar{\rho}_{t+1} (Q_{t+1}^λ-Q^\pi(x_{t+1},a_{t+1}))$<br>其中$\bar{\rho}_t=\min\{c,\rho_t\},\rho_t=\frac{\pi(a_t|x_t)}{\mu(a_t|x_t)}$ （超参$c$可以设置为一个较大的常数）。</p>
+<p>当$\lambda=1$时，有：$Q_t^{ret}=R_{t+1}+\gamma V(x_{t+1})+\gamma\bar{\rho}_{t+1} (Q_{t+1}^{ret}-Q(x_{t+1},a_{t+1}))$ 。其中$\bar{\rho}_t=\min\{c,\rho_t\}$，$Q$是$Q^\pi$的估计，且$V(x)=E_{a\sim\pi}Q(x,a)$。</p>
+<p>Retarce算法是一种具有低方差的off-policy、return-based 算法，且在tabular情况下有：$\forall \mu,Q^{ret}$收敛到$Q^\pi$。因此$Q_t^{ret}$取决于使用的$Q^\pi$的估计$Q$，为得到$Q$，在离散行动空间，采用输出$Q_{\theta_v}(x_t,a_t)$和$\pi_\theta(a_t|x_t)$的”two heads”卷积神经网络，故有：</p>
+<p>$Q_t^{ret}=R_{t+1}+\gamma V_{\theta_v}(x_{t+1})+\gamma\bar{\rho}_{t+1} (Q_{t+1}^{ret}-Q_{\theta_v}(x_{t+1},a_{t+1}))$</p>
+<p>为了近似策略梯度$g^{marg}(\theta)$，ACER使用$Q_t^{ret}$来估计$Q^\pi(x_t,a_t)$，Retrace通过使用多步return大大降低了偏差。为了学习the critic $Q_{\theta_v}(x_{t},a_{t})$，使用$Q_t^{ret}$作为target，通过最小化$Q_t^{ret}$和$Q_{\theta_v}(x_{t},a_{t})$的均方误差来更新$\theta_v$，故有梯度：$(Q_t^{ret}-Q_{\theta_v}(x_{t},a_{t}))\nabla_{\theta_v}Q_{\theta_v}(x_{t},a_{t})$ 。</p>
+<p>因此，使用$Q_t^{ret}$有两个好处：一是降低策略梯度的偏差，二是加速$Q_{\theta_v}(x_{t},a_{t})$的学习，从而进一步降低偏差。</p>
+<p><strong>（2）Truncated Importance Sampling with Bias Correction</strong></p>
+<p>由于$g^{marg}(\theta)$的重要性权重$\rho_t$可以很大，从而大大扩大了梯度估计的方差，造成不稳定。为保证低方差，我们使用$\bar{\rho}_t$截断重要性权重，而截断引入了偏差，又为保证无偏，使用$[\frac{\rho_t(a)-c}{\rho_t(a)}]_+$来纠正偏差，得到以下形式的策略梯度：</p>
+<p>$g^{marg}(\theta)=E_{x_t\sim\beta,a_t\sim\mu}[\rho_t\nabla_\theta\log\pi_\theta(a_t|x_t)Q^\pi(x_t,a_t)]\\\qquad\quad\;\;=E_{x_t\sim\beta}[E_{a_t\sim\mu}[\bar{\rho}_t\nabla_\theta\log\pi_\theta(a_t|x_t)Q^\pi(x_t,a_t)]+E_{a\sim\pi}([\frac{\rho_t(a)-c}{\rho_t(a)}]_+\nabla_\theta\log\pi_\theta(a|x_t)Q^\pi(x_t,a))]$</p>
+<p>其中$\rho_t(a)=\frac{\pi(a|x_t)}{\mu(a|x_t)}$ ，且有$\bar{\rho}_t\leq c,[\frac{\rho_t(a)-c}{\rho_t(a)}]_+\leq1$。当$\rho_t(a)\leq c$时，后半部分期望为0。前半部分保证了策略梯度估计的方差是有界的，后半部分保证了策略梯度估计是无偏的。下面在策略梯度中引入估计：</p>
+<p>$\hat{g}^{marg}(\theta)=E_{x_t\sim\beta}[E_{a_t\sim\mu}[\bar{\rho}_t\nabla_\theta\log\pi_\theta(a_t|x_t)Q^{ret}(x_t,a_t)]+E_{a\sim\pi}([\frac{\rho_t(a)-c}{\rho_t(a)}]_+\nabla_\theta\log\pi_\theta(a|x_t)Q_{\theta_v}(x_t,a))]$</p>
+<p>使用baseline函数进一步缩减方差，有：</p>
+<p>$\hat{g}_t^{ACER}(\theta)=E_{x_t\sim\beta}\{E_{a_t\sim\mu}[\bar{\rho}_t\nabla_\theta\log\pi_\theta(a_t|x_t)(Q^{ret}(x_t,a_t)-V_{\theta_v}(x_t))]\\\qquad\qquad\qquad\quad+E_{a\sim\pi}[[\frac{\rho_t(a)-c}{\rho_t(a)}]_+\nabla_\theta\log\pi_\theta(a|x_t)(Q_{\theta_v}(x_t,a)-V_{\theta_v}(x_t))]\}$ </p>
+<p>前半部分涉及对马尔科夫过程的稳态分布$\beta$求期望，我们通过采样从behavior policy $\mu$生成的一些轨迹$\{x_0,a_0,r_0,\mu(.|x_0),\dots,x_k,a_k,r_k,\mu(.|x_k)\}$来近似它，其中$\mu(.|x_t)$为策略向量。给定轨迹，就可计算off-policy ACER 策略梯度：</p>
+<p>$\hat{g}_t^{acer}(\theta)=\bar{\rho}_t\nabla_\theta\log\pi_\theta(a_t|x_t)(Q^{ret}(x_t,a_t)-V_{\theta_v}(x_t))+E_{a\sim\pi}[[\frac{\rho_t(a)-c}{\rho_t(a)}]_+\nabla_\theta\log\pi_\theta(a|x_t)(Q_{\theta_v}(x_t,a)-V_{\theta_v}(x_t))]$</p>
+<p>注意，当$c=\infty$时，上式就恢复为不使用带偏差纠正的重要性权重截断时的情形；当$c=0$时，上式就恢复为actor critic 更新完全取决于对$Q$的估计。在连续控制领域，当$c=0$，上式只估计后半部分时，上式变为随机价值梯度（Stochastic Value Gradients）。</p>
+<p><strong>（3）Efficient TRPO</strong></p>
+<p>actor-critic方法的策略更新常表现出高方差，因此，为保证稳定性，我们必须限制策略每步的变化不能过大，使用小学习率并不有效，因为策略梯度可能很大，而TRPO能有效地解决这一问题。TRPO通过限制更新策略和当前策略之间的差别来保证稳定，这尽管有效，但每步更新都需计算Fisher特征向量，在大型领域中计算代价十分昂贵。因此引入一种在大型问题上表现高效的新型TRPO方法，即使用一种平均策略网络（average policy network），通过计算过去策略的移动平均并限制更新策略与平均策略的距离来保证网络稳定。</p>
+<p>我们将策略网络分解为两部分：一个分布$f$和一个输出分布统计量$\phi_\theta(x)$的deep NN。即给定$f$，策略就完全由$\phi_\theta(x)$所定义：$\pi(.|x)=f(.|\phi_\theta(x))$。设平均策略网络的参数为$\theta_a$，我们在每次更新策略参数$\theta$之后，缓慢更新$\theta_a$：$\theta_a\gets \alpha\theta_a+(1-\alpha)\theta$ 。因此，根据链式法则，策略梯度可表示为：$\hat{g}_t^{acer}(\theta)=\frac{\partial J(\theta)}{\partial \phi_\theta(x_t)}\frac{\partial\phi_\theta(x_t)}{\partial\theta}=g’_t(\phi_\theta)\frac{\partial\phi_\theta(x_t)}{\partial\theta}$ ，其中</p>
+<p>$ g’_t(\phi_\theta)=\bar{\rho}_t\nabla_{\phi_\theta(x_t)}\log f(a_t|\phi_\theta(x_t))(Q^{ret}(x_t,a_t)-V_{\theta_v}(x_t))\\\qquad\qquad +E_{a\sim\pi}[[\frac{\rho_t(a)-c}{\rho_t(a)}]_+\nabla_{\phi_\theta(x_t)}\log f(a_t|\phi_\theta(x_t))(Q_{\theta_v}(x_t,a)-V_{\theta_v}(x_t))]$ </p>
+<p>给定平均策略网络（即给定$\theta_a$），我们提出的信念域更新涉及两个阶段。</p>
+<ul>
+<li><p>第一阶段，求解带有线性KL散度约束条件的优化问题：</p>
+<p>$minimize\; \frac{1}{2}\parallel g’_t(\phi_\theta)-z\parallel_2^2 \\subject \; to\; \nabla_{\phi_\theta(x_t)}D_{KL}[f(.|\phi_{\theta_a}(x_t)||f(.|\phi_\theta(x_t)]^T z\leq \delta$ </p>
+<p>该优化问题的解为:$z^*=g’_t(\phi_\theta)-max\{0,\frac{k^Tg’_t(\phi_\theta)-\delta}{\parallel k\parallel_2^2}\}k$，其中$k=\nabla_{\phi_\theta(x_t)}D_{KL}[f(.|\phi_{\theta_a}(x_t)||f(.|\phi_\theta(x_t)]$。</p>
+<p>使用$z^*$对$g’_t(\phi_\theta)$进行校正，因此，若约束条件满足，则对$g’_t(\phi_\theta)$没有影响，否则$g’_t(\phi_\theta)$的更新会沿方向$k$缩小，迫使更新策略向平均策略靠拢，从而有效降低了两个网络之间的差距变化速率。</p>
+</li>
+<li><p>第二阶段，进行反向传播：</p>
+<p>使用链式法则更新参数$\theta$，策略梯度为$\hat{g}_t^{acer}(\theta)=\frac{\partial\phi_\theta(x_t)}{\partial\theta}z^*$。</p>
+</li>
+</ul>
+<p>注意：信念域更新是在参数空间$\phi_\theta$而不是参数空间$\theta$上进行的，这是为了防止在策略网络中进行额外的反向传播，保证减小策略更新力度的同时又不会影响策略神经网络中的反向传播。</p>
+<h3 id="2-1-2-训练细节"><a href="#2-1-2-训练细节" class="headerlink" title="2.1.2 训练细节"></a>2.1.2 训练细节</h3><p>本文从Arcade Learning Environment中获得原始像素观测和游戏奖励，使用单一算法和带有固定参数的网络结构训练了57个Atari游戏，作者在一台没有GPU的机器上使用16个actor-learner线程进行训练，其中每个线程的reply memory大小为50000，因此所有线程的memory总量和DQN相似。对于Atari游戏，使用以前A3C训练好的学习率，熵正则化权重为0.001，奖励折扣$\gamma=0.99$，每条轨迹的长度为20个step（$k=20$），对所有使用经验回放的实验，进行参数为$c=10$的重要性权重截断，信念更新参数$\delta=1,\alpha=0.99$，网络结构如下：</p>
+<div class="table-container">
+<table>
+<thead>
+<tr>
+<th>层类型</th>
+<th>尺寸</th>
+<th>Stride</th>
+<th>激活函数</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>输入层</td>
+<td>84*84*4</td>
+<td>/</td>
+<td>/</td>
+</tr>
+<tr>
+<td>卷积层</td>
+<td>8*8*32</td>
+<td>4</td>
+<td>ReLU</td>
+</tr>
+<tr>
+<td>卷积层</td>
+<td>4*4*64</td>
+<td>2</td>
+<td>ReLU</td>
+</tr>
+<tr>
+<td>卷积层</td>
+<td>3*3*64</td>
+<td>1</td>
+<td>ReLU</td>
+</tr>
+<tr>
+<td>全连接层</td>
+<td>512</td>
+<td>/</td>
+<td>ReLU</td>
+</tr>
+<tr>
+<td>输出层</td>
+<td>softmax policy &amp; Q value</td>
+<td>/</td>
+<td>/</td>
+</tr>
+</tbody>
+</table>
+</div>
+<h3 id="2-1-3-训练结果"><a href="#2-1-3-训练结果" class="headerlink" title="2.1.3 训练结果"></a>2.1.3 训练结果</h3><p>为了比较不同的agent，在所有57个Atari游戏中，作者使用人为标准化得分的中值。标准化方法为：首先，对于每一个游戏，人类的分数和随机的分数分别被评估为1和0；第二，计算过去100万个连续帧中标准得分的平均值。对于每个agent，作者将其累积最大中值得分关于时间的变化展示出来，总结后的结果如图1所示。</p>
+<p><img src="/home/joy/hexo/source/imges/RL/ACER-F1.png" alt="ACER-F1"></p>
+<p>图1：on-policy下ACER算法在采样（左图）和计算复杂度（右图）上的改进，纵轴代表人为标准化的得分中值。其中，实线代表使用了efficient TRPO方法，虚线代表没有使用。不同颜色的曲线代表使用了不同replay比率的ACER算法，其中0 replay就是on-policy A3C算法。此外，灰色曲线代表DQN算法，黑色曲线代表使用了优先回放的Double DQN算法。</p>
+<p>由左图可知，replay可以有效增加数据有效性，若对得分取平均，平均reward会随replay比率而增加，这种增加有递减的return，但只要足够的replay，ACER可以和最好的DQN agent（优先回放DDQN）相当，且off-policy ACER的样本效率会明显高于on-policy A3C。</p>
+<p>由右图可知，按时间进行度量，ACER和A3C表现相似。因此，对于这种情况，ACER在没有牺牲计算时间的条件下，可能提高了数据有效性。特别值得一提的是，replay比率为4的ACER算法是很好的替代Prioritized DQN或A3C的算法。</p>
+<h2 id="2-2-连续的ACER算法"><a href="#2-2-连续的ACER算法" class="headerlink" title="2.2 连续的ACER算法"></a>2.2 连续的ACER算法</h2><h3 id="2-2-1-连续RL算法"><a href="#2-2-1-连续RL算法" class="headerlink" title="2.2.1 连续RL算法"></a>2.2.1 连续RL算法</h3><p>论文中针对连续行动问题使用的连续RL算法，就是在离散ACER算法的基础上，在critic部分使用Retrace$Q^{ret}$，在actor部分使用没有加入重要采样的Retrace$Q^{opc}$，并添加了Stochastic Dueling Networks。本节会着重讨论这两个部分，另外还会介绍一下实验中用到的TIS算法，该算法只使用了截断重要性采样。下图中的伪代码展示了off-policy下完整的连续ACER算法过程：</p>
+<p><img src="/home/joy/hexo/source/imges/RL/ACER_C.png" alt="ACER_C"></p>
+<p><strong>（1）Stochastic Dueling Networks</strong></p>
+<p>由于计算Retrace需要$Q^\pi$和$V^\pi$的估计$Q_{\theta_v}$和$V_{\theta_v}$，而在连续行动空间上，难以求得期望$V_{\theta_v}(x)=E_{a\sim\pi}Q_{\theta_v}(x,a)$。为解决该问题，我们使用Stochastic Dueling Networks（SDNs）同时输出$V^\pi$和$A^\pi$的估计$V_{\theta_v}$和$A_{\theta_v}$，增加一层可求得$Q^\pi$的估计$\widetilde{Q}_{\theta_v}$：<br>$\widetilde{Q}_{\theta_v}(x_t,a_t)\sim V_{\theta_v}(x_t)+A_{\theta_v}(x_t,a_t)-\frac{1}{n}\displaystyle\sum_{i=1}^nA_{\theta_v}(x_t,u_i)，u_i\sim\pi_\theta(.|x_t)$ </p>
+<p>其中，$n$是一个超参。SDNs结构如下图：</p>
+<p><img src="/home/joy/hexo/source/imges/RL/ACER-F2.png" alt="ACER-F2"></p>
+<p>为了学习The critic $V_{\theta_v}(x_t)$，由$E_{a\sim \pi(.|x_t)}[E_{u_{1:n}\sim\pi(.|x_t)}(\widetilde{Q}_{\theta_v}(x_t,a_t))]=V_{\theta_v}(x_t)$知，我们可通过学习$\widetilde{Q}_{\theta_v}$来估计$V^\pi$。设$E_{u_{1:n}\sim\pi(.|x_t)}(\widetilde{Q}_{\theta_v}(x_t,a_t))=Q^\pi(x_t,a_t)$，则有$V^\pi(x_t)=E_{a\sim \pi(.|x_t)}[Q^\pi(x_t,a_t)]=E_{a\sim \pi(.|x_t)}[E_{u_{1:n}\sim\pi(.|x_t)}(\widetilde{Q}_{\theta_v}(x_t,a_t))]$。因此，使用$\widetilde{Q}_{\theta_v}$的target会引入误差，故构建另一target：$V^{target}(x_t)=\min \{1,\frac{\pi(a_t|x_t)}{\mu(a_t|x_t)}\}(Q_t^{ret}-\widetilde {Q}_{\theta_v}(x_{t},a_{t}))+V_{\theta_v}(x_{t})$。显然有：$V^\pi(x_t)=E_{a_t\sim\mu}[V^{target}(x_t)]$，故使用$V^{target}​$不会引入偏差。</p>
+<p>因此，通过最小化$Q_t^{ret}$和$\widetilde {Q}_{\theta_v}(x_{t},a_{t})$的均方误差以及$V^{target}$和$V_{\theta_v}(x_t)$的均方误差来更新$\theta_v$，故有以下两个梯度：</p>
+<p>$\nabla_{\theta_v}J_1(\theta_v)=(Q_t^{ret}-\widetilde {Q}_{\theta_v}(x_{t},a_{t}))\nabla_{\theta_v}\widetilde {Q}_{\theta_v}(x_{t},a_{t})\\\nabla_{\theta_v}J_2(\theta_v)=\bar{\rho}_t(Q_t^{ret}-\widetilde {Q}_{\theta_v}(x_{t},a_{t}))\nabla_{\theta_v}V_{\theta_v}(x_{t})$</p>
+<p>另外，在估计$Q^{ret}$时，作者使用一种稍微不同形式的截断重要性权重$\bar{\rho}_t=\min \{1,(\frac{\pi(a_t|x_t)}{\mu(a_t|x_t)})^{\frac{1}{d}}\}$，其中$d$为行动空间维度，使用这种形式可以加快学习。</p>
+<p><strong>（2）Q(λ) with off-policy corrections</strong></p>
+<p>对于Retrace $Q_t^{ret}=R_{t+1}+\gamma V(x_{t+1})+\gamma\bar{\rho}_{t+1} (Q_{t+1}^{ret}-Q(x_{t+1},a_{t+1}))$，取$\bar{\rho}_t=1$，得到Q(λ) with off-policy corrections：$Q_t^{opc}=R_{t+1}+\gamma V(x_{t+1})+\gamma(Q_{t+1}^{opc}-Q(x_{t+1},a_{t+1}))$ ，由于$Q^{opc}$中的trace没有被重要权重截断，$Q^{opc}$能够更好地利用return，因此能够更好地估计策略梯度中的$Q^\pi$。作者在连续控制实验中发现，$Q^{opc}$提高了学习效率。</p>
+<p>在连续控制领域使用effcient TRPO方法的一种简单思想为：选择一个适合连续行动空间的分布$f$和具体梯度形式$g’_t(\phi_\theta)$，关于分布$f$，我们选择带有均值$\phi_\theta$和固定对角协方差的高斯分布。现考虑SDNs下关于$\phi_\theta$的ACER策略梯度：</p>
+<p>$g’_t(\phi_\theta)=E_{x_t\sim\beta}\{E_{a_t\sim\mu}[\bar{\rho}_t\nabla_{\phi_\theta(x_t)}\log f(a_t|\phi_\theta(x_t))(Q^{opc}(x_t,a_t)-V_{\theta_v}(x_t))]\\\qquad\qquad\qquad\quad+E_{a\sim\pi}[[\frac{\rho_t(a)-c}{\rho_t(a)}]_+\nabla_{\phi_\theta(x_t)}\log f(a|\phi_\theta(x_t))(\widetilde{Q}_{\theta_v}(x_t,a)-V_{\theta_v}(x_t))]\}$</p>
+<p>给定观测$x_t$，采样$a’_t\sim\pi_\theta(.|x_t)$来获得后半部分期望的蒙特卡罗近似：</p>
+<p>$g’_t(\phi_\theta)=\bar{\rho}_t\nabla_{\phi_\theta(x_t)}\log f(a_t|\phi_\theta(x_t))(Q^{opc}(x_t,a_t)-V_{\theta_v}(x_t))\\\qquad\qquad+[\frac{\rho_t(a_t’)-c}{\rho_t(a_t’)}]_+\nabla_{\phi_\theta(x_t)}\log f(a_t’|\phi_\theta(x_t))(\widetilde{Q}_{\theta_v}(x_t,a_t’)-V_{\theta_v}(x_t))$</p>
+<p>因此，使用efficient TRPO方法后的最终策略梯度为：</p>
+<p>$\hat{g}_t^{acer}(\theta)=\frac{\partial\phi_\theta(x_t)}{\partial\theta}(g’_t(\phi_\theta)-max\{0,\frac{k^Tg’_t(\phi_\theta)-\delta}{\parallel k\parallel_2^2}\}k)$  </p>
+<p><strong>TIS算法</strong></p>
+<p>首先，A3C算法使用单一轨迹采样得到的策略梯度近似公式如下：<br>$\hat{g}^{a3c}=\displaystyle\sum_{t\geq0}(\displaystyle\sum_{i=0}^{k-1}\gamma^ir_{t+i}+\gamma^kV_{\theta_v}(x_{t+k})-V_{\theta_v}(x_t))\nabla_\theta\log\pi_\theta(a_t|x_t)$ </p>
+<p>TIS算法就是在A3C算法的基础上，加入了截断重要性采样，其更新方式如下：</p>
+<p><img src="/home/joy/hexo/source/imges/RL/ACER-TIS.png" alt="ACER-TIS"></p>
+<h3 id="2-2-2-训练细节"><a href="#2-2-2-训练细节" class="headerlink" title="2.2.2 训练细节"></a>2.2.2 训练细节</h3><p>作者在6个连续控制任务中评估了他们的算法，实验中的策略网络和状态价值网络都共享相同的网络架构，并有如下参数设置：在所有的SDN中，使用n=5；注意，连续ACER算法是完全off-policy的，当使用回放时，每个线程的reply memory大小设为50000；每条轨迹的长度为50个step，即取$k=50$；重要性权重截断参数设为$c=5$；TRPO参数设为$\delta\sim U[0.1,2],\alpha=0.995$，其中$U$为均匀分布。此外，作者使用带有固定对角协方差的高斯策略，对角线标准差被设为0.3，学习率的从区间$[10^{-4},10^{-3.3}]$中均匀采样得到。在所有参数设置中，作者使用了30个采样的超参数。</p>
+<h3 id="2-2-3-训练结果"><a href="#2-2-3-训练结果" class="headerlink" title="2.2.3 训练结果"></a>2.2.3 训练结果</h3><p>图3展示了所有连续控制任务的实验结果，在对30个超参数进行探索后，作者将5次最佳实验结果的均值和标准差展示在了图3的下面那幅图中。</p>
+<p><img src="/home/joy/hexo/source/imges/RL/ACER-F3.png" alt="ACER-F3"></p>
+<p>图3：上面为连续控制任务的截图，下面为不同任务中不同算法的表现。横轴为Million Steps，纵轴为Episode Reward。不同颜色的曲线代表不同算法（A3C、TIS、ACER）的效果，其中实线为使用了TRPO的算法，虚线为没有使用了TRPO的算法。</p>
+<p>该实验表明，在连续控制问题中，ACER优于其他所有方法，且在更高维度任务（humanoid, cheetah, walker and fish）上表现出明显优势。efficient TRPO方法可以显著地改善TIS和A3C算法，且相对离散行动领域，它在高维连续控制领域上效果更好。</p>
+<p><strong>技术消融分析</strong></p>
+<p>为了进一步区分ACER中不同技术的贡献程度，作者进行了消融分析：在ACER基础上分别移除Retrace/Q(λ) off-policy corrections、SDNs、TRPO和带有偏差纠正的重要权重截断，效果如图4所示。</p>
+<p><img src="/home/joy/hexo/source/imges/RL/ACER-F4.png" alt="ACER-F4"></p>
+<p>图4：使用消融分析评估ACER中各个技术的效果。每一行代表在ACER中移除了同一技术，每一列代表同一控制任务。在所有的图中，红线代表的是ACER，而绿线则是缺少某一技术的ACER，故红线在所有行中是相同的。</p>
+<p>该实验表明，ACER中的4个技术都提高了算法性能，其中Retrace/Q(λ) off-policy corrections、SDN和efficient TRPO三个技术至关重要，删除其中任何一个，都会导致性能明显恶化。带有偏差纠正的重要性权重截断并没有改变Fish和Walker2d两个任务的结果。然而，在Humanoid中，动作空间的维数要高得多，带有偏差纠正的重要权重截断也带来了显著的提升。可以推测，动作空间的高维度增加了重要性权重的方差，因而使得带有偏差纠正的重要权重截断也很重要。</p>
+
+    </div>
+    
+    <div class="post-footer">
+        <div>
+            
+                转载声明：商业转载请联系作者获得授权,非商业转载请注明出处 © <a href="" target="_blank">Snippet</a>
+            
+        </div>
+        <div>
+            
+        </div>
+    </div>
+</article>
+
+<div class="article-nav prev-next-wrap clearfix">
+    
+    
+        <a href="/2018/12/21/PPO论文总结/" class="next-post btn btn-default" title="PPO论文总结">
+            <span class="hidden-lg">下一篇</span>
+            <span class="hidden-xs">PPO论文总结</span><i class="fa fa-angle-right fa-fw"></i>
+        </a>
+    
+</div>
+
+
+    <div id="comments">
+        
+	
+    <div id="vcomments" class="valine"></div>
+    <script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+<script src="/assets/valine.min.js"></script>
+
+    <script>
+        new Valine({
+            av: AV,
+            el: '#vcomments',
+            appId: 'xOKV9J4UeQAtVkvnJC7Kq2Jn-gzGzoHsz',
+            appKey: 'erIpQac4azoCmgfBB7Dl9maa',
+            placeholder: '说点什么吧',
+            notify: false,
+            verify: false,
+            avatar: 'mm',
+            meta: 'nick,mail'.split(','),
+            pageSize: '10',
+            path: window.location.pathname,
+            lang: 'zh-CN'.toLowerCase()
+        })
+    </script>
+
+
+    </div>
+
+
+
+
+
+                </main>
+                
+                    <aside id="article-toc" role="navigation" class="col-md-4">
+    <div class="widget">
+        <h3 class="title">文章目录</h3>
+        
+            <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#1-问题及创新点"><span class="toc-text">1 问题及创新点</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#2-技术细节"><span class="toc-text">2 技术细节</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#2-1-离散的ACER算法"><span class="toc-text">2.1 离散的ACER算法</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#2-1-1-离散RL算法"><span class="toc-text">2.1.1 离散RL算法</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-1-2-训练细节"><span class="toc-text">2.1.2 训练细节</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-1-3-训练结果"><span class="toc-text">2.1.3 训练结果</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2-2-连续的ACER算法"><span class="toc-text">2.2 连续的ACER算法</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#2-2-1-连续RL算法"><span class="toc-text">2.2.1 连续RL算法</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-2-2-训练细节"><span class="toc-text">2.2.2 训练细节</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-2-3-训练结果"><span class="toc-text">2.2.3 训练结果</span></a></li></ol></li></ol></li></ol>
+        
+    </div>
+</aside>
+
+                
+            </div>
+        </div>
+    </section>
+    <footer class="main-footer">
+    <div class="container">
+        <div class="row">
+        </div>
+    </div>
+</footer>
+
+<a id="back-to-top" class="icon-btn hide">
+	<i class="fa fa-chevron-up"></i>
+</a>
+
+
+
+
+    <div class="copyright">
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-12">
+                <div class="busuanzi">
+    
+</div>
+
+            </div>
+            <div class="col-sm-12">
+                <span>Copyright &copy; 2017
+                </span> |
+                <span>
+                    Powered by <a href="//hexo.io" class="copyright-links" target="_blank" rel="nofollow">Hexo</a>
+                </span> |
+                <span>
+                    Theme by <a href="//github.com/shenliyang/hexo-theme-snippet.git" class="copyright-links" target="_blank" rel="nofollow">Snippet</a>
+                </span>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+
+
+
+<script src="/js/app.js?rev=@@hash"></script>
+
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+        tex2jax: {
+            inlineMath: [ ["$","$"], ["\\(","\\)"] ],
+            skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'],
+            processEscapes: true
+        }
+    });
+    MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax();
+        for (var i = 0; i < all.length; ++i)
+            all[i].SourceElement().parentNode.className += ' has-jax';
+    });
+</script>
+<script src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+</body>
+</html>

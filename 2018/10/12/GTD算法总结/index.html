@@ -1,0 +1,606 @@
+<!DOCTYPE HTML>
+<html lang="zh-CN">
+<head><meta name="generator" content="Hexo 3.8.0">
+    <!-- hexo-inject:begin --><!-- hexo-inject:end --><!--Setting-->
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1">
+    <meta http-equiv="Cache-Control" content="no-siteapp">
+    <meta http-equiv="Cache-Control" content="no-transform">
+    <meta name="renderer" content="webkit|ie-comp|ie-stand">
+    <meta name="apple-mobile-web-app-capable" content="Hexo">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <meta name="format-detection" content="telephone=no,email=no,adress=no">
+    <meta name="browsermode" content="application">
+    <meta name="screen-orientation" content="portrait">
+    <link rel="dns-prefetch" href="http://yoursite.com">
+    <!--SEO-->
+
+
+
+
+
+<meta name="robots" content="all">
+<meta name="google" content="all">
+<meta name="googlebot" content="all">
+<meta name="verify" content="all">
+    <!--Title-->
+
+
+<title>GTD算法总结 | Hexo</title>
+
+
+    <link rel="alternate" href="/atom.xml" title="Hexo" type="application/atom+xml">
+
+
+    <link rel="icon" href="/favicon.ico">
+
+    
+
+
+
+<link rel="stylesheet" href="/css/bootstrap.min.css?rev=3.3.7">
+<link rel="stylesheet" href="/css/font-awesome.min.css?rev=4.5.0">
+<link rel="stylesheet" href="/css/style.css?rev=@@hash">
+
+
+
+
+    
+	<div class="hide">
+		<script type="text/javascript">
+			var cnzz_protocol = (("https:" == document.location.protocol) ? " https://" : " http://");document.write(unescape("%3Cspan class='cnzz_stat_icon_1263868967 hide' %3E%3Cscript%20src%3D%22https%3A%2F%2Fs95.cnzz.com%2Fz_stat.php%3Fweb_id%3D1272564536%22%3E%3C%2Fscript%3E%3C/span%3E%3Cscript src='" + cnzz_protocol + "s19.cnzz.com/z_stat.php%3Fid%3D1263868967%26show%3Dpic1' type='text/javascript'%3E%3C/script%3E"));
+		</script>
+	</div><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+
+
+
+
+
+
+    
+
+</head>
+
+</html>
+<!--[if lte IE 8]>
+<style>
+    html{ font-size: 1em }
+</style>
+<![endif]-->
+<!--[if lte IE 9]>
+<div style="ie">你使用的浏览器版本过低，为了你更好的阅读体验，请更新浏览器的版本或者使用其他现代浏览器，比如Chrome、Firefox、Safari等。</div>
+<![endif]-->
+
+<body>
+    <!-- hexo-inject:begin --><!-- hexo-inject:end --><header class="main-header" style="background-image:url(/./img/whitequeen4.jpg)">
+    <div class="main-header-box">
+        <a class="header-avatar" href="/" title="Joy Xh">
+            <img src="/img/avatar.jpg" alt="logo头像" class="img-responsive center-block">
+        </a>
+        <div class="branding">
+        	<!--<h2 class="text-hide">Snippet主题,从未如此简单有趣</h2>-->
+            
+                <h2> 终身学习，终身成长！ </h2>
+            
+    	</div>
+    </div>
+</header>
+    <nav class="main-navigation">
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-12">
+                <div class="navbar-header"><span class="nav-toggle-button collapsed pull-right" data-toggle="collapse" data-target="#main-menu" id="mnav">
+                    <span class="sr-only"></span>
+                        <i class="fa fa-bars"></i>
+                    </span>
+                    <a class="navbar-brand" href="http://yoursite.com">Hexo</a>
+                </div>
+                <div class="collapse navbar-collapse" id="main-menu">
+                    <ul class="menu">
+                        
+                            <li role="presentation" class="text-center">
+                                <a href="/"><i class="fa "></i>首页</a>
+                            </li>
+                        
+                            <li role="presentation" class="text-center">
+                                <a href="/categories/AI/"><i class="fa "></i>AI</a>
+                            </li>
+                        
+                            <li role="presentation" class="text-center">
+                                <a href="/categories/统计/"><i class="fa "></i>统计</a>
+                            </li>
+                        
+                            <li role="presentation" class="text-center">
+                                <a href="/categories/数学/"><i class="fa "></i>数学</a>
+                            </li>
+                        
+                            <li role="presentation" class="text-center">
+                                <a href="/categories/工具/"><i class="fa "></i>工具</a>
+                            </li>
+                        
+                            <li role="presentation" class="text-center">
+                                <a href="/archives/"><i class="fa "></i>归档</a>
+                            </li>
+                        
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</nav>
+    <section class="content-wrap">
+        <div class="container">
+            <div class="row">
+                <main class="col-md-8 main-content m-post">
+                    <p id="process"></p>
+<article class="post">
+    <div class="post-head">
+        <h1 id="GTD算法总结">
+            
+	            GTD算法总结
+            
+        </h1>
+        <div class="post-meta">
+    
+    
+    <span class="categories-meta fa-wrap">
+        <i class="fa fa-folder-open-o"></i>
+        <a href="/categories/ ">
+             
+        </a>
+    </span>
+    
+
+    
+    <span class="fa-wrap">
+        <i class="fa fa-tags"></i>
+        <span class="tags-meta">
+            
+                
+                    <a href="/tags/RL算法" title="RL算法">
+                        RL算法
+                    </a>
+                
+            
+        </span>
+    </span>
+    
+
+    
+        
+        <span class="fa-wrap">
+            <i class="fa fa-clock-o"></i>
+            <span class="date-meta">2018/10/12</span>
+        </span>
+        
+    
+</div>
+
+            
+            
+    </div>
+    
+    <div class="post-body post-content">
+        <p>[TOC]</p>
+<div style="page-break-after:always;"></div>
+
+<h1 id="摘要"><a href="#摘要" class="headerlink" title="摘要"></a>摘要</h1><p>我认为以下方法应称之为价值梯度（Value Gradient）方法，简称VG方法，相对于Policy Gradient(PG)方法，它没有用梯度上升法更新策略，而只用梯度上升法更新值函数。因此，VG方法是一种value-based的迭代策略评估方法，PG方法是一种policy-based的策略改进方法，两者结合起来可得到Actor-Critic Gradient方法。需要注意的是，VG方法的迭代过程只有策略评估，没有策略改进。VG方法中，基于state value function的TD算法，称为GTD算法，基于state-action value function的off policy TD算法，称为GQ算法。对于PG方法，策略梯度理论保证了它们可以使用梯度上升法来更新策略，即保证了收敛性。对于VG方法中的GTD、GQ等算法，sutton、maei等人在论文中也证明了它们在下表中各种情况下的收敛性。</p>
+<p>GTD算法是为解决off-policy下TD算法不收敛问题而提出的算法，on-policy和off-policy下MC、TD及GTD算法的收敛性见下表：</p>
+<p><img src="/images/RL/GTD-1.png" alt=""></p>
+<p>由上表可知，TD算法在非线性和off-policy线性情况下会发散，而使用GTD算法可解决收敛性问题，下面会仔细讨论on-policy和off-policy情况下的线性GTD算法，关于收敛性的证明请参考sutton、maei等人的论文。非线性GTD算法可以看做是线性GTD算法的推广，两者的更新公式大同小异，后面只做简要介绍。在这之前先介绍一些基础算法和基础理论：线性TD(0)算法、梯度上升法中目标函数、off-policy中的重要采样。</p>
+<p>另外，使用价值梯度、策略梯度的RL算法的主要逻辑为：</p>
+<hr>
+<p>初始化：任意初始化$u、v$，得到初始的$\pi_u、V^v$，由$\pi_u$得到$b_u$</p>
+<p>探索：用$\pi_u$生成轨迹（on-policy）或用$b_u$生成轨迹（off-policy），得到样本</p>
+<p>采样：$(S_t,A_t,R_{t+1},S_{t+1}) \sim \pi_u(A_t|S_t)或b_u(A_t|S_t)$</p>
+<p>迭代更新：</p>
+<ul>
+<li><p>策略评估(Critic)：$minJ(v)=E[(V^\pi(S_t)-V^v(S_t))^2]$，使用value gradient方法完成</p>
+</li>
+<li><p>策略改进(Actor)：$maxJ(u)=E[V^{\pi_u}]=E[\pi_uQ^\pi] \iff \\maxJ’(u)=E[V^{\pi_u}-V^\pi]=E[\pi_uQ^\pi-V^v]$，基于策略评估使用policy gradient方法完成</p>
+</li>
+</ul>
+<hr>
+<h1 id="基础理论"><a href="#基础理论" class="headerlink" title="基础理论"></a>基础理论</h1><h2 id="TD算法"><a href="#TD算法" class="headerlink" title="TD算法"></a>TD算法</h2><p>真实价值：$V^\pi(s)=E[\sum_{t=0}^\infty \gamma^tR_{t+1}|S_o=s]=E[G_t|S_t=s,\pi]$ ，其中return $G_t=R_{t+1}+\gamma G_{t+1}$</p>
+<p>n-step return：</p>
+<p><img src="assets/GTD-TD.png" alt="GTD-TD"></p>
+<div class="table-container">
+<table>
+<thead>
+<tr>
+<th style="text-align:left">名称</th>
+<th>定义</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left">TD(0) target</td>
+<td>$G_t^{(1)}=R_{t+1}+V^\pi(S_{t+1})$</td>
+</tr>
+<tr>
+<td style="text-align:left">(one-step) TD error</td>
+<td>$\delta_t=\delta_t^1=R_{t+1}+V^\pi(S_{t+1})-V^\pi(S_t)$</td>
+</tr>
+<tr>
+<td style="text-align:left">n-step TD error</td>
+<td>$\delta_t^n=G_t^{(n)}-V^\pi(S_t)$</td>
+</tr>
+<tr>
+<td style="text-align:left">原始资格痕迹</td>
+<td>$E_t(s)=\gamma \lambda E_{t-1}(s)+1(S_t=s)$</td>
+</tr>
+<tr>
+<td style="text-align:left">资格痕迹</td>
+<td>$e_t(s)=\phi_t+\gamma \lambda e_{t-1}$</td>
+</tr>
+<tr>
+<td style="text-align:left">原始λ return</td>
+<td>$g_t^λ= (1 − λ)\displaystyle \sum_{n=1}^\infty \lambda^n g_t^{(n)}$</td>
+</tr>
+<tr>
+<td style="text-align:left">TD(λ) target (λ return)</td>
+<td>$G_t^λ=R_{t+1}+\gamma[(1-\lambda)V^\pi(S_{t+1})+\lambda G_{t+1}^\lambda]$</td>
+</tr>
+<tr>
+<td style="text-align:left">forward view TD(λ) error</td>
+<td>$\delta_f= \delta_t^λ=G_t^{λ}-V^\pi(S_t)$</td>
+</tr>
+<tr>
+<td style="text-align:left">backward view TD(λ) error</td>
+<td>$\delta_b=\delta_tE_t=[G_t^{(1)}-V^\pi(S_t)]E_t$</td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>实际上，有：</p>
+<ul>
+<li>$E[G_t^{(1)}]=E[G_t^{(2)}]=\dots=E[G_t^{(n)}]=E[G_t^{\lambda}]=E[G_t]=V^\pi(S_t)$</li>
+<li><p>$E[\delta_t^λ]=E[G_t^{λ}-V^\pi(S_t)]=0$，$E[\delta_t^λ \phi_{t-1}]=E[\delta_{t+1}^λ]=\dots=0$ </p>
+</li>
+<li><p>对$g_t^λ$有：offline更新的前后向累积TD error相等：$\displaystyle \sum_{t=1}^T\delta_tE_t=\sum_{t=1}^T (g_t^{λ}-V^\pi(S_t))1(S_t=s)$，而online更新的前后向累积TD error之和不相等：$\displaystyle \sum_{t=1}^T\delta_tE_t=\sum_{t=k}^T(\gamma \lambda)^{t-k}\delta_t= g_k^{λ}-V^\pi(S_k)$，$k$为episode中第一次到达状态$s$时的时间步，证明见David Sliver 课件。</p>
+</li>
+<li>对 $G_t^λ$有：offline和online更新下前后向TD error和$\nabla V^v(S_t)=\phi_t$乘积的期望都相等：$E[\delta_te_t]=E[\delta_t^\lambda \phi_t]$，即：$E[(G_t^{(1)}-V^\pi(S_t))E_t\phi_t]=E[(G_t^{λ}-V^\pi(S_t)\phi_t]$ ，证明见附件。</li>
+</ul>
+<p>forward view更新方法是一种向正确方向更新的方法，但其需要走完整个轨迹，才能计算出TD(λ) error，显然这在实际应用中是不实用的。于是我们希望有一种更新方法，既可以沿正确方向更新，又可以每获得一个reward就可以计算出一个TD error，因此定义出了使用资格痕迹的backward view 更新方法，并证明了它和forward view更新方法具有相同的更新（梯度）期望，即保证了这样定义的backward view 更新方法是无偏的。实际上forward view中定义的$G_t^\lambda$就是在$\delta_t^λ$中加入了近因启发，backward view 就是把$\delta_t^λ$中对近因的考虑抽离出来放到资格痕迹里面，使得$E[\delta_te_t]=E[\delta_t^\lambda \phi_t]$。</p>
+<p>注意，对于TD(0)算法有：</p>
+<ul>
+<li>true TD target：$G_t^{(1)}=R_{t+1}+\gamma V^\pi(S_{t+1})$，为$V^\pi (S_t)$的无偏估计</li>
+<li><p>TD target：$G_t^{(1)}=R_{t+1}+\gamma V_\theta(S_{t+1})$，为$V^\pi (S_t)$的有偏估计</p>
+</li>
+<li><p>true TD error（贝尔曼误差）： $\delta= r+\gamma V^\pi(s’)-V^\pi(s) $ </p>
+</li>
+<li><p>贝尔曼误差的有偏估计：$\hat{\delta}= r+\gamma V_\theta(s’)-V_\theta(s) $ </p>
+</li>
+</ul>
+<hr>
+<p>Model-Free Prediction 迭代公式（最终收敛到$V^\pi(S_t)$）：</p>
+<p>$\delta_t=G_t^{(1)}-V(S_t)= R_{t+1}+\gamma V(S_{t+1})-V(S_t)$</p>
+<p>MC：$V(S_t)\gets V(S_t)+\alpha(G_t-V(S_t))$</p>
+<p>n-step TD：$V(S_t)\gets V(S_t)+\alpha(G_t^{(n)}-V(S_t))$</p>
+<p>TD(0)：$V(S_t)\gets V(S_t)+\alpha\delta_t$</p>
+<p>forward view TD(λ)：$V(S_t)\gets V(S_t)+\alpha(G_t^{\lambda}-V(S_t))$</p>
+<p>backward view TD(λ)：$V(S_t)\gets V(S_t)+\alpha\delta_tE_t$</p>
+<hr>
+<p>使用函数近似，引入误差：</p>
+<ul>
+<li><p>真实误差：$\delta_\theta=V^\pi(s)-V_\theta(s)$  </p>
+</li>
+<li><p>真实误差的无偏估计：$\delta_\theta^{ub}=R_{t+1}+\gamma V^\pi(s’)-V_\theta(s)$ </p>
+</li>
+<li><p>真实误差的有偏估计：$\delta_\theta^b=R_{t+1}+\gamma V_\theta(s‘)-V_\theta(s)$</p>
+</li>
+</ul>
+<p>基于最小化以上误差的MSE有：</p>
+<ul>
+<li><p>真实梯度：$ \delta_\theta\nabla \delta_\theta=\delta_\theta\nabla V_\theta(s)$ </p>
+</li>
+<li><p>无偏梯度：$\delta_\theta^{ub} \nabla \delta_\theta^{ub}=\delta_\theta^{ub}\nabla V_\theta(s)$ </p>
+</li>
+<li><p>有偏梯度：$\delta_\theta^b \nabla \delta_\theta^b=\delta_\theta^b (\nabla V_\theta(s)-\gamma \nabla V_\theta(s’))$</p>
+</li>
+</ul>
+<p><strong>线性TD(0)算法</strong></p>
+<p>使用线性函数近似：$V_\theta(S_t) = \theta^T \phi_t$，TD(0)算法就是在真实梯度的基础上使用误差的有偏估计，故有：</p>
+<hr>
+<p>线性TD(0)算法（on-policy，收敛）:</p>
+<p>采样：$(S_t,R_{t+1},S_{t+1}) \sim \pi(a|s)$，得到$(\phi_t,R_{t+1},\phi_{t+1})$</p>
+<p>更新：$\delta_t(\theta_t)= R_{t+1}+\gamma \theta_t^T \phi_{t+1}-\theta_t^T \phi_t$（$ \nabla_{\theta_t}\delta_t(\theta_t)=\gamma \phi_{t+1}-\phi_t$）</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;$ \theta_{t+1}\gets \theta_t+\alpha_t \delta_t \phi_t$ </p>
+<hr>
+<p>对于off-policy情形，考虑平稳behavior policy $b(a|s)$，令平稳target policy 为$\pi(a|s)$</p>
+<hr>
+<p>线性TD(0)算法（off-policy，不收敛）:</p>
+<p>采样：$(S_t,R_{t+1},S_{t+1}) \sim b(a|s)$，得到$(\phi_t,R_{t+1},\phi_{t+1})$</p>
+<p>更新：$\delta_t(\theta_t)= R_{t+1}+\gamma \theta_t^T \phi_{t+1}-\theta_t^T \phi_t$ </p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;$\rho_t \gets \pi(A_t|S_t)/b(A_t|S_t)$ </p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;$ \theta_{t+1}\gets \theta_t+\alpha_t \rho_t \delta_t \phi_t$</p>
+<hr>
+<h2 id="目标函数"><a href="#目标函数" class="headerlink" title="目标函数"></a>目标函数</h2><p>在GTD算法中使用了梯度下降法，下面引入目标函数：</p>
+<p>$MSE(\theta)=\sum_s d_s (V_\theta-V)^2=E(V_\theta-V)^2=(V_\theta-V)^TD(V_\theta-V)=|V_\theta-V|_D^2$，$D$为期望算子</p>
+<p>目标函数的两个有偏估计：</p>
+<p>$MSBE(\theta)=|V_\theta-TV_\theta|_D^2$  ，$T$为贝尔曼算子，$V=R+\gamma PV=TV$</p>
+<p>$MSPBE(\theta)=|V_\theta-\Pi TV_\theta|_D^2$，$\Pi$为投影算子，$\Pi=\phi(\phi^TD\phi)^{-1}\phi^TD=I$，$I$为单位算子</p>
+<p><img src="assets/GTD-3.png" alt="GTD-3"></p>
+<p>$MSPBE(\theta)\\=|V_\theta-\Pi TV_\theta|_D^2\\=(\Pi (V_\theta-TV_\theta))^TD (\Pi (V_\theta-TV_\theta))\\=(V_\theta-TV_\theta)^TD^T \phi(\phi^TD \phi)^{-1}\phi^TD (V_\theta-TV_\theta)\\=(\phi^TD (V_\theta-TV_\theta))^T (\phi^TD \phi)^{-1}\phi^TD (V_\theta-TV_\theta)\\=(\phi^TD \delta)^T(\phi^T D \phi)^{-1} (\phi^TD \delta)$  </p>
+<p>$MSPBE(\theta)=E[\delta \phi]^T E[\phi \phi^T]^{-1} E[\delta \phi]$ </p>
+<p>$ - \frac{1}{2} \nabla MSPBE(\theta)=-E[\nabla_\theta \delta \phi^T] E[\phi\phi^T]^{-1} E[\delta \phi]$ </p>
+<h2 id="重要采样"><a href="#重要采样" class="headerlink" title="重要采样"></a>重要采样</h2><p>重要采样的基本思想为：换一个简单分布（分布函数已知）求期望，如：</p>
+<p>已知密度函数$f(x),g(x)$、分布函数$F(x)=\int_{x \in X}f(x)dx$以及随机变量$h(x)$，求$E_{g(x)}[h(x)]$</p>
+<p>$E_{g(x)}[h(x)]=\int_{x\in X}h(x)g(x)dx=\int_{x\in X}h(x)\frac{g(x)}{f(x)}f(x)dx=\displaystyle\sum_{x\in X}h(x)\frac{g(x)}{f(x)}F(x)$ </p>
+<p>定义贝尔曼期望算子$\mathcal{P}_\mu^\pi$：</p>
+<p><img src="assets/GTD-期望算子.png" alt="GTD-期望算子"></p>
+<p>注意上式的期望是按分布$A=\mu(s)\pi(a|s)P(s’|s,a)$ 求的，而下式的期望是按分布$B=\mu(s)\pi_b(a|s)P(s’|s,a)$ 求的，且有$\mathcal{P}_\mu^\pi \delta \phi =E_A[\delta \phi]=E_B[\rho \delta \phi]$ ，分布A显示了按target policy得到过程$(s,a,s’)$的情况，分布B显示了按behavior policy获得过程$(s,a,s’)$的情况。</p>
+<p><img src="assets/GTD-important sample.png" alt="GTD-important sample"></p>
+<p>实际上，当随机变量与$(a,s’)$无关时，有$\mathcal{P}_\mu^\pi=D$，因为算子$D$是只对$s$求期望，而算子$\mathcal{P}_\mu^\pi$是对$(s,a,s’)$求期望。因此，目标函数及梯度可化为：</p>
+<p>$J(\theta)=MSPBE(\theta)\\=(\phi^TD \delta)^T(\phi^T D \phi)^{-1} (\phi^TD \delta)\\=(\phi^T\mathcal{P}_\mu^\pi \delta)^T(\phi^T D \phi)^{-1} (\phi^T\mathcal{P}_\mu^\pi \delta)\\=E[\delta \phi]^T E[\phi \phi^T]^{-1} E[\delta \phi]\\=E_B[\rho \delta \phi]^T E[\phi \phi^T]^{-1} E_B[\rho \delta \phi]$</p>
+<p>$ - \frac{1}{2} \nabla_\theta J(\theta)\\=-E_B[\rho \nabla_\theta \delta \phi^T] E[\phi\phi^T]^{-1} E_B[\rho \delta \phi]\\=-E_B[\rho \nabla_\theta \delta \phi^T] E[\phi\phi^T]^{-1} E_B[\rho\delta \phi]$  </p>
+<h1 id="线性GTD算法"><a href="#线性GTD算法" class="headerlink" title="线性GTD算法"></a>线性GTD算法</h1><p>线性GTD算法为使用线性函数近似器近似value function，然后基于TD算法通过梯度上升法来更新值函数的一种方法，它主要基于以下定义和假设：</p>
+<ul>
+<li>True values：$V(s)=E[\sum_{t=0}^\infty \gamma^tR_{t+1}|S_o=s]$ </li>
+<li>Linear approximation：$V(S_t) \approx V_\theta(S_t) = \theta^T \phi_t$，其中$\phi_t=\phi(S_t)$为状态$S_t$的特征向量</li>
+</ul>
+<p>下面将介绍4种线性GTD算法，其中GTD(0)算法是GTD(0)-2算法的特殊情形，TD-C算法对GTD-2算法进行了修正，GTD(λ)在GTD-2算法基础上引入了资格痕迹。注意，以下GTD算法都是收敛的。</p>
+<h2 id="线性-GTD-2："><a href="#线性-GTD-2：" class="headerlink" title="- 线性 GTD-2："></a>- 线性 GTD-2：</h2><p>GTD-2算法除$V \approx V_\theta = \theta^T \phi$外还使用了一个函数近似器：$w= E[\phi \phi^T]^{-1} E[\delta \phi]$</p>
+<p>故目标函数的梯度可写为：$ - \frac{1}{2} \nabla_\theta J(\theta) =-E[\nabla_\theta \delta \phi^T] E[\phi\phi^T]^{-1} E[\delta \phi] = E[(\phi-\gamma \phi’)\phi^T]w = (\phi-\gamma \phi’)(\phi^Tw)$</p>
+<p>由于对$w$的近似引入了新的误差，所以为最小化$w$与其近似值的均方误差，建立以下目标函数，并对其求梯度：</p>
+<p>$J(w)=(\phi^TE[\phi\phi^T]^{-1} E[\delta \phi]-\phi^Tw)^2=(\delta-\phi^Tw)^2$ </p>
+<p>$-\frac{1}{2} \nabla J(w) =(\delta-\phi^Tw)\phi$  </p>
+<p>对$w$也通过梯度下降法进行更新，故GTD-2算法的更新方式如下：</p>
+<hr>
+<p>GTD-2算法（on-policy）：</p>
+<p>采样：$(S_t,R_{t+1},S_{t+1}) \sim \pi(a|s)$，得到$(\phi_t,R_{t+1},\phi_{t+1})$</p>
+<p>更新：$\delta_t(\theta_t)= R_{t+1}+\gamma \theta_t^T \phi_{t+1}-\theta_t^T \phi_t$</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;$ \theta_{t+1}\gets \theta_t+\alpha_t (\phi_t-\gamma \phi_{t+1})(\phi_t^Tw_t)$ </p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;$ w_{t+1}\gets w_t+\beta_t(\delta_t-\phi_t^Tw_t)\phi_t$ </p>
+<hr>
+<p>对于off-policy情形，考虑平稳behavior policy $b(a|s)$，令平稳target policy 为$\pi(a|s)$，增加近似器：$w= E_B[\phi \phi^T]^{-1} E_B[\rho \delta \phi]$</p>
+<p>故目标函数的梯度可写为：$ - \frac{1}{2} \nabla_\theta J(\theta)=-E_B[\rho \nabla_\theta \delta \phi^T] E_B[\phi\phi^T]^{-1} E_B[\rho\delta \phi] = E_B[\rho (\phi-\gamma \phi’)\phi^T]w=\rho (\phi-\gamma \phi’)(\phi^Tw)$</p>
+<p>由于对$w$的近似引入了新的误差，所以为最小化$w$与其近似值的均方误差，建立以下目标函数，并对其求梯度：</p>
+<p>$J(w)=(\rho \phi^TE_B[\phi\phi^T]^{-1} E_B[\delta \phi]-\phi^Tw)^2=(\rho \delta-\phi^Tw)^2$</p>
+<p>$-\frac{1}{2} \nabla J(w) =(\rho \delta-\phi^Tw)\phi$  </p>
+<hr>
+<p>GTD-2算法（off-policy）：</p>
+<p>采样：$(S_t,R_{t+1},S_{t+1}) \sim b(a|s)$，得到$(\phi_t,R_{t+1},\phi_{t+1})$</p>
+<p>更新：$\delta_t(\theta_t)= R_{t+1}+\gamma \theta_t^T \phi_{t+1}-\theta_t^T \phi_t$ </p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;$\rho_t = \pi(A_t|S_t)/b(A_t|S_t)$</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;$ \theta_{t+1}\gets \theta_t+\alpha_t \rho_t (\phi_t-\gamma \phi_{t+1})(\phi_t^Tw_t)$ </p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;$ w_{t+1}\gets w_t+\beta_t(\rho_t \delta_t-\phi_t^Tw_t)\phi_t$ </p>
+<hr>
+<h2 id="线性-GTD-0-："><a href="#线性-GTD-0-：" class="headerlink" title="- 线性 GTD(0)："></a>- 线性 GTD(0)：</h2><p>GTD(0)算法为GTD-2算法在$\phi^T\phi=I$ 下的情形，其更新公式如下：</p>
+<hr>
+<p>GTD(0)算法（on-policy）：</p>
+<p>采样：$(S_t,R_{t+1},S_{t+1}) \sim \pi(a|s)$，得到$(\phi_t,R_{t+1},\phi_{t+1})$</p>
+<p>更新：$\delta_t(\theta_t)=R_{t+1}+\gamma \theta_t^T \phi_{t+1}-\theta_t^T \phi_t$ </p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;$ \theta_{t+1}\gets \theta_t+\alpha_t (\phi_t-\gamma \phi_{t+1})(\phi_t^Tw_t)$ </p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;$ w_{t+1}\gets w_t+\beta_t(\delta_t\phi_t-w_t)$</p>
+<hr>
+<p>对于off-policy情形，考虑平稳behavior policy $b(a|s)$，令平稳target policy 为$\pi(a|s)$</p>
+<hr>
+<p>GTD-2算法（off-policy）：</p>
+<p>采样：$(S_t,R_{t+1},S_{t+1}) \sim b(a|s)$，得到$(\phi_t,R_{t+1},\phi_{t+1})$</p>
+<p>更新：$\delta_t(\theta_t)=R_{t+1}+\gamma \theta_t^T \phi_{t+1}-\theta_t^T \phi_t$</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;$\rho_t = \pi(A_t|S_t)/b(A_t|S_t)$</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;$ \theta_{t+1}\gets \theta_t+\alpha_t \rho_t (\phi_t-\gamma \phi_{t+1})(\phi_t^Tw_t)$ </p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;$ w_{t+1}\gets w_t+\beta_t(\rho_t \delta_t\phi_t-w_t)$</p>
+<hr>
+<h2 id="线性-TD-C："><a href="#线性-TD-C：" class="headerlink" title="- 线性 TD-C："></a>- 线性 TD-C：</h2><p>TD-C算法是对GTD-2算法的修正，就是在GTD-2算法的基础上，只在一部分使用$w$对$ E[\phi \phi ^T]^{-1} E[\delta \phi ]$进行近似，更新公式与GTD-2算法只是略有不同，其目标函数关于$\theta$的梯度如下：</p>
+<p>$-\frac{1}{2} \nabla MSPBE(\theta)\\= -E[\nabla_\theta \delta \phi^T] E[ \phi \phi^T]^{-1} E[\delta  \phi]\\=E[( \phi-\gamma  \phi’) \phi^T] E[ \phi \phi^T]^{-1} E[\delta  \phi]\\=E[ \phi \phi^T] E[ \phi \phi^T]^{-1} E[\delta  \phi] -\gamma E[ \phi’ \phi^T] E[ \phi \phi^T]^{-1} E[\delta  \phi]\ = E[\delta \phi] -\gamma E[ \phi’ \phi^T] w\ = \delta \phi -\gamma  \phi’ \phi^T w$</p>
+<p>$J(w)=(\phi^TE[\phi\phi^T]^{-1} E[\delta \phi]-\phi^Tw)^2=(\delta-\phi^Tw)^2$ </p>
+<p>$-\frac{1}{2} \nabla J(w) =(\delta-\phi^Tw)\phi$  </p>
+<p>TD-C算法的更新方式如下：</p>
+<hr>
+<p>TD-C算法（on-policy）：</p>
+<p>采样：$(S_t,R_{t+1},S_{t+1}) \sim \pi(a|s)$，得到$(\phi_t,R_{t+1},\phi_{t+1})$</p>
+<p>更新：$\delta_t(\theta_t)= R_{t+1}+\gamma \theta_t^T \phi_{t+1}-\theta_t^T \phi_t$</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;$ \theta_{t+1}\gets \theta_t+\alpha_t [\delta_t\phi_t-\gamma \phi_{t+1}(\phi_t^Tw_t)]$</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;$ w_{t+1}\gets w_t+\beta_t(\delta_t-\phi_t^Tw_t)\phi_t$ </p>
+<hr>
+<p>对于off-policy情形，考虑平稳behavior policy $b(a|s)$，令平稳target policy 为$\pi(a|s)$</p>
+<hr>
+<p>TD-C算法（off-policy）：</p>
+<p>采样：$(S_t,R_{t+1},S_{t+1}) \sim b(a|s)$，得到$(\phi_t,R_{t+1},\phi_{t+1})$</p>
+<p>更新：$\delta_t(\theta_t)= R_{t+1}+\gamma \theta_t^T \phi_{t+1}-\theta_t^T \phi_t$</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;$\rho_t =\pi(A_t|S_t)/b(A_t|S_t)$</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;$ \theta_{t+1}\gets \theta_t+\alpha_t \rho_t[\delta_t\phi_t-\gamma \phi_{t+1}(\phi_t^Tw_t)]$ </p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;$ w_{t+1}\gets w_t+\beta_t(\rho_t \delta_t-\phi_t^Tw_t)\phi_t$</p>
+<hr>
+<h2 id="线性-GTD-λ-："><a href="#线性-GTD-λ-：" class="headerlink" title="- 线性 GTD(λ) ："></a>- 线性 GTD(λ) ：</h2><p>GTD($\lambda$) 算法就是在TD-C算法的基础上，引入eligibility traces，即使用TD($\lambda$)，其中有$V(S_t) = E[G_t^\lambda(V)]$ </p>
+<p>这里定义：$\begin{equation} G_t^\lambda(V) \overset{def}{=} R_{t+1}+\gamma[(1-\lambda)V(S_{t+1})+\lambda G_{t+1}^\lambda] \end{equation}$                                </p>
+<p>即：$G_t^\lambda(V) =R_{t+1}+\gamma V(S_{t+1})+\gamma\lambda[G_{t+1}^\lambda-V(S_{t+1})]=G_t^{(1)}+\gamma\lambda[G_{t+1}^\lambda-V(S_{t+1})]$ </p>
+<p>这样定义是为了使满足：$ \delta_t^λ=\delta_t+\gamma\lambda  \delta_{t+1}^λ=\delta_t+\gamma\lambda  \delta_{t+1}+(\gamma\lambda)^2\delta_{t+2}+\dots$ </p>
+<p>注意：$G_t^\lambda(V)$的定义是合理的，因为等式左右两边的期望相等。</p>
+<p>$E[右式]\\=E[G_t^{(1)}+\gamma\lambda[G_{t+1}^\lambda-V(S_{t+1})]]\\=E[G_t^{(1)}]+\gamma\lambda E[G_{t+1}^\lambda-V(S_{t+1})]\\=V[S_t]+\gamma\lambda [V(S_{t+1})-V(S_{t+1})]\\=V(S_{t})\\=E[G_t^\lambda(V) ]\\=E[左式]$</p>
+<p>在线性GTD(λ)使用线性函数近似值函数：$V_t=V(S_t) \approx V_t(\theta)=V_\theta(S_t) = \theta^T \phi_t$，其中$\phi_t=\phi(S_t)$为状态$S_t$的特征向量，除此之外，还有以下定义：</p>
+<ul>
+<li>$V_t(\theta)= \theta^T \phi_t$ </li>
+<li>$\delta_t(\theta)=G_t^{(1)}-V_t(\theta)=R_{t+1}+\gamma\theta^T\phi_{t+1}-\theta^T\phi_{t}$</li>
+<li>$G_t^\lambda(\theta)= R_{t+1}+\gamma[(1-\lambda)\theta^T \phi_{t+1}+\lambda G_{t+1}^\lambda(\theta)] $</li>
+<li>$\rho_t = \pi(A_t|S_t)/ \pi_b(A_t|S_t)$ </li>
+<li>$G_t^{\lambda \rho}(\theta) \overset{def}{=} \rho_t(R_{t+1}+\gamma[(1-\lambda)\theta^T \phi_{t+1}+\lambda G_{t+1}^{\lambda \rho}(\theta)] )$</li>
+<li>$\delta_t^{\lambda \rho}(\theta)=G_t^{\lambda \rho} (\theta)-\theta^T\phi_t$ </li>
+<li>$e_t=\rho_t(\phi_t+\gamma \lambda e_{t-1})$ </li>
+</ul>
+<p>由以上定义，可得以下推论：</p>
+<ul>
+<li>$E_{\pi_b}[G_t^{\lambda \rho}(\theta)] = E_\pi[G_t^\lambda(\theta)]$ </li>
+<li>$E_{\pi_b}[\delta_t^{\lambda \rho}(\theta) \phi_t]=\mathcal{P}_\mu^\pi \delta_t^\lambda (\theta) \phi_t$</li>
+<li>$G_t^{\lambda \rho}(\theta) = \rho_t \delta_t(\theta)+\rho_t \theta^T\phi_t+\rho_t \gamma \lambda\delta_t^{\lambda \rho}(\theta) $ </li>
+<li>$E_{\pi_b}[\nabla _\theta G_t^{\lambda \rho}(\theta) \phi_t]=E_{\pi_b}[\gamma(1-\lambda)\phi_{t+1}e_t^T]$  </li>
+<li>$E_{\pi_b}[\delta_t^{\lambda \rho}(\theta) \phi_t]=E[\delta_t(\theta) e_t]$</li>
+<li>$E[\nabla G_t^\lambda \phi_t^T]=\gamma(1-\lambda)\phi_{t+1}e_t^T$ </li>
+</ul>
+<p>因此有：</p>
+<p>$J(\theta)=(\phi_t^T\mathcal{P}_\mu^\pi \delta_t^\lambda (\theta))^T(\phi_t^T D \phi_t)^{-1} (\phi_t^T\mathcal{P}_\mu^\pi \delta_t^\lambda (\theta))\\=E_{\pi_b}[\delta_t^{\lambda \rho}(\theta) \phi_t]^T E[\phi_t \phi_t^T]^{-1} E_{\pi_b}[\delta_t^{\lambda \rho}(\theta) \phi_t]\\=E[\delta_t(\theta) e_t]^T E[\phi_t \phi_t^T]^{-1} E[\delta_t(\theta) e_t]$ </p>
+<p>令$w=E[\phi_t \phi_t^T]^{-1} E[\delta_t(\theta) e_t]=E[\phi_t \phi_t^T]^{-1} E_{\pi_b}[\delta_t^{\lambda \rho}(\theta) \phi_t]$</p>
+<p>$- \frac{1}{2} \nabla_\theta J(\theta)=-E_{\pi_b}[\nabla_\theta\delta_t^{\lambda \rho}(\theta) \phi_t]^T E[\phi_t \phi_t^T]^{-1} E_{\pi_b}[\delta_t^{\lambda \rho}(\theta) \phi_t]\\=E_{\pi_b}[(\phi_t-\nabla _\theta G_t^{\lambda \rho} (\theta))\phi_t^T] E[\phi_t \phi_t^T]^{-1} E_{\pi_b}[\delta_t^{\lambda \rho}(\theta) \phi_t]\\=E_{\pi_b}[\delta_t^{\lambda \rho}(\theta) \phi_t]-E_{\pi_b}[\nabla _\theta G_t^{\lambda \rho} (\theta)\phi_t^T]w\\=E[\delta_t(\theta) e_t]-E_{\pi_b}[\gamma(1-\lambda)\phi_{t+1}e_t^T]w$</p>
+<p>$J(w)=(\phi_t^TE[\phi_t \phi_t^T]^{-1} E[\delta_t(\theta) e_t]- \phi_t^Tw)^2=(\phi_t^{-1} \delta_t(\theta) e_t-\phi_t^Tw)^2$</p>
+<p>$-\frac{1}{2} \nabla J(w) =(\phi_t^{-1} \delta_t(\theta) e_t-\phi_t^Tw)\phi_t=\delta_t(\theta) e_t-(\phi_t^Tw)\phi_t$ </p>
+<p>off-policy下GTD(λ)算法如下：</p>
+<p><img src="assets/GTD-λ.png" alt="GTD-λ"></p>
+<h2 id="线性GQ-lambda-："><a href="#线性GQ-lambda-：" class="headerlink" title="- 线性GQ($\lambda$) ："></a>- 线性GQ($\lambda$) ：</h2><p>==TODO==</p>
+<p>GQ(λ)在GTD(λ)基础上改为使用action-value function</p>
+<p><img src="assets/GTD-GQ(λ" alt="GTD-GQ(λ)">.png)</p>
+<h1 id="非线性GTD算法"><a href="#非线性GTD算法" class="headerlink" title="非线性GTD算法"></a>非线性GTD算法</h1><p>在线性GTD算法中，我们使用了线性函数近似器$V(S) \approx V_\theta(S) = \theta^T \phi$，故有$\nabla_\theta V_\theta(S)=\phi$。推广到非线性情况下有：</p>
+<p>$J(\theta)=MSPBE(\theta)=E[\delta \phi]^T E[\phi \phi^T]^{-1} E[\delta \phi]=E[\delta \nabla_\theta V_\theta(S)]^T E[\nabla_\theta V_\theta(S) \nabla_\theta V_\theta(S)^T]^{-1} E[\delta\nabla_\theta V_\theta(S)]$</p>
+<p>故有以下引理和推论：</p>
+<p><img src="assets/GTD-lemma3.png" alt="GTD-lemma3"></p>
+<p><img src="assets/GTD-lemma3-2.png" alt="GTD-lemma3-2"></p>
+<p><img src="assets/GTD-推论.png" alt="GTD-推论"></p>
+<p>注意：在引理中假设$E[\nabla_\theta V_\theta(S) \nabla_\theta V_\theta(S)^T]$ 是非退化的，即有逆矩阵，该假设可以被证V_v(s_t)明。非线性情况下GTD算法的更新公式和收敛性证明请参考2011年Maei的论文《Gradient Temporal-Difference Learning Algorithms》。</p>
+<p><img src="assets/GTD-theorem4.png" alt="GTD-theorem4"></p>
+<p>非线性GTD-2和TD-C算法的更新公式如下：</p>
+<p><img src="assets/GTD-NL.png" alt="GTD-NL"></p>
+<h1 id="附件"><a href="#附件" class="headerlink" title="附件"></a>附件</h1><p>定义：</p>
+<ol>
+<li>$E_t(s)=\gamma \lambda E_{t-1}(s)+1(S_t=s)$</li>
+<li>$e_t(s)=E_t(s)\phi_t=\phi_t+\gamma \lambda e_{t-1}$</li>
+<li>$G_t^{(1)}=R_{t+1}+\gamma V_{t+1}$ </li>
+<li>$G_t^λ=R_{t+1}+\gamma G_{t+1}^λ=R_{t+1}+\gamma[(1-\lambda)V^\pi(S_{t+1})+\lambda G_{t+1}^\lambda]$</li>
+<li>$\delta_f= \delta_t^λ=G_t^{λ}-V^\pi(S_t)$</li>
+<li>$ \delta_b=\delta_tE_t=[G_t^{(1)}-V^\pi(S_t)]E_t$</li>
+</ol>
+<p>证明：$E[\delta_t^\lambda \phi_t]=E[\delta_te_t]$。</p>
+<p>proof：</p>
+<p>$G_t^λ=R_{t+1}+\gamma[(1-\lambda)V^\pi(S_{t+1})+\lambda G_{t+1}^\lambda]\\\quad\;=G_t^{(1)}+\gamma\lambda[G_{t+1}^\lambda-V^\pi(S_{t+1})]$</p>
+<p>$E[G_t^λ]=E[G_t^{(1)}+\gamma\lambda[G_{t+1}^\lambda-V^\pi(S_{t+1})]]=V^\pi(S_t)$ </p>
+<p>$ \delta_t^λ=G_t^{λ}-V^\pi(S_t)\\\quad\;=G_t^{(1)}-V^\pi(S_t)+\gamma\lambda[G_{t+1}^\lambda-V^\pi(S_{t+1})])\\\quad\;=\delta_t+\gamma\lambda  \delta_{t+1}^λ$</p>
+<p> $E[ \delta_t^λ]=E[G_t^{λ}-V^\pi(S_t)]=0=E[\delta_{t+1}^λ]$ </p>
+<p>==$E[\delta_{t+1}^λ \phi_t]=E[\delta_t^λ \phi_{t-1}]$==</p>
+<p>$E[ \delta_t^λ \phi_t]=E[\delta_t \phi_t+\gamma\lambda  \delta_{t+1}^λ \phi_t]\\\qquad\quad\;=E[\delta_t \phi_t+\gamma\lambda  \delta_{t}^λ \phi_{t-1}]\\\qquad\quad\;=E[\delta_t \phi_t+\gamma\lambda  (\delta_t+\gamma\lambda  \delta_{t+1}^λ)\phi_{t-1}]\\\qquad\quad\;=E[\delta_t (\phi_t+\gamma\lambda  \phi_{t-1})+\gamma\lambda  \delta_{t+1}^λ\phi_{t-1}]\\\qquad\quad\;=\dots\\\qquad\quad\;=E[\delta_t (\phi_t+\gamma\lambda  \phi_{t-1}+(\gamma\lambda )^2 \phi_{t-2}+\dots)]\\\qquad\quad\;=E[\delta_te_t]$ </p>
+<p>==$E[\nabla G_{t+1}^\lambda\phi_t^T]=E[\nabla G_{t}^\lambda\phi_{t-1}^T]$==</p>
+<p>$E[\nabla G_t^\lambda \phi_t^T]=E[\gamma(1-\lambda)\phi_{t+1}\phi_t^T+\gamma \lambda \nabla G_{t+1}^\lambda\phi_t^T]\\=E[\gamma(1-\lambda)\phi_{t+1}\phi_t^T+\gamma \lambda \nabla G_t^\lambda\phi_{t-1}^T]\\=E[\gamma(1-\lambda)\phi_{t+1}\phi_t^T+\gamma \lambda (\gamma(1-\lambda)\phi_{t+1}\phi_{t-1}^T+\gamma \lambda \nabla G_{t+1}^\lambda\phi_{t-1}^T)]\\=\dots\\=\gamma(1-\lambda)\phi_{t+1}(\phi_t^T+\gamma \lambda \phi_{t-1}^T+\gamma^2 \lambda^2 \phi_{t-2}^T+\dots)\\=\gamma(1-\lambda)\phi_{t+1}e_t^T$ </p>
+
+    </div>
+    
+    <div class="post-footer">
+        <div>
+            
+                转载声明：商业转载请联系作者获得授权,非商业转载请注明出处 © <a href="" target="_blank">Snippet</a>
+            
+        </div>
+        <div>
+            
+        </div>
+    </div>
+</article>
+
+<div class="article-nav prev-next-wrap clearfix">
+    
+        <a href="/2018/11/12/ACKTR论文总结/" class="pre-post btn btn-default" title="ACKTR论文总结">
+            <i class="fa fa-angle-left fa-fw"></i><span class="hidden-lg">上一篇</span>
+            <span class="hidden-xs">ACKTR论文总结</span>
+        </a>
+    
+    
+</div>
+
+
+    <div id="comments">
+        
+	
+    <div id="vcomments" class="valine"></div>
+    <script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+<script src="/assets/valine.min.js"></script>
+
+    <script>
+        new Valine({
+            av: AV,
+            el: '#vcomments',
+            appId: 'xOKV9J4UeQAtVkvnJC7Kq2Jn-gzGzoHsz',
+            appKey: 'erIpQac4azoCmgfBB7Dl9maa',
+            placeholder: '说点什么吧',
+            notify: false,
+            verify: false,
+            avatar: 'mm',
+            meta: 'nick,mail'.split(','),
+            pageSize: '10',
+            path: window.location.pathname,
+            lang: 'zh-CN'.toLowerCase()
+        })
+    </script>
+
+
+    </div>
+
+
+
+
+
+                </main>
+                
+                    <aside id="article-toc" role="navigation" class="col-md-4">
+    <div class="widget">
+        <h3 class="title">文章目录</h3>
+        
+            <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#摘要"><span class="toc-text">摘要</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#基础理论"><span class="toc-text">基础理论</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#TD算法"><span class="toc-text">TD算法</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#目标函数"><span class="toc-text">目标函数</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#重要采样"><span class="toc-text">重要采样</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#线性GTD算法"><span class="toc-text">线性GTD算法</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#线性-GTD-2："><span class="toc-text">- 线性 GTD-2：</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#线性-GTD-0-："><span class="toc-text">- 线性 GTD(0)：</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#线性-TD-C："><span class="toc-text">- 线性 TD-C：</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#线性-GTD-λ-："><span class="toc-text">- 线性 GTD(λ) ：</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#线性GQ-lambda-："><span class="toc-text">- 线性GQ($\lambda$) ：</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#非线性GTD算法"><span class="toc-text">非线性GTD算法</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#附件"><span class="toc-text">附件</span></a></li></ol>
+        
+    </div>
+</aside>
+
+                
+            </div>
+        </div>
+    </section>
+    <footer class="main-footer">
+    <div class="container">
+        <div class="row">
+        </div>
+    </div>
+</footer>
+
+<a id="back-to-top" class="icon-btn hide">
+	<i class="fa fa-chevron-up"></i>
+</a>
+
+
+
+
+    <div class="copyright">
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-12">
+                <div class="busuanzi">
+    
+</div>
+
+            </div>
+            <div class="col-sm-12">
+                <span>Copyright &copy; 2017
+                </span> |
+                <span>
+                    Powered by <a href="//hexo.io" class="copyright-links" target="_blank" rel="nofollow">Hexo</a>
+                </span> |
+                <span>
+                    Theme by <a href="//github.com/shenliyang/hexo-theme-snippet.git" class="copyright-links" target="_blank" rel="nofollow">Snippet</a>
+                </span>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+
+
+
+<script src="/js/app.js?rev=@@hash"></script>
+
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+        tex2jax: {
+            inlineMath: [ ["$","$"], ["\\(","\\)"] ],
+            skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'],
+            processEscapes: true
+        }
+    });
+    MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax();
+        for (var i = 0; i < all.length; ++i)
+            all[i].SourceElement().parentNode.className += ' has-jax';
+    });
+</script>
+<script src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+</body>
+</html>

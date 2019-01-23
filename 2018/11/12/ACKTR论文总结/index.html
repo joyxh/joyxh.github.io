@@ -1,0 +1,657 @@
+<!DOCTYPE HTML>
+<html lang="zh-CN">
+<head><meta name="generator" content="Hexo 3.8.0">
+    <!-- hexo-inject:begin --><!-- hexo-inject:end --><!--Setting-->
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1">
+    <meta http-equiv="Cache-Control" content="no-siteapp">
+    <meta http-equiv="Cache-Control" content="no-transform">
+    <meta name="renderer" content="webkit|ie-comp|ie-stand">
+    <meta name="apple-mobile-web-app-capable" content="Hexo">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <meta name="format-detection" content="telephone=no,email=no,adress=no">
+    <meta name="browsermode" content="application">
+    <meta name="screen-orientation" content="portrait">
+    <link rel="dns-prefetch" href="http://yoursite.com">
+    <!--SEO-->
+
+
+
+
+
+<meta name="robots" content="all">
+<meta name="google" content="all">
+<meta name="googlebot" content="all">
+<meta name="verify" content="all">
+    <!--Title-->
+
+
+<title>ACKTR论文总结 | Hexo</title>
+
+
+    <link rel="alternate" href="/atom.xml" title="Hexo" type="application/atom+xml">
+
+
+    <link rel="icon" href="/favicon.ico">
+
+    
+
+
+
+<link rel="stylesheet" href="/css/bootstrap.min.css?rev=3.3.7">
+<link rel="stylesheet" href="/css/font-awesome.min.css?rev=4.5.0">
+<link rel="stylesheet" href="/css/style.css?rev=@@hash">
+
+
+
+
+    
+	<div class="hide">
+		<script type="text/javascript">
+			var cnzz_protocol = (("https:" == document.location.protocol) ? " https://" : " http://");document.write(unescape("%3Cspan class='cnzz_stat_icon_1263868967 hide' %3E%3Cscript%20src%3D%22https%3A%2F%2Fs95.cnzz.com%2Fz_stat.php%3Fweb_id%3D1272564536%22%3E%3C%2Fscript%3E%3C/span%3E%3Cscript src='" + cnzz_protocol + "s19.cnzz.com/z_stat.php%3Fid%3D1263868967%26show%3Dpic1' type='text/javascript'%3E%3C/script%3E"));
+		</script>
+	</div><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+
+
+
+
+
+
+    
+
+</head>
+
+</html>
+<!--[if lte IE 8]>
+<style>
+    html{ font-size: 1em }
+</style>
+<![endif]-->
+<!--[if lte IE 9]>
+<div style="ie">你使用的浏览器版本过低，为了你更好的阅读体验，请更新浏览器的版本或者使用其他现代浏览器，比如Chrome、Firefox、Safari等。</div>
+<![endif]-->
+
+<body>
+    <!-- hexo-inject:begin --><!-- hexo-inject:end --><header class="main-header" style="background-image:url(/./img/whitequeen4.jpg)">
+    <div class="main-header-box">
+        <a class="header-avatar" href="/" title="Joy Xh">
+            <img src="/img/avatar.jpg" alt="logo头像" class="img-responsive center-block">
+        </a>
+        <div class="branding">
+        	<!--<h2 class="text-hide">Snippet主题,从未如此简单有趣</h2>-->
+            
+                <h2> 终身学习，终身成长！ </h2>
+            
+    	</div>
+    </div>
+</header>
+    <nav class="main-navigation">
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-12">
+                <div class="navbar-header"><span class="nav-toggle-button collapsed pull-right" data-toggle="collapse" data-target="#main-menu" id="mnav">
+                    <span class="sr-only"></span>
+                        <i class="fa fa-bars"></i>
+                    </span>
+                    <a class="navbar-brand" href="http://yoursite.com">Hexo</a>
+                </div>
+                <div class="collapse navbar-collapse" id="main-menu">
+                    <ul class="menu">
+                        
+                            <li role="presentation" class="text-center">
+                                <a href="/"><i class="fa "></i>首页</a>
+                            </li>
+                        
+                            <li role="presentation" class="text-center">
+                                <a href="/categories/AI/"><i class="fa "></i>AI</a>
+                            </li>
+                        
+                            <li role="presentation" class="text-center">
+                                <a href="/categories/统计/"><i class="fa "></i>统计</a>
+                            </li>
+                        
+                            <li role="presentation" class="text-center">
+                                <a href="/categories/数学/"><i class="fa "></i>数学</a>
+                            </li>
+                        
+                            <li role="presentation" class="text-center">
+                                <a href="/categories/工具/"><i class="fa "></i>工具</a>
+                            </li>
+                        
+                            <li role="presentation" class="text-center">
+                                <a href="/archives/"><i class="fa "></i>归档</a>
+                            </li>
+                        
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</nav>
+    <section class="content-wrap">
+        <div class="container">
+            <div class="row">
+                <main class="col-md-8 main-content m-post">
+                    <p id="process"></p>
+<article class="post">
+    <div class="post-head">
+        <h1 id="ACKTR论文总结">
+            
+	            ACKTR论文总结
+            
+        </h1>
+        <div class="post-meta">
+    
+    
+    <span class="categories-meta fa-wrap">
+        <i class="fa fa-folder-open-o"></i>
+        <a href="/categories/ ">
+             
+        </a>
+    </span>
+    
+
+    
+    <span class="fa-wrap">
+        <i class="fa fa-tags"></i>
+        <span class="tags-meta">
+            
+                
+                    <a href="/tags/RL算法" title="RL算法">
+                        RL算法
+                    </a>
+                
+            
+        </span>
+    </span>
+    
+
+    
+        
+        <span class="fa-wrap">
+            <i class="fa fa-clock-o"></i>
+            <span class="date-meta">2018/11/12</span>
+        </span>
+        
+    
+</div>
+
+            
+            
+    </div>
+    
+    <div class="post-body post-content">
+        <p>[TOC]</p>
+<div style="page-break-after:always;"></div>
+
+<h1 id="1-问题及创新点"><a href="#1-问题及创新点" class="headerlink" title="1 问题及创新点"></a>1 问题及创新点</h1><p><strong>应用层面</strong></p>
+<p>Deep RL方法使用Deep NN来表示控制策略，尽管效果很好，但一般需使用简单的随机梯度下降法（SGD）来实现神经网络的训练。而SGD和一阶优化方法（如梯度下降法）的样本效率一般较低，这使得现在的Deep RL方法训练好一个连续或离散的控制任务常常需要数天，若使用异步的方法来加快训练往往又会降低样本效率。于是，为提高样本效率，可以使用更好的二阶优化方法，如自然梯度法（NG）。</p>
+<p>自然梯度法是一种使用了Fisher信息的最速下降法，它的样本效率高，但是Fisher信息逆矩阵的计算量很大，因此不易实现。而K-FAC方法通过使用Kronecker product可以有效地计算出一个近似的Fisher信息逆矩阵，从而使得K-FAC的cost（计算时间和储存成本）和SGD差不多。</p>
+<p>分布式K-FAC算法是一种自然梯度法（样本效率较高），它使用异步的方式来计算K-FAC中求Fisher信息逆矩阵所需的统计量，进一步提高了计算效率。本文将分布式K-FAC方法应用到A2C算法中，用其优化the actor和the critic两个部分，且还使用一种trust region方法来防止策略过早收敛，本文把这样方法称为ACKTR。</p>
+<p><strong>技术层面</strong></p>
+<p>一个神经网络的训练效率与样本效率以及master与环境的交互效率相关，异步可以大大提高交互效率，但同时会降低样本效率。相比一阶优化方法，二阶优化方法可以提高样本效率，但计算（自然）梯度会耗费更多时间和内存，甚至在大型连续任务上不可行，而K-FAC方法可以有效地解决该问题。</p>
+<p>为同时提高样本效率和交互效率，且保证方法可行，本文采用了5个方法：</p>
+<ol>
+<li>使用自然梯度，用于提高样本效率，考虑了曲率的影响，防止病态条件下的振荡迭代。</li>
+<li>使用K-FAC方法计算自然梯度中Fisher逆矩阵的近似值，用于提高计算$F^{-1}$的效率，减少计算时间和储存成本，保证自然梯度法在大型神经网络下可行；</li>
+<li>使用指数衰减平均计算累计Fisher统计量，用于保证在SGD方法下计算出的Fisher统计量期望估计值足够准确（因为后面批次中统计量的计算使用的是更新过的参数，从而更加准确）；</li>
+<li>使用异步的方法计算Fisher统计量，用于提高master与环境的交互效率，加快训练速度。</li>
+<li>使用Trust Region方法，用于保证网络的稳定性，防止在最速下降法下策略更新步长过大而导致网络过早收敛。</li>
+</ol>
+<p><strong>创新点总结</strong></p>
+<ol>
+<li>在优化the actor和the critic时，都使用二阶优化方法（自然梯度算法和高斯牛顿算法），且都使用K-FAC方法来计算Fisher信息矩阵的逆或高斯牛顿矩阵的逆，提高样本效率。</li>
+<li>使用一种Trust Region方法，保证网络的稳定性，预防过早收敛。</li>
+<li>采用移动平均方法计算累积Fisher统计量，以更好地估计曲率。</li>
+</ol>
+<h1 id="2-技术细节"><a href="#2-技术细节" class="headerlink" title="2 技术细节"></a>2 技术细节</h1><h2 id="2-1-Natural-Gradient-Method"><a href="#2-1-Natural-Gradient-Method" class="headerlink" title="2.1 Natural Gradient Method"></a>2.1 Natural Gradient Method</h2><p>Natural Gradient就是使用了Fisher信息的最速下降法，最速下降法的原理如下：</p>
+<p><strong>最速下降法</strong></p>
+<p>最速下降法通过求解以下优化问题实现：</p>
+<p>$\min J(\theta+\Delta\theta)\\subject\;to\;\parallel\Delta\theta\parallel_B&lt;1$ </p>
+<p>其中：范数$\parallel\cdot\parallel_B$的定义为$\parallel x\parallel_B=(x^TBx)^{\frac{1}{2}}$，它是对向量$x$大小的一种度量。</p>
+<p>以上优化问题的解具有以下形式：$\Delta\theta\propto -B^{-1}\nabla_\theta J$。</p>
+<p><strong>自然梯度下降法</strong></p>
+<p>最速下降法取$\parallel\cdot\parallel_B$为欧几里得范数时，$B=I$，这就是一般的梯度下降法。而当取$\parallel\cdot\parallel_B$取Fisher信息时，$B=F$，其中Fisher信息矩阵$F$为KL散度的二阶近似，这就是自然梯度法。KL散度在度量两个概率分布的差别时与模型的参数化是独立的，而使用欧几里得范数进行度量则差别取决于$\theta$的参数化形式的，下面是一个具体的例子：</p>
+<p><img src="/images/RL/ACKTR-norm.png" alt=""></p>
+<p>自然梯度下降法的更新为：$\theta\gets\theta-\eta F^{-1}\nabla_\theta J$。</p>
+<h2 id="2-2-K-FAC-Method"><a href="#2-2-K-FAC-Method" class="headerlink" title="2.2 K-FAC Method"></a>2.2 K-FAC Method</h2><p><strong>近似Fisher信息矩阵</strong></p>
+<p>设$W_i\in R^{O_i×I_i}$是第$i$层的权重矩阵，$a_{i-1}=\phi(s_{i-1})\in R^{I_i},s_i=W_i{a}_{i-1}\in R^{O_i}$分别为神经网络第$i$层的输入和输出，故权重梯度为$\nabla_{W_i}L=(\nabla_{s_i} L)a_{i-1}^T$，K-FAC将Fisher信息矩阵近似为分块矩阵，有：</p>
+<p>$F_i=E[vec\{\nabla_{W_i}L\}vec\{\nabla_{W_i}L\}^T]=E[a_{i-1}a_{i-1}^T\otimes \nabla_{s_i} L(\nabla_{s_i} L)^T]\\\quad\approx E[a_{i-1}a_{i-1}^T]\otimes E[\nabla_{s_i} L(\nabla_{s_i} L)^T]:=A_{i-1}\otimes G_i:=\hat F_i$ </p>
+<p>注意，上式假设了$A_{i-1}=a_{i-1}a_{i-1}^T$和$G_i=\nabla_{s_i} L(\nabla_{s_i} L)^T$独立，由于对任意的矩阵$P,Q,T$，Kronecker product有以下性质：$(P\otimes Q)^{-1}=P^{-1}\otimes Q^{-1},(P\otimes Q)vec(T)=PTQ^T$，故有梯度：$vec(\Delta W_i)=\hat F_i^{-1}vec(\nabla_{W_i} J)=vec(A_{i-1}^{-1}\nabla_{W_i}JG_i^{-1})$，梯度向量$vec({\Delta W_i)}$的大小和矩阵$W_i$的大小相似。</p>
+<p><strong>factorized Tikhonov damping</strong></p>
+<p>在K-FAC中，对二阶展开误差进行弥补且加入正则化后的目标函数$h(\theta+\delta)=L(\theta+\delta)$的二阶泰勒展开式可近似为：$M(\delta)=\frac{1}{2}\delta^T(F+(\lambda +\eta) I)\delta+\nabla h(\theta)^T\delta+h(\theta)$，其中$\lambda+\eta$为阻尼系数。</p>
+<p>令$\stackrel\frown {F}_{i,i}=\widetilde F_{i,i}+(\lambda+\eta)I=\bar{A}_{i-1,i-1}\otimes G_{i,i}+(\lambda+\eta)I\otimes I$，为便于计算$\stackrel\frown {F}_{i,i}^{-1}$，设$\stackrel\frown {F}_{i,i}\approx\stackrel\frown {F}’_{i,i}=(\bar{A}_{i-1,i-1}+\pi_i\sqrt{\lambda+\eta}\;I)\otimes (G_{i,i}+\frac{1}{\pi_i}\sqrt{\lambda+\eta}\;I)$，故有误差项</p>
+<p>$error=\stackrel\frown {F}’_{i,i}-\stackrel\frown {F}_{i,i}=\pi_i\sqrt{\lambda+\eta}\;I\otimes G_{i,i}+\frac{1}{\pi_i}\sqrt{\lambda+\eta}\;\bar{A}_{i-1,i-1}\otimes I$</p>
+<p>解得：$\pi_i^<em>=\underset{\pi_i}{argmin}\;(F’_{i,i}-F_{i,i})=\sqrt{\frac{tr(\bar{A}_{i-1,i-1})/(d_{i-1}+1)}{tr(G_{i,i})/d_i}}$，其中$d_i$是第$i$层的维度（单元数），于是有：$\stackrel\frown {F}^{-1}_{i,i}\approx (\bar{A}_{i-1,i-1}+\pi_i^</em>\sqrt{\lambda+\eta}\;I)^{-1}\otimes (G_{i,i}+\frac{1}{\pi_i^<em>}\sqrt{\lambda+\eta}\;I)^{-1}$。故有梯度：$vec(\Delta W_i)=\stackrel\frown F_i^{-1}vec(\nabla_{W_l} J)= (\bar{A}_{i-1,i-1}+\pi_i^</em>\sqrt{\lambda+\eta}\;I)^{-1}\nabla_{W_l}J (G_{i,i}+\frac{1}{\pi_i^*}\sqrt{\lambda+\eta}\;I)^{-1}$ </p>
+<h2 id="2-3-distributed-K-FAC"><a href="#2-3-distributed-K-FAC" class="headerlink" title="2.3 distributed K-FAC"></a>2.3 distributed K-FAC</h2><p>由2.2节知，求梯度$vec(\Delta W_i)$，需要计算$\bar{A}_{i-1,i-1}+\pi_i^*\sqrt{\lambda+\eta}\;I$等因子的逆或者它们的特征分解，这些因子的大小可能只是几百或上千，但深度网络可能有成百上千个这样的因子矩阵，从而使得在GPU上计算这些矩阵逆或者特征分解很吃力。于是使用异步的方式在CPU上计算它们，且作者发现偶尔使用这些因子的旧值来计算Fisher矩阵的逆，对每次迭代的平均进度只产生了很小的有害影响。</p>
+<p><strong>Asynchronous computation</strong></p>
+<p><img src="assets/ACKTR-Distributed computation.png" alt="ACKTR-Distributed computation"></p>
+<p>在作者的实验中，异步计算这些逆通常能使K-FAC算法加速40%~50%，且分布式K-FAC在训练大型现代分类卷积网络时能加速2到3倍。</p>
+<h2 id="2-4-Gauss-Netwon-Method"><a href="#2-4-Gauss-Netwon-Method" class="headerlink" title="2.4 Gauss-Netwon Method"></a>2.4 Gauss-Netwon Method</h2><p><strong>高斯牛顿法和牛顿法的关系</strong></p>
+<p>高斯牛顿法是解决非线性最小二乘问题的一种基本方法，它只能处理二次函数。</p>
+<p>最小二乘问题：$\min\;f(x)=\frac{1}{2}\displaystyle \sum_{i=1}^mr_i(x)^2=\frac{1}{2}r(x)^T r(x)$ ，其中$r_i(x)$为非线性函数，$r(x)$为函数向量。故$f(x)$的雅克比矩阵为：$J_f(x)=\nabla f(x)=\nabla r(x)r(x)=J_r(x)^T r(x)$，$f(x)$的Hessian矩阵为：$H_f(x)=\nabla^2 f(x)=\nabla r(x)\nabla r(x)^T+r(x)\nabla^2 r(x)=J_r(x)^TJ_r(x)+r(x)H_r(x)\approx J_r(x)^TJ_r(x):=G(x)$，其中$G(x)$为高斯牛顿矩阵。且当$\nabla^2 r(x)=0$时，有$H(x)=G(x)$。牛顿法和高斯牛顿法的更新规则为：</p>
+<p>牛顿法：$\Delta=-\frac{\nabla f(x)}{\nabla^2 f(x)}=-H(x)^{-1}J(x)，x’=x+\Delta$</p>
+<p>高斯牛顿法：$\Delta=-G(x)^{-1}J(x)=-(\nabla r(x)\nabla r(x)^T)^{-1}\nabla r(x)r(x)，x’=x+\Delta$ </p>
+<p><strong>高斯牛顿矩阵和Fisher信息矩阵的关系</strong></p>
+<p>当取损失函数$L(y,f(x,\theta))=-\log \;r(y|f(x,\theta))=-\log\;p(y|x,\theta)$时，目标函数：$h(\theta)=E_{\hat{Q}_{x,y}}[L(y,f(x,\theta))]=-\frac{1}{|S|}\displaystyle \underset{(x,y)\in S}{\sum}\log p(y|x,\theta)$，故$h$的Hessian矩阵：$H=E_{\hat{Q}_{x,y}}[\nabla_\theta\log p(y|x,\theta)\nabla_\theta\log p(y|x,\theta)^T]$，而Fisher信息矩阵：$F=E_{P_{x,y}}[\nabla_\theta\log p(y|x,\theta)\nabla_\theta\log p(y|x,\theta)^T]$，其中$P_{x,y}=P_{y|x}(\theta)Q_x=R_{y|f(x,\theta)}Q_x$。</p>
+<p>又Martens (2014,arXiv:1412.1193) 证明了：当损失函数$R_{y|z}$属于指数分布族时，有$F=G\approx H$，在实验中，我们取$R_{y|z}$为高斯分布，故有$F=G\approx H$。</p>
+<h2 id="2-5-Trust-Region-Method"><a href="#2-5-Trust-Region-Method" class="headerlink" title="2.5 Trust Region Method"></a>2.5 Trust Region Method</h2><p>在函数的病态条件下，参数的较小更新也会造成函数的较大更新，这是我们不希望看见的，因此使用Trust Region方法来限制网络输出的更新：$D_{KL}[P(y|x,\theta)||P(y|x,\theta+\Delta\theta)]\approx\Delta\theta^T F \Delta\theta\leq2\epsilon$ 。</p>
+<p>当使用自然梯度法时，网络更新方式为：$\theta\gets\theta-\eta F^{-1}\nabla_\theta L$，令$\Delta\theta=\eta F^{-1}\nabla_\theta L=\eta\Delta$ ，则$D_{KL}[P(y|x,\theta)||P(y|x,\theta+\eta\Delta)]\approx\eta^2\Delta^T F \Delta\leq2\epsilon$ ，即$\eta\leq\sqrt{\frac{2\epsilon}{\Delta^T F \Delta}}$，进一步对$\eta$进行clipping有：$\eta=\min\{\eta_{max},\sqrt{\frac{2\epsilon}{\Delta^T F \Delta}}\}$，其中$\Delta=F^{-1}\nabla_\theta L$。</p>
+<h2 id="2-6-ACKTR-Algorithm"><a href="#2-6-ACKTR-Algorithm" class="headerlink" title="2.6 ACKTR Algorithm"></a>2.6 ACKTR Algorithm</h2><p>这里称A3C算法的同步和批次化版本为A2C算法，ACKTR算法就是在A2C算法中使用自然梯度而不是一般的梯度，且加入了TRPO方法。实验证明，ACKTR是一种样本效率高且计算不昂贵的二阶梯度算法，且相比一阶梯度算法A2C，ACKTR在平均样本效率上有2-至3-fold的改进。</p>
+<p>ACKTR算法的RL背景以及模型架构和A3C类似：考虑discounted MDP$(S,A,\gamma,P,r)$，agent的目标是最大化：$J(\theta)=E_{\pi_\theta}[\displaystyle\sum_{i\geq0}^{\infty}\gamma^i r(s_{t+i},a_{t+i})]$。the actor通过最大化目标函数$J(\theta)$来更新参数$\theta$，其中策略梯度定义为：$\nabla_\theta J(\theta)=E_{\pi_\theta}[\displaystyle\sum_{i\geq0}^{\infty}A^\pi(s_t,a_t)\nabla_\theta\log\pi_\theta(a_t|s_t)]$，ACKTR参考A3C算法使用了k-step return来近似优势函数：$A^\pi(s_t,a_t)=\displaystyle\sum_{i=0}^{k-1}(\gamma^ir_(s_{t+i},a_{t+i})+\gamma^kV_{\phi}^\pi(s_{t+k}))-V_{\phi}^\pi(s_t)$，其中$V_{\phi}^\pi(s_t)=E_\pi[R_t]$。为了训练the critic，按照A3C算法进行TD更新，即最小化均方误差$\frac{1}{2}\parallel\hat R_t-V^\pi_\phi(s_t)\parallel^2$，其中$\hat R_t$为bootstrap得到的k-step returns。A3C的伪代码如下：</p>
+<p><img src="assets/ACKTR-A3C-pseudocode.png" alt="ACKTR-A3C-pseudocode"></p>
+<p>与A3C不同，ACKTR使用自然梯度优化the actor，于是使用策略函数定义RL目标函数$J(\theta)$下的Fisher信息矩阵：$F=E_{p(\tau)}[\nabla_\theta\log\pi(a_t|s_t)\nabla_\theta\log\pi(a_t|s_t)^T]$，其中$p(\tau)=p(s_0)\prod_{t=0}^T\pi(a_t|s_t)p(s_{t+1}|s_t,a_t)$表示轨迹分布。</p>
+<p>此外，ACKTR还在the critic中使用自然梯度法，因此设the critic的输出$v$是一高斯分布：$p_\nu(v_t|s_t)\sim\mathcal{N}(v_t;V(s_t),\sigma^2)$，$v_t=V(s_t)\pm\sigma$，实际中常取$\sigma=1$。由于高斯分布属于指数分布族，the critic的Fisher矩阵就是高斯牛顿矩阵。此时，the critic使用的自然梯度法相当于高斯牛顿法。</p>
+<p>若the actor和the critic是不相交的，可分别应用K-FAC方法来计算 它们的Fisher信息逆矩阵，然而为保证训练的稳定性，A3C和ACER使用了一种效果很好的网络架构，即：the actor和the critic共享低层网络结构，但有不同的输出层。此时，我们可假设两者输出的分布相互独立来定义它们的联合分布：$p(a,v|s)=\pi(a|s)p(v|s)$，然后对分布$p(a,v|s)$定义Fisher信息矩阵，并使用K-FAC方法进行计算：$F=E_{p(\tau)}[\nabla\log p(a,v|s)\nabla\log p(a,v|s)^T]$。此时，和标准K-FAC方法唯一不同的地方就是需要对网络的两个输出进行独立采样。</p>
+<p>此外，ACKTR算法使用K-FAC方法中的factorized Tikhonov damping方法，且按照分布式K-FAC算法中的异步方式计算二阶统计量和它们的逆来减少计算时间。</p>
+<h1 id="3-训练细节"><a href="#3-训练细节" class="headerlink" title="3 训练细节"></a>3 训练细节</h1><h2 id="3-1-离散型控制任务"><a href="#3-1-离散型控制任务" class="headerlink" title="3.1 离散型控制任务"></a>3.1 离散型控制任务</h2><p>对于离散型控制任务，作者使用ACKTR算法训练6个Atari 2600游戏，并与A2C和TRPO$^2$算法进行对比。对ACKTR中trust region方法所使用的超参$\eta_{max}、\epsilon$，在游戏Breakout中使用网格搜索选取参数$\eta_{max}\in\{0.7,0.2,0.07,0.02\}$ ，设定$\epsilon=0.001$。对所有的Atari游戏使用相同的超参，对ACKTR和A2C的学习率都使用线性规划，熵正则化的权重设为0.01。若无其他说明，分别对ACKTR、A2C和TRPO使用的batch size为640、80和512，以获得更好的样本效率。此外，3个算法的网络架构分别如下面3表所示。</p>
+<p>ACKTR的策略函数和值函数共享网络和参数，其网络架构如下：</p>
+<div class="table-container">
+<table>
+<thead>
+<tr>
+<th style="text-align:center">层类型</th>
+<th style="text-align:center">尺寸</th>
+<th style="text-align:center">Stride</th>
+<th style="text-align:center">激活函数</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">输入层</td>
+<td style="text-align:center">84<em>84\</em>4</td>
+<td style="text-align:center">/</td>
+<td style="text-align:center">/</td>
+</tr>
+<tr>
+<td style="text-align:center">卷积层</td>
+<td style="text-align:center">8<em>8\</em>32</td>
+<td style="text-align:center">4</td>
+<td style="text-align:center">ReLU</td>
+</tr>
+<tr>
+<td style="text-align:center">卷积层</td>
+<td style="text-align:center">4<em>4\</em>64</td>
+<td style="text-align:center">2</td>
+<td style="text-align:center">ReLU</td>
+</tr>
+<tr>
+<td style="text-align:center">卷积层</td>
+<td style="text-align:center">3<em>3\</em>32</td>
+<td style="text-align:center">1</td>
+<td style="text-align:center">ReLU</td>
+</tr>
+<tr>
+<td style="text-align:center">全连接层</td>
+<td style="text-align:center">512</td>
+<td style="text-align:center">/</td>
+<td style="text-align:center">softmax&amp;linear</td>
+</tr>
+<tr>
+<td style="text-align:center">输出层1</td>
+<td style="text-align:center">action(softmax)</td>
+<td style="text-align:center">/</td>
+<td style="text-align:center">/</td>
+</tr>
+<tr>
+<td style="text-align:center">输出层2</td>
+<td style="text-align:center">value(linear)</td>
+<td style="text-align:center">/</td>
+<td style="text-align:center">/</td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>A2C使用了和DQN相同的网络架构，如下：</p>
+<div class="table-container">
+<table>
+<thead>
+<tr>
+<th style="text-align:center">层类型</th>
+<th style="text-align:center">尺寸</th>
+<th style="text-align:center">Stride</th>
+<th style="text-align:center">激活函数</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">输入层</td>
+<td style="text-align:center">84<em>84\</em>4</td>
+<td style="text-align:center">/</td>
+<td style="text-align:center">/</td>
+</tr>
+<tr>
+<td style="text-align:center">卷积层</td>
+<td style="text-align:center">8<em>8\</em>32</td>
+<td style="text-align:center">4</td>
+<td style="text-align:center">ReLU</td>
+</tr>
+<tr>
+<td style="text-align:center">卷积层</td>
+<td style="text-align:center">4<em>4\</em>64</td>
+<td style="text-align:center">2</td>
+<td style="text-align:center">ReLU</td>
+</tr>
+<tr>
+<td style="text-align:center">卷积层</td>
+<td style="text-align:center">3<em>3\</em>64</td>
+<td style="text-align:center">1</td>
+<td style="text-align:center">ReLU</td>
+</tr>
+<tr>
+<td style="text-align:center">全连接层</td>
+<td style="text-align:center">512</td>
+<td style="text-align:center">/</td>
+<td style="text-align:center">ReLU</td>
+</tr>
+<tr>
+<td style="text-align:center">输出层</td>
+<td style="text-align:center">action</td>
+<td style="text-align:center">/</td>
+<td style="text-align:center">/</td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>TRPO使用了一个规模更小的架构，如下:</p>
+<div class="table-container">
+<table>
+<thead>
+<tr>
+<th style="text-align:center">层类型</th>
+<th style="text-align:center">尺寸</th>
+<th style="text-align:center">Stride</th>
+<th style="text-align:center">激活函数</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">输入层</td>
+<td style="text-align:center">84<em>84\</em>4</td>
+<td style="text-align:center">/</td>
+<td style="text-align:center">/</td>
+</tr>
+<tr>
+<td style="text-align:center">卷积层</td>
+<td style="text-align:center">8<em>8\</em>8</td>
+<td style="text-align:center">4</td>
+<td style="text-align:center">ReLU</td>
+</tr>
+<tr>
+<td style="text-align:center">卷积层</td>
+<td style="text-align:center">4<em>4\</em>16</td>
+<td style="text-align:center">2</td>
+<td style="text-align:center">ReLU</td>
+</tr>
+<tr>
+<td style="text-align:center">全连接层</td>
+<td style="text-align:center">128</td>
+<td style="text-align:center">/</td>
+<td style="text-align:center">ReLU</td>
+</tr>
+<tr>
+<td style="text-align:center">输出层</td>
+<td style="text-align:center">action</td>
+<td style="text-align:center">/</td>
+<td style="text-align:center">/</td>
+</tr>
+</tbody>
+</table>
+</div>
+<h2 id="3-2-连续型控制任务"><a href="#3-2-连续型控制任务" class="headerlink" title="3.2 连续型控制任务"></a>3.2 连续型控制任务</h2><p>对于连续型控制任务，作者分别使用低维状态空间和原始像素作为输出，用ACKTR算法训练8个MuJoCo任务。下面讨论两种输入下的参数设置：</p>
+<p><strong>使用低维状态空间作为输入</strong></p>
+<p>此时，在所有实验中，ACKTR、A2C使用的batch size为2500，TRPO使用的batch size为25000。The log standard deviation of a Gaussian policy was parameterized as a bias in a final layer of policy network that didn’t depend on input state.   此外，使用分离的policy network和value network，两个网络的架构如下表所示：</p>
+<div class="table-container">
+<table>
+<thead>
+<tr>
+<th style="text-align:center">层类型</th>
+<th style="text-align:center">尺寸</th>
+<th style="text-align:center">policy/value激活函数</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">输入层</td>
+<td style="text-align:center">64<em>64\</em>8</td>
+<td style="text-align:center">/</td>
+</tr>
+<tr>
+<td style="text-align:center">隐藏层</td>
+<td style="text-align:center">64</td>
+<td style="text-align:center">Tanh/ELU</td>
+</tr>
+<tr>
+<td style="text-align:center">隐藏层</td>
+<td style="text-align:center">64</td>
+<td style="text-align:center">Tanh/ELU</td>
+</tr>
+<tr>
+<td style="text-align:center">policy/value输出层</td>
+<td style="text-align:center">action/value</td>
+<td style="text-align:center">/</td>
+</tr>
+</tbody>
+</table>
+</div>
+<p><strong>使用原始像素作为输入</strong></p>
+<p>此时，对ACKTR中trust region方法所使用的超参$\eta_{max}、\epsilon$：在游戏Reacher和Hopper中使用网格搜索选取参数$\eta_{max}\in\{0.3,0.03,0.003\}$ ，设定$\epsilon=0.001$。对所有的MuJoCo任务使用固定的超参，所有算法使用的batch size为8000。此外，作者发现在TRPO和A2C中，将策略函数和值函数网络分开，训练结果从经验上来看会更好，且作者发现对两个网络使用正交初始化很重要，否则A2C baseline无法改进episode reward。两个网络的架构如下表所示：</p>
+<div class="table-container">
+<table>
+<thead>
+<tr>
+<th>层类型</th>
+<th>尺寸</th>
+<th>Stride</th>
+<th>policy/value激活函数</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>输入层</td>
+<td>42*42*3</td>
+<td>/</td>
+<td>/</td>
+</tr>
+<tr>
+<td>卷积层</td>
+<td>3*3*32</td>
+<td>2</td>
+<td>Tanh/ELU</td>
+</tr>
+<tr>
+<td>卷积层</td>
+<td>3*3*32</td>
+<td>2</td>
+<td>Tanh/ELU</td>
+</tr>
+<tr>
+<td>全连接层</td>
+<td>256</td>
+<td>/</td>
+<td>Relu/ELU</td>
+</tr>
+<tr>
+<td>policy/value输出层</td>
+<td>action/value</td>
+<td>/</td>
+<td>/</td>
+</tr>
+</tbody>
+</table>
+</div>
+<h1 id="4-训练结果"><a href="#4-训练结果" class="headerlink" title="4 训练结果"></a>4 训练结果</h1><h2 id="4-1-离散型控制任务"><a href="#4-1-离散型控制任务" class="headerlink" title="4.1 离散型控制任务"></a>4.1 离散型控制任务</h2><ul>
+<li>对于离散型控制任务，作者使用ACKTR算法训练6个Atari 2600游戏，并与A2C和TRPO$^2​$算法进行对比，各个游戏1千万个时间步的训练效果如图1所示：</li>
+</ul>
+<p><img src="assets/ACKTR-F1.png" alt="ACKTR-F1"></p>
+<p>图1中，横轴表示Timesteps，纵轴表示Episode Rewards。由图可知，ACKTR的样本效率在所有游戏中都明显超过了A2C，而TRPO在1千万个时间步内只能训练两个游戏，比A2C的样本效率还要低。</p>
+<p>在表1中，作者计算出了训练5千万个时间步后最后100个episodes的平均reward，还显示了平均reward初次达到人类水平时的episode，其中N/A表示在5千万个时间步算法的平均reward未能达到人类水平。</p>
+<p><img src="assets/ACKTR-T1.png" alt="ACKTR-T1"></p>
+<p>由表1可知，对于前四个游戏，相比ACKTR，A2C分别多花费了2.7,3.5,5.3,3.0倍个episode才能达到人类水准，且ACKTR最终的平均reward要分别比A2C高出26%,5%,35%,67%倍。A2C在最后一个游戏中最终没能达到人类水准，而ACKTR达到了，且两者最终的平均reward差距极大（1757.2:19723.0）。</p>
+<ul>
+<li>此外，作者还将使用ACKTR训练了剩余的Atari游戏，并将ACKTR与Q-learning方法（DQN,DDQN,DUEL,PRIOR,PRIOR&amp;DUEL）的样本效率进行了对比，结果见表4：</li>
+</ul>
+<p><img src="assets/ACKTR-T4.png" alt="ACKTR-T4"></p>
+<p>由表4可知，在以上44个游戏中的36个游戏中，ACKTR的样本效率与Q-learning方法具有同等水平，且花费的计算时间要少很多。特别在Atlantis游戏中，ACKTR的样本效率比A2C高10倍，效果如图2所示：</p>
+<p><img src="assets/ACKTR-F2.png" alt="ACKTR-F2"></p>
+<h2 id="4-2-连续型控制任务"><a href="#4-2-连续型控制任务" class="headerlink" title="4.2 连续型控制任务"></a>4.2 连续型控制任务</h2><ul>
+<li>对于连续型控制任务，作者分别使用低维状态空间和原始像素作为输出，用ACKTR算法训练8个MuJoCo任务1亿个时间步，并与A2C和TRPO算法进行对比，结果如图3所示：</li>
+</ul>
+<p><img src="assets/ACKTR-F3.png" alt="ACKTR-F3"></p>
+<p>图3中，横轴表示Timesteps，纵轴表示Episode Rewards。由图可知，ACKTR在6个任务中明显优于A2C，在另外2个任务中表现与A2C相当。</p>
+<p>在表2中，训练这8个任务至3千万个时间步，计算训练过程中最高10个(top 10)连续episodes的平均reward以及到达一确定临界值（threshold）的episode序号，结果见表2：</p>
+<p><img src="C:\Users\Administrator\Pictures\ACKTR-T2.PNG" alt="ACKTR-T2"></p>
+<p>由表4可知，除了在Swimmer中TRPO的样本效率高出4.1倍，ACKTR在所有任务中最早到达确定临界值。特别在Ant中，ACKTR的样本效率要比TRPO高4.1倍。关于平均reward，3种算法的效果相当。</p>
+<ul>
+<li>考虑直接从原始像素中学习连续控制策略，此时，最好的A3C算法也只在Pendulum、Pointmass2D和 Gripper这样的简单任务上表现满意，而ACKTR在训练4千万个时间步后，在最后episode的表现要明显优于A2C，效果如图4所示：</li>
+</ul>
+<p><img src="assets/ACKTR-F4.png" alt="ACKTR-F4"></p>
+<p>图4中，横轴表示Timesteps，纵轴表示Episode Rewards。由图可知，在以上3个任务中ACKTR最后的reward要比A2C分别好1.6、2.8和1.7倍。</p>
+<h2 id="4-3-其他讨论"><a href="#4-3-其他讨论" class="headerlink" title="4.3 其他讨论"></a>4.3 其他讨论</h2><p><strong>二阶优化方法和Batch Size对算法的影响</strong></p>
+<p>A2C使用的是一阶优化方法，首先在ACKTR中只对actor使用二阶优化方法，然后同时对actor和critic使用二阶优化方法，对比它们的效果。此外，还对比不同batch size（160和640）下，A2C和ACKTR的效果，如图5所示：</p>
+<p><img src="assets/ACKTR-F5.png" alt="ACKTR-F5"></p>
+<p>图5中，横轴表示Timesteps，纵轴表示Episode Rewards。由图5的前两图可知，在A2C基础上对actor使用二阶优化方法，训练效果有改进。但对critic使用二阶优化方法在样本效率和训练最后的episode reward上带来的改进更大。而且作者观察到一阶优化方法得到的结果方差更大，因此二阶优化方法更加稳定。由图5的后两图可知，ACKTR在更大的batch size下也表现得很好，而A2C的样本效率会明显降低。特别在(d)图中将每次迭代更新的reward大小表示出来，可以发现使用更大batch size时，相较于A2C，ACKTR的收益增加明显。这意味着，在使用异步更新时，ACKTR有潜力来更大程度地提高计算效率，而A2C可能需要更大的batch size来达到相同的计算效率。</p>
+<p><strong>各算法在wall-clock time上的对比</strong></p>
+<p>计算不同batch size下ACKTR、A2C以及TRPO在前面6个Atari游戏和8个MuJuCo任务上每个时间步的平均计算时间的倒数，结果如表3所示：</p>
+<p><img src="assets/ACKTR-T3.png" alt="ACKTR-T3"></p>
+<p>由表3可知，ACKTR每个时间步的计算时间最多比A2C高25%。</p>
+
+    </div>
+    
+    <div class="post-footer">
+        <div>
+            
+                转载声明：商业转载请联系作者获得授权,非商业转载请注明出处 © <a href="" target="_blank">Snippet</a>
+            
+        </div>
+        <div>
+            
+        </div>
+    </div>
+</article>
+
+<div class="article-nav prev-next-wrap clearfix">
+    
+        <a href="/2018/11/17/DDPG论文总结/" class="pre-post btn btn-default" title="DDPG论文总结">
+            <i class="fa fa-angle-left fa-fw"></i><span class="hidden-lg">上一篇</span>
+            <span class="hidden-xs">DDPG论文总结</span>
+        </a>
+    
+    
+        <a href="/2018/10/12/GTD算法总结/" class="next-post btn btn-default" title="GTD算法总结">
+            <span class="hidden-lg">下一篇</span>
+            <span class="hidden-xs">GTD算法总结</span><i class="fa fa-angle-right fa-fw"></i>
+        </a>
+    
+</div>
+
+
+    <div id="comments">
+        
+	
+    <div id="vcomments" class="valine"></div>
+    <script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+<script src="/assets/valine.min.js"></script>
+
+    <script>
+        new Valine({
+            av: AV,
+            el: '#vcomments',
+            appId: 'xOKV9J4UeQAtVkvnJC7Kq2Jn-gzGzoHsz',
+            appKey: 'erIpQac4azoCmgfBB7Dl9maa',
+            placeholder: '说点什么吧',
+            notify: false,
+            verify: false,
+            avatar: 'mm',
+            meta: 'nick,mail'.split(','),
+            pageSize: '10',
+            path: window.location.pathname,
+            lang: 'zh-CN'.toLowerCase()
+        })
+    </script>
+
+
+    </div>
+
+
+
+
+
+                </main>
+                
+                    <aside id="article-toc" role="navigation" class="col-md-4">
+    <div class="widget">
+        <h3 class="title">文章目录</h3>
+        
+            <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#1-问题及创新点"><span class="toc-text">1 问题及创新点</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#2-技术细节"><span class="toc-text">2 技术细节</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#2-1-Natural-Gradient-Method"><span class="toc-text">2.1 Natural Gradient Method</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2-2-K-FAC-Method"><span class="toc-text">2.2 K-FAC Method</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2-3-distributed-K-FAC"><span class="toc-text">2.3 distributed K-FAC</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2-4-Gauss-Netwon-Method"><span class="toc-text">2.4 Gauss-Netwon Method</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2-5-Trust-Region-Method"><span class="toc-text">2.5 Trust Region Method</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2-6-ACKTR-Algorithm"><span class="toc-text">2.6 ACKTR Algorithm</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#3-训练细节"><span class="toc-text">3 训练细节</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#3-1-离散型控制任务"><span class="toc-text">3.1 离散型控制任务</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#3-2-连续型控制任务"><span class="toc-text">3.2 连续型控制任务</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#4-训练结果"><span class="toc-text">4 训练结果</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#4-1-离散型控制任务"><span class="toc-text">4.1 离散型控制任务</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#4-2-连续型控制任务"><span class="toc-text">4.2 连续型控制任务</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#4-3-其他讨论"><span class="toc-text">4.3 其他讨论</span></a></li></ol></li></ol>
+        
+    </div>
+</aside>
+
+                
+            </div>
+        </div>
+    </section>
+    <footer class="main-footer">
+    <div class="container">
+        <div class="row">
+        </div>
+    </div>
+</footer>
+
+<a id="back-to-top" class="icon-btn hide">
+	<i class="fa fa-chevron-up"></i>
+</a>
+
+
+
+
+    <div class="copyright">
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-12">
+                <div class="busuanzi">
+    
+</div>
+
+            </div>
+            <div class="col-sm-12">
+                <span>Copyright &copy; 2017
+                </span> |
+                <span>
+                    Powered by <a href="//hexo.io" class="copyright-links" target="_blank" rel="nofollow">Hexo</a>
+                </span> |
+                <span>
+                    Theme by <a href="//github.com/shenliyang/hexo-theme-snippet.git" class="copyright-links" target="_blank" rel="nofollow">Snippet</a>
+                </span>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+
+
+
+<script src="/js/app.js?rev=@@hash"></script>
+
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+        tex2jax: {
+            inlineMath: [ ["$","$"], ["\\(","\\)"] ],
+            skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'],
+            processEscapes: true
+        }
+    });
+    MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax();
+        for (var i = 0; i < all.length; ++i)
+            all[i].SourceElement().parentNode.className += ' has-jax';
+    });
+</script>
+<script src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+</body>
+</html>
