@@ -182,19 +182,16 @@
     </div>
     
     <div class="post-body post-content">
-        <p>[TOC]</p>
-<div style="page-break-after:always;"></div>
-
-<h1 id="1-摘要"><a href="#1-摘要" class="headerlink" title="1 摘要"></a>1 摘要</h1><p>神经网络中的Fisher信息矩阵，既不是对角的，也不是低秩的，并且在某些情况下是完全非稀疏的，因此求逆往往十分复杂。而本文提出的K-FAC是一种可以有效近似神经网络中Fisher信息矩阵的逆的方法，它将Fisher信息矩阵的各个大块(对应于各个层的Fisher信息)近似为两个小得多的矩阵的Kronecker乘积，从而大大提高了求逆的效率。在实际中使用K-FAC进行二阶优化比使用带动量的随机梯度下降速度要快得多，与使用精确Fisher信息逆矩阵的近似自然梯度法/牛顿法的二阶优化方法（如Hessian-free 优化方法）相比，K-FAC在随机优化领域表现很好，因为K-FAC近似曲率逆矩阵的储存耗费和计算量不取决于用于估计它的数据的多少，而只与对角或低秩的近似曲率矩阵相关。K-FAC优化方法是一种能够在神经网络中有效近似自然梯度下降法的方法。</p>
+        <h1 id="1-摘要"><a href="#1-摘要" class="headerlink" title="1 摘要"></a>1 摘要</h1><p>神经网络中的Fisher信息矩阵，既不是对角的，也不是低秩的，并且在某些情况下是完全非稀疏的，因此求逆往往十分复杂。而本文提出的K-FAC是一种可以有效近似神经网络中Fisher信息矩阵的逆的方法，它将Fisher信息矩阵的各个大块(对应于各个层的Fisher信息)近似为两个小得多的矩阵的Kronecker乘积，从而大大提高了求逆的效率。在实际中使用K-FAC进行二阶优化比使用带动量的随机梯度下降速度要快得多，与使用精确Fisher信息逆矩阵的近似自然梯度法/牛顿法的二阶优化方法（如Hessian-free 优化方法）相比，K-FAC在随机优化领域表现很好，因为K-FAC近似曲率逆矩阵的储存耗费和计算量不取决于用于估计它的数据的多少，而只与对角或低秩的近似曲率矩阵相关。K-FAC优化方法是一种能够在神经网络中有效近似自然梯度下降法的方法。</p>
 <h1 id="2-神经网络"><a href="#2-神经网络" class="headerlink" title="2 神经网络"></a>2 神经网络</h1><h2 id="2-1-Computing-Gradient-from-NN"><a href="#2-1-Computing-Gradient-from-NN" class="headerlink" title="2.1 Computing Gradient from NN"></a>2.1 Computing Gradient from NN</h2><p>神经网络中各符号的说明如下表所示：</p>
 <p><img src="/images/RL/KFAC-notation.png" alt=""></p>
 <p>一个两层神经网络的结构：</p>
-<p><img src="assets/KFAC-NN.png" alt="KFAC-NN"></p>
+<p><img src="/images/RL/KFAC-NN.png" alt=" "></p>
 <p>即：$s_i=W_i\bar{a}_{i-1}，a_i=\phi_i(s_i)$。其中，$\bar{a}=\begin{pmatrix}a\\1\end{pmatrix}$ ，$i=1,2,\cdots,l$，$\phi$为非线性激活函数，各参数的定义见表1。</p>
 <p>设损失函数为条件概率密度函数的负对数似然：$L(y,z)=-\log r(y|z)$。则$\forall $参数$v$，定义其梯度为：$\mathcal{D}v=\frac{dL(y,f(x,\theta))}{dv}=-\frac{\log p(y|x,\theta)}{dv}$，$g_i=\mathcal{D}s_i$。定义：$\theta=(vec(W_1)^T\;vec(W_2)^T\;\cdots\;vec(W_l)^T)^T$，则$\theta$的梯度：$\mathcal{D}\theta=(vec(\mathcal{D}W_1)^T\;vec(\mathcal{D}W_2)^T\;\cdots\;vec(\mathcal{D}W_l)^T)^T$ ，计算流程如下：</p>
-<p><img src="assets/KFAC-DΘ.png" alt="KFAC-DΘ"></p>
+<p><img src="/images/RL/KFAC-DΘ.png" alt=" "></p>
 <h2 id="2-2-Estimating-Statistics-from-NN"><a href="#2-2-Estimating-Statistics-from-NN" class="headerlink" title="2.2 Estimating Statistics from NN"></a>2.2 Estimating Statistics from NN</h2><p>一个简单分类网络的前后向传播图如下所示：</p>
-<p><img src="assets/KFAC-y_sampled.png" alt="KFAC-y_sampled"></p>
+<p><img src="/images/RL/KFAC-y_sampled.png" alt=" "></p>
 <p>由上图可知，对$x\in S_x$，进行前向传播可得到$\bar{a}_i$，并学得$P_{y|x}$，然后进行采样可得到random target $y\sim P_{y|z}$，再利用$y$进行反向传播就可计算得到$g_i$。如：对于二分类问题$y\sim P_{y|x}=\begin{cases}P(x=y_1)=0.72\\P(x=y_2)=0.28\end{cases}$ ，可能采样得到：$y=y_1$。</p>
 <p>在4.2节中需计算$F_{i,j}\approx E[\bar{a}_{i-1}\bar{a}_{j-1}^T ]\otimes E[g_i g_j^T]=\bar{A}_{i,j}\otimes  G_{i,j}$，从而首先需估计出统计量$\bar{A}_{i,j}$和$G_{i,j}$，于是进行前向和反向传播，然后计算得到：$\bar{A}_{i,j}=E_{\hat{Q}_x}[\bar{a}_i\bar{a}_j^T]=\frac{1}{|S_x|}\displaystyle\sum_{x\in S_x}\bar{a}_i\bar{a}_j^T$，$G_{i,j}=E_{P_{y|x}}[E_{\hat{Q}_x}(g_ig_j^T)]=\frac{1}{|S_{xy}|}\displaystyle\sum_{(x,y)\in S_{xy}}g_ig_j^T$。另外，本文使用指数衰减平均法更新统计量$S$（如$\bar{A}_{i,j},G_{i,j}$），即：$S=(1-\epsilon)S_{old}+\epsilon S_{new}，\epsilon=\min\{1-\frac{1}{k},0.95\}$。</p>
 <h1 id="3-二阶优化方法"><a href="#3-二阶优化方法" class="headerlink" title="3 二阶优化方法"></a>3 二阶优化方法</h1><h2 id="3-1-Natural-Gradient-Method"><a href="#3-1-Natural-Gradient-Method" class="headerlink" title="3.1 Natural Gradient Method"></a>3.1 Natural Gradient Method</h2><p>Natural Gradient就是使用了Fisher信息的最速下降法，最速下降法的原理如下：</p>
@@ -205,7 +202,7 @@
 <p>以上优化问题的解具有以下形式：$\Delta\theta\propto -B^{-1}\nabla_\theta J$。</p>
 <p><strong>自然梯度下降法</strong></p>
 <p>最速下降法取$\parallel\cdot\parallel_B$为欧几里得范数时，$B=I$，这就是一般的梯度下降法。而当取$\parallel\cdot\parallel_B$取Fisher信息时，$B=F$，其中Fisher信息矩阵$F$为KL散度的二阶近似，这就是自然梯度法。KL散度在度量两个概率分布的差别时与模型的参数化是独立的，而使用欧几里得范数进行度量则差别取决于$\theta$的参数化形式的，下面是一个具体的例子：</p>
-<p><img src="assets/KFAC-norm.png" alt="KFAC-norm"></p>
+<p><img src="/images/RL/KFAC-norm.png" alt=" "></p>
 <p>自然梯度下降法的更新为：$\theta\gets\theta-\eta F^{-1}\nabla_\theta J$。</p>
 <h2 id="3-2-Gauss-Netwon-Method"><a href="#3-2-Gauss-Netwon-Method" class="headerlink" title="3.2 Gauss-Netwon Method"></a>3.2 Gauss-Netwon Method</h2><p><strong>高斯牛顿法和牛顿法的关系</strong></p>
 <p>高斯牛顿法是解决非线性最小二乘问题的一种基本方法，它只能处理二次函数。</p>
@@ -231,19 +228,19 @@
 <li>$(A_{m,n}\otimes B_{p,q})vec(X_{q,n})=vec(B_{p,q}X_{q,n}A_{m,n}^T)=M_{mp,1}$ </li>
 </ol>
 <h2 id="4-2-Fisher-approximation"><a href="#4-2-Fisher-approximation" class="headerlink" title="4.2 Fisher approximation"></a>4.2 Fisher approximation</h2><p>Fisher信息矩阵：$F=E[\frac{d\log p(y|x,\theta)}{d\theta}\frac{d\log p(y|x,\theta)}{d\theta}^T]=E[\mathcal{D}\theta\mathcal{D}\theta^T]$</p>
-<p><img src="assets/KFAC-F.png" alt="KFAC-F"></p>
+<p><img src="/images/RL/KFAC-F.png" alt=" "></p>
 <p>故$F_{i,j}=E[vec(\mathcal{D}W_i)vec(\mathcal{D}W_j)^T]=E[(\bar{a}_{i-1}\otimes g_i)(\bar{a}_{j-1}\otimes g_j)^T]=E[\bar{a}_{i-1}\bar{a}_{j-1}^T \otimes g_i g_j^T]$</p>
-<p><img src="assets/KFAC-approx.png" alt="KFAC-approx"></p>
+<p><img src="/images/RL/KFAC-approx.png" alt=" "></p>
 <p>对于MINIST（下采样为16*16大小）分类任务，将神经网络中间4层的精确Fisher $F$和使用Kronecker product 近似得到的$\widetilde F$进行对比，并对$\widetilde F$求逆，效果如图2和图3所示：</p>
-<p><img src="assets/KFAC-F2.png" alt="KFAC-F2"></p>
+<p><img src="/images/RL/KFAC-F2.png" alt=" "></p>
 <p>图2中，左图为$|F|$，中间图为$|\widetilde F|$，右图为$|F|-|\widetilde F|$，其中$|F|$表示对矩阵各元素取绝对值。</p>
-<p><img src="assets/KFAC-F3.png" alt="KFAC-F3"></p>
+<p><img src="/images/RL/KFAC-F3.png" alt=" "></p>
 <p>图3中，左图为$|\widetilde F|$，中间图为$|\widetilde F^{-1}|$，右图将$|\widetilde F^{-1}|$进行了分块求平均。注：颜色越浅表示值越大，由此可知，Fisher信息逆矩阵中比较大的值集中在对角线附近。</p>
 <h2 id="4-3-Approximate-Fisher-inverse"><a href="#4-3-Approximate-Fisher-inverse" class="headerlink" title="4.3 Approximate Fisher inverse"></a>4.3 Approximate Fisher inverse</h2><p>设$vec(\mathcal{D}\theta)\sim F(0,\Sigma)$，$E[vec(\mathcal{D}\theta)]=0,\Sigma=cov(vec(\mathcal{D}\theta),vec(\mathcal{D}\theta))=E[vec(\mathcal{D}\theta)vec(\mathcal{D}\theta)^T]=F$，记$d_i=vec(\mathcal{D}W_i)$，则$d_i=\displaystyle\sum_{j\neq i}B_{ij}d_j+\epsilon_i$，$vec(\mathcal{D}\theta)=Bvec(\mathcal{D}\theta)+\epsilon$，则$B_{i,i}=0,B_{i,j}=-\frac{(\Sigma^{-1})_{i,j}}{(\Sigma^{-1})_{i,i}}$ ，$D_{i,i}=var(\epsilon_i) =var(d_i|d_j,j\neq i)=\frac{1}{(\Sigma^{-1})_{i,i}}$，故有以下分解：$\Sigma^{-1}=D^{-1}(I-B)$。因此，当$B_{i,j}$很小，即$d_i,d_j$线性相关程度很小时，$(\Sigma^{-1})_{i,j}$很小，从而$(F^{-1})_{i,j}$很小。而$d_1,d_l$的线性相关性是最小的，且有$1=B_{1,1}\geq B_{1,2}\geq\cdots\geq B_{1,l}$，故$F^{-1}$中对角线上的元素是最大的，且其它元素越靠近对角线值越大。故将$\widetilde{F}^{-1}$近似为块对角矩阵和块三角矩阵。</p>
 <ol>
 <li>将$\widetilde{F}^{-1}$近似为块对角矩阵</li>
 </ol>
-<p><img src="assets/KFAC-block-diagonal.png" alt="KFAC-block-diagonal"></p>
+<p><img src="/images/RL/KFAC-block-diagonal.png" alt=" "></p>
 <ol>
 <li>将$\widetilde{F}^{-1}$近似为块三角矩阵</li>
 </ol>
@@ -257,10 +254,10 @@
 <p>$\Lambda=diag(\Sigma_{1|2}^{-1},\Sigma_{2|3}^{-1},\cdots,\Sigma_{l-1|l}^{-1},\Sigma_{l}^{-1})，\Xi=\begin{pmatrix} I &amp; -\Psi_{1,2} &amp; \; &amp; \; &amp; \; \ \; &amp; I &amp; -\Psi_{2,3}&amp; \; &amp; \; \  \; &amp; \; &amp; I &amp; \ddots &amp; \; \ \; &amp; \; &amp; \; &amp; \ddots &amp; \Psi_{l-1,l}\ \; &amp; \; &amp; \; &amp;\; &amp; I \end{pmatrix}$</p>
 <p>由于$\Psi_{i,i+1}=\Psi_{i-1,i}^{\bar{A}}\otimes \Psi_{i,i+1}^G$容易计算，故$\Xi$也容易得到。且若要计算向量$u=\Xi^T v$，则只需计算：$u_i=v_i-\Psi_{i-1,i}^{GT} v_{i-1}\Psi_{i-2,i-1}^{\bar{A}}\;and\;u_1=v_1$。同理，若要计算向量$u=\Xi v$，则只需计算：$u_i=v_i-\Psi_{i,i+1}^{G} v_{i+1}\Psi_{i-1,i}^{\bar{A}T}\;and\;u_l=v_l$。</p>
 <p>将以上两种近似Fisher矩阵的方法进行对比，针对前面的MINIST分类任务，对比$\widetilde F、\breve F$与$\widetilde F$的差距，并计算$\widetilde F^{-1}、\breve F^{-1}、\hat F^{-1}$，对比$\widetilde F^{-1}、\breve F^{-1}$与$\widetilde F^{-1}$的差距，效果如图5和图6所示：</p>
-<p><img src="assets/KFAC-F5.png" alt="KFAC-F5"></p>
+<p><img src="/images/RL/KFAC-F5.png" alt=" "></p>
 <p>图5中，各部分图的表示为：$\begin{pmatrix}|\widetilde F| &amp; |\breve F| &amp; |\widetilde F| - |\breve F| \ |\widetilde F| &amp; |\hat F| &amp; |\widetilde F| - |\hat F| \end{pmatrix} $，图中颜色越深表示值越小，可见$\hat F$保留了大部分的Fisher信息。注：$\hat F=(\hat F^{-1})^{-1}$是块三角矩阵$\hat F^{-1}$的逆，其本身不是块三角矩阵，下图显示了一个对角矩阵C和一个块对角矩阵D的逆的表现形式：</p>
-<p><img src="assets/KFAC-Inverse.png" alt="KFAC-Inverse"></p>
-<p><img src="assets/KFAC-F6.png" alt="KFAC-F6"></p>
+<p><img src="/images/RL/KFAC-Inverse.png" alt=" "></p>
+<p><img src="/images/RL/KFAC-F6.png" alt=" "></p>
 <p>图6中，各部分图的表示为：$\begin{pmatrix}|\widetilde F^{-1}| &amp; |\breve F^{-1} | &amp;| \widetilde F^{-1} | - |\breve F^{-1}|  \ |\widetilde F^{-1} | &amp; |\hat F^{-1}|  &amp; |\widetilde F^{-1} | - |\hat F^{-1} | \end{pmatrix} $。由右边的图可知，$\widetilde F^{-1}$和$ \hat F^{-1}$的差别已经很小了。</p>
 <h1 id="5-更新阻尼-Update-damping"><a href="#5-更新阻尼-Update-damping" class="headerlink" title="5 更新阻尼(Update damping)"></a>5 更新阻尼(Update damping)</h1><h2 id="5-1-2nd-order-optimization-with-damping"><a href="#5-1-2nd-order-optimization-with-damping" class="headerlink" title="5.1 2nd-order optimization with damping"></a>5.1 2nd-order optimization with damping</h2><p>Martens (2014,arXiv:1412.1193) 证明了：当$R_{y|z}​$属于指数分布族时，有$F=G\approx H​$，其中$G​$为高斯牛顿矩阵。在实验中，我们取$R_{y|z}​$为高斯分布，故有$F=G\approx H​$。于是将目标函数$h(\theta+\delta)​$进行二阶泰勒展开有：$h(\theta+\delta)= \frac{1}{2}\delta^TH\delta+\nabla h(\theta)^T\delta+h(\theta)+\mathcal{O}^2(\delta)​$，故二阶泰勒展开式可近似为：$M(\delta)=\frac{1}{2}\delta^TH\delta+\nabla h(\theta)^T\delta+h(\theta)\approx \frac{1}{2}\delta^TF\delta+\nabla h(\theta)^T\delta+h(\theta)​$，解得：$\delta^*=\underset{\delta}{argmin}\;M(\delta)=-H^{-1}\nabla h(\theta)\approx -F^{-1}\nabla h(\theta)​$。</p>
 <p>为防止过拟合，在目标函数中加入正则项$\frac{\eta}{2}\parallel\theta\parallel_2^2$得到：$J(\theta)=h(\theta)+\frac{\eta}{2}\parallel\theta\parallel_2^2$，则$J(\theta)$的Hessian矩阵：$H_J\approx F+\eta I$。为弥补二阶展开误差$\mathcal{O}^2(\delta)$，在$F$中加入$\lambda I$得到更加准确的Hessian矩阵的近似：$F+(\lambda+\eta) I$，即$F+(\lambda+\eta) I$能更好地近似$H$，故：$\delta^*=-(F+(\lambda+\eta) I)^{-1}\nabla h(\theta)$。使用以上两个技巧相当于在近似的$M(\delta)$中加入了$\frac{\lambda+\eta}{2}\parallel\delta\parallel_2^2$，即：$M(\delta)=\frac{1}{2}\delta^T(F+(\lambda +\eta) I)\delta+\nabla h(\theta)^T\delta+h(\theta)$。</p>
@@ -269,16 +266,16 @@
 <p>解得：$\pi_i^<em>=\underset{\pi_i}{argmin}\;(F’_{i,i}-F_{i,i})=\sqrt{\frac{tr(\bar{A}_{i-1,i-1})/(d_{i-1}+1)}{tr(G_{i,i})/d_i}}$，其中$d_i$是第$i$层的维度（单元数），于是有：$\stackrel\frown {F}^{-1}_{i,i}\approx (\bar{A}_{i-1,i-1}+\pi_i^</em>\sqrt{\lambda+\eta}\;I)^{-1}\otimes (G_{i,i}+\frac{1}{\pi_i^*}\sqrt{\lambda+\eta}\;I)^{-1}$。</p>
 <h2 id="5-3-Re-scaling"><a href="#5-3-Re-scaling" class="headerlink" title="5.3 Re-scaling"></a>5.3 Re-scaling</h2><p>对梯度$\Delta$使用学习率$\alpha$进行Re-scaling，从而获得更新的步长：$\delta=\alpha\Delta$。当使用自然梯度法时，记梯度$\Delta=-\stackrel\frown{F}^{-1}\nabla h(\theta)$，其中$\stackrel\frown{F}^{-1}$为使用前面各种技巧所近似得到的Fisher矩阵的逆。从而目标函数$h(\theta+\delta)$的二阶泰勒展开式可近似为：$M(\delta)=M(\alpha\Delta)=\frac{\alpha^2}{2}\Delta^T(F+(\lambda+\eta) I)\Delta+\alpha\nabla h(\theta)^T\Delta+h(\theta)$，其中$F$为在mini-batch上计算得到的准确Fisher矩阵。解得：$\alpha^<em>=\underset{\alpha}{argmin}\;M(\alpha\Delta)=\frac{\nabla h^T\Delta}{\Delta^T(F+(\lambda+\eta) I)\Delta}=\frac{\nabla h^T\Delta}{\Delta^TF\Delta+(\lambda+\eta) \parallel\Delta\parallel_2^2}$，故自然梯度下降法的更新步长为：$\delta=\alpha^</em>\Delta=\frac{\Delta^T\nabla h^T\Delta}{\Delta^TF\Delta+(\lambda+\eta) \parallel\Delta\parallel_2^2}$。</p>
 <h2 id="5-4-Momentum"><a href="#5-4-Momentum" class="headerlink" title="5.4 Momentum"></a>5.4 Momentum</h2><p>实验发现，在K-FAC中加入动量会有很好的效果。令更新步长为：$\delta=\alpha\Delta+\mu\delta_0$，其中，$\delta_0$为上一次迭代所计算出的更新值，求解$\alpha^<em>=\underset{\alpha}{argmin} \;M(\alpha\Delta+\mu\delta_0)$，$\mu^</em>=\underset{\mu}{argmin} \;M(\alpha\Delta+\mu\delta_0)$，得：</p>
-<p><img src="assets/KFAC-Momentum.png" alt="KFAC-Momentum"></p>
+<p><img src="/images/RL/KFAC-Momentum.png" alt=" "></p>
 <p>故加入动量的K-FAC方法的更新步长为：$\delta=\alpha^<em>\Delta+\mu^</em>\delta_0$。</p>
 <p>实验发现，在随机优化的早期至中期阶段梯度的噪声一般较小，若mini-batch的大小足够大，梯度在后期的噪声也可以很小，此时，加入动量可以实质性地加速梯度下降。效果对比如下图所示：</p>
-<p><img src="assets/KFAC-F7.png" alt="KFAC-F7"></p>
+<p><img src="/images/RL/KFAC-F7.png" alt=" "></p>
 <p>图7中，横轴表示阻尼系数$\gamma=\sqrt{\lambda+\eta}$，纵轴表示目标函数得到的改进，图中各线的含义如图7右上角所示。</p>
 <h1 id="6-调整阻尼系数"><a href="#6-调整阻尼系数" class="headerlink" title="6 调整阻尼系数"></a>6 调整阻尼系数</h1><h2 id="6-1-Levenberg-Marquardt-Method"><a href="#6-1-Levenberg-Marquardt-Method" class="headerlink" title="6.1 Levenberg-Marquardt Method"></a>6.1 Levenberg-Marquardt Method</h2><p>对λ使用LM方法进行调参：$\lambda=\begin{cases}w_1\lambda &amp; \rho&gt;3/4 \\\frac{1}{w_1}\lambda &amp; \rho&lt;1/4\end{cases}$ ，其中$\rho=\frac{h(\theta+\delta)-h(\theta)}{M(\delta)-M(0)},0&lt;w_1&lt;1$。此时，当$M\to h$时，$\lambda\to0$，此时趋于NGD方法，这样的好处是：由于此时已到达极值点附近，为防止病态条件下目标函数振荡下降，应考虑曲率，减小更新力度。当$M$不能很好地近似$h$时，$\lambda$增大，此时趋于SGD方法，这样的好处是：由于此时还没有到达极值点附近，无需担心病态条件，故使用SGD方法下降会更快，而若考虑曲率，则会使得更新变缓慢。</p>
 <h2 id="6-2-Separate-Damping"><a href="#6-2-Separate-Damping" class="headerlink" title="6.2 Separate Damping"></a>6.2 Separate Damping</h2><p>在计算$\Delta=-\stackrel\frown {F}^{-1}\nabla h$，其中$\stackrel\frown {F}^{-1}_{i,i}\approx (\bar{A}_{i-1,i-1}+\pi_i^<em>\sqrt{\lambda+\eta}\;I)^{-1}\otimes (G_{i,i}+\frac{1}{\pi_i^</em>}\sqrt{\lambda+\eta}\;I)^{-1}$，以及$\alpha^<em>==\frac{\nabla h^T\Delta}{\Delta^TF\Delta+(\lambda+\eta) \parallel\Delta\parallel_2^2}$时，都涉及到了阻尼系数$\lambda+\eta$。这里我们对前者使用不同的阻尼系数，令$\gamma=\sqrt{\lambda+\eta}$，则$\stackrel\frown {F}^{-1}_{i,i}\approx (\bar{A}_{i-1,i-1}+\pi_i^</em>\gamma I)^{-1}\otimes (G_{i,i}+\frac{1}{\pi_i^<em>}\gamma I)^{-1}$，故$\Delta$中的$\gamma$是为了使$\Delta=\underset{\delta}{argmin}\;M(\delta)=\underset{\delta}{argmin}\;(\frac{1}{2}\delta^TH\delta+\nabla h(\theta)^T\delta+h(\theta))\approx-\stackrel\frown {F}^{-1}\nabla h$尽可能准确，而随着迭代的进行，梯度中可能会积累越来越多的误差，因此使用更大的$\gamma$可能会使$\Delta$更准确。而$\alpha^</em>$中的λ，是为了弥补二阶近似误差$h(\theta+\delta)-M(\delta)$，我们希望它随着迭代的进行变得越来越小。因此，对$\Delta$和$\alpha^*$使用不同的阻尼系数$\gamma$和$\lambda+\eta$。</p>
 <p>对参数$\gamma$的一个合适的选择是取：$\gamma=\pm M(\alpha^*\Delta)$，且调整$\gamma$的方案为：迭代每隔$T_2$次更新$\gamma$为$\gamma 、w_2\gamma、\frac{1}{w_2}\gamma$中最好的一个。另外，在作者的初始化实验中，使用$\gamma=h(\theta+\delta)$和使用$\gamma=M(\delta)$有类似的效果。</p>
 <h1 id="7-改进计算效率"><a href="#7-改进计算效率" class="headerlink" title="7. 改进计算效率"></a>7. 改进计算效率</h1><p>==TO DO==</p>
-<h1 id="8-K-FAC优化方法伪代码"><a href="#8-K-FAC优化方法伪代码" class="headerlink" title="8. K-FAC优化方法伪代码"></a>8. K-FAC优化方法伪代码</h1><p><img src="\assets\K-FAC.png" alt="K-FAC"></p>
+<h1 id="8-K-FAC优化方法伪代码"><a href="#8-K-FAC优化方法伪代码" class="headerlink" title="8. K-FAC优化方法伪代码"></a>8. K-FAC优化方法伪代码</h1><p><img src="/images/RL/K-FAC.png" alt=" "></p>
 <p>下面是我对K-FAC伪代码的理解：</p>
 <hr>
 <p><strong>Algorthm 2 K-FAC方法伪代码</strong></p>

@@ -201,7 +201,7 @@
 <hr>
 <h1 id="基础理论"><a href="#基础理论" class="headerlink" title="基础理论"></a>基础理论</h1><h2 id="TD算法"><a href="#TD算法" class="headerlink" title="TD算法"></a>TD算法</h2><p>真实价值：$V^\pi(s)=E[\sum_{t=0}^\infty \gamma^tR_{t+1}|S_o=s]=E[G_t|S_t=s,\pi]$ ，其中return $G_t=R_{t+1}+\gamma G_{t+1}$</p>
 <p>n-step return：</p>
-<p><img src="assets/GTD-TD.png" alt="GTD-TD"></p>
+<p><img src="/images/RL/GTD-TD.png" alt=" "></p>
 <div class="table-container">
 <table>
 <thead>
@@ -318,7 +318,7 @@
 <p>目标函数的两个有偏估计：</p>
 <p>$MSBE(\theta)=|V_\theta-TV_\theta|_D^2$  ，$T$为贝尔曼算子，$V=R+\gamma PV=TV$</p>
 <p>$MSPBE(\theta)=|V_\theta-\Pi TV_\theta|_D^2$，$\Pi$为投影算子，$\Pi=\phi(\phi^TD\phi)^{-1}\phi^TD=I$，$I$为单位算子</p>
-<p><img src="assets/GTD-3.png" alt="GTD-3"></p>
+<p><img src="/images/RL/GTD-3.png" alt=" "></p>
 <p>$MSPBE(\theta)\\=|V_\theta-\Pi TV_\theta|_D^2\\=(\Pi (V_\theta-TV_\theta))^TD (\Pi (V_\theta-TV_\theta))\\=(V_\theta-TV_\theta)^TD^T \phi(\phi^TD \phi)^{-1}\phi^TD (V_\theta-TV_\theta)\\=(\phi^TD (V_\theta-TV_\theta))^T (\phi^TD \phi)^{-1}\phi^TD (V_\theta-TV_\theta)\\=(\phi^TD \delta)^T(\phi^T D \phi)^{-1} (\phi^TD \delta)$  </p>
 <p>$MSPBE(\theta)=E[\delta \phi]^T E[\phi \phi^T]^{-1} E[\delta \phi]$ </p>
 <p>$ - \frac{1}{2} \nabla MSPBE(\theta)=-E[\nabla_\theta \delta \phi^T] E[\phi\phi^T]^{-1} E[\delta \phi]$ </p>
@@ -326,9 +326,9 @@
 <p>已知密度函数$f(x),g(x)$、分布函数$F(x)=\int_{x \in X}f(x)dx$以及随机变量$h(x)$，求$E_{g(x)}[h(x)]$</p>
 <p>$E_{g(x)}[h(x)]=\int_{x\in X}h(x)g(x)dx=\int_{x\in X}h(x)\frac{g(x)}{f(x)}f(x)dx=\displaystyle\sum_{x\in X}h(x)\frac{g(x)}{f(x)}F(x)$ </p>
 <p>定义贝尔曼期望算子$\mathcal{P}_\mu^\pi$：</p>
-<p><img src="assets/GTD-期望算子.png" alt="GTD-期望算子"></p>
+<p><img src="/images/RL/GTD-期望算子.png" alt=" "></p>
 <p>注意上式的期望是按分布$A=\mu(s)\pi(a|s)P(s’|s,a)$ 求的，而下式的期望是按分布$B=\mu(s)\pi_b(a|s)P(s’|s,a)$ 求的，且有$\mathcal{P}_\mu^\pi \delta \phi =E_A[\delta \phi]=E_B[\rho \delta \phi]$ ，分布A显示了按target policy得到过程$(s,a,s’)$的情况，分布B显示了按behavior policy获得过程$(s,a,s’)$的情况。</p>
-<p><img src="assets/GTD-important sample.png" alt="GTD-important sample"></p>
+<p><img src="/images/RL/GTD-important sample.png" alt=" "></p>
 <p>实际上，当随机变量与$(a,s’)$无关时，有$\mathcal{P}_\mu^\pi=D$，因为算子$D$是只对$s$求期望，而算子$\mathcal{P}_\mu^\pi$是对$(s,a,s’)$求期望。因此，目标函数及梯度可化为：</p>
 <p>$J(\theta)=MSPBE(\theta)\\=(\phi^TD \delta)^T(\phi^T D \phi)^{-1} (\phi^TD \delta)\\=(\phi^T\mathcal{P}_\mu^\pi \delta)^T(\phi^T D \phi)^{-1} (\phi^T\mathcal{P}_\mu^\pi \delta)\\=E[\delta \phi]^T E[\phi \phi^T]^{-1} E[\delta \phi]\\=E_B[\rho \delta \phi]^T E[\phi \phi^T]^{-1} E_B[\rho \delta \phi]$</p>
 <p>$ - \frac{1}{2} \nabla_\theta J(\theta)\\=-E_B[\rho \nabla_\theta \delta \phi^T] E[\phi\phi^T]^{-1} E_B[\rho \delta \phi]\\=-E_B[\rho \nabla_\theta \delta \phi^T] E[\phi\phi^T]^{-1} E_B[\rho\delta \phi]$  </p>
@@ -434,20 +434,20 @@
 <p>$J(w)=(\phi_t^TE[\phi_t \phi_t^T]^{-1} E[\delta_t(\theta) e_t]- \phi_t^Tw)^2=(\phi_t^{-1} \delta_t(\theta) e_t-\phi_t^Tw)^2$</p>
 <p>$-\frac{1}{2} \nabla J(w) =(\phi_t^{-1} \delta_t(\theta) e_t-\phi_t^Tw)\phi_t=\delta_t(\theta) e_t-(\phi_t^Tw)\phi_t$ </p>
 <p>off-policy下GTD(λ)算法如下：</p>
-<p><img src="assets/GTD-λ.png" alt="GTD-λ"></p>
+<p><img src="/images/RL/GTD-λ.png" alt=" "></p>
 <h2 id="线性GQ-lambda-："><a href="#线性GQ-lambda-：" class="headerlink" title="- 线性GQ($\lambda$) ："></a>- 线性GQ($\lambda$) ：</h2><p>==TODO==</p>
 <p>GQ(λ)在GTD(λ)基础上改为使用action-value function</p>
-<p><img src="assets/GTD-GQ(λ" alt="GTD-GQ(λ)">.png)</p>
+<p><img src="/images/RL/GTD-GQ(λ" alt=" ">.png)</p>
 <h1 id="非线性GTD算法"><a href="#非线性GTD算法" class="headerlink" title="非线性GTD算法"></a>非线性GTD算法</h1><p>在线性GTD算法中，我们使用了线性函数近似器$V(S) \approx V_\theta(S) = \theta^T \phi$，故有$\nabla_\theta V_\theta(S)=\phi$。推广到非线性情况下有：</p>
 <p>$J(\theta)=MSPBE(\theta)=E[\delta \phi]^T E[\phi \phi^T]^{-1} E[\delta \phi]=E[\delta \nabla_\theta V_\theta(S)]^T E[\nabla_\theta V_\theta(S) \nabla_\theta V_\theta(S)^T]^{-1} E[\delta\nabla_\theta V_\theta(S)]$</p>
 <p>故有以下引理和推论：</p>
-<p><img src="assets/GTD-lemma3.png" alt="GTD-lemma3"></p>
-<p><img src="assets/GTD-lemma3-2.png" alt="GTD-lemma3-2"></p>
-<p><img src="assets/GTD-推论.png" alt="GTD-推论"></p>
+<p><img src="/images/RL/GTD-lemma3.png" alt=" "></p>
+<p><img src="/images/RL/GTD-lemma3-2.png" alt=" "></p>
+<p><img src="/images/RL/GTD-推论.png" alt=" "></p>
 <p>注意：在引理中假设$E[\nabla_\theta V_\theta(S) \nabla_\theta V_\theta(S)^T]$ 是非退化的，即有逆矩阵，该假设可以被证V_v(s_t)明。非线性情况下GTD算法的更新公式和收敛性证明请参考2011年Maei的论文《Gradient Temporal-Difference Learning Algorithms》。</p>
-<p><img src="assets/GTD-theorem4.png" alt="GTD-theorem4"></p>
+<p><img src="/images/RL/GTD-theorem4.png" alt=" "></p>
 <p>非线性GTD-2和TD-C算法的更新公式如下：</p>
-<p><img src="assets/GTD-NL.png" alt="GTD-NL"></p>
+<p><img src="/images/RL/GTD-NL.png" alt=" "></p>
 <h1 id="附件"><a href="#附件" class="headerlink" title="附件"></a>附件</h1><p>定义：</p>
 <ol>
 <li>$E_t(s)=\gamma \lambda E_{t-1}(s)+1(S_t=s)$</li>
