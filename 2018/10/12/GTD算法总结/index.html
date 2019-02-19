@@ -182,12 +182,11 @@
     </div>
     
     <div class="post-body post-content">
-        <p>[TOC]</p>
-<div style="page-break-after:always;"></div>
+        <div style="page-break-after:always;"></div>
 
 <h1 id="摘要"><a href="#摘要" class="headerlink" title="摘要"></a>摘要</h1><p>我认为以下方法应称之为价值梯度（Value Gradient）方法，简称VG方法，相对于Policy Gradient(PG)方法，它没有用梯度上升法更新策略，而只用梯度上升法更新值函数。因此，VG方法是一种value-based的迭代策略评估方法，PG方法是一种policy-based的策略改进方法，两者结合起来可得到Actor-Critic Gradient方法。需要注意的是，VG方法的迭代过程只有策略评估，没有策略改进。VG方法中，基于state value function的TD算法，称为GTD算法，基于state-action value function的off policy TD算法，称为GQ算法。对于PG方法，策略梯度理论保证了它们可以使用梯度上升法来更新策略，即保证了收敛性。对于VG方法中的GTD、GQ等算法，sutton、maei等人在论文中也证明了它们在下表中各种情况下的收敛性。</p>
 <p>GTD算法是为解决off-policy下TD算法不收敛问题而提出的算法，on-policy和off-policy下MC、TD及GTD算法的收敛性见下表：</p>
-<p><img src="/images/RL/GTD-1.png" alt=""></p>
+<p><img src="/images/RL/GTD-1.png" alt=" "></p>
 <p>由上表可知，TD算法在非线性和off-policy线性情况下会发散，而使用GTD算法可解决收敛性问题，下面会仔细讨论on-policy和off-policy情况下的线性GTD算法，关于收敛性的证明请参考sutton、maei等人的论文。非线性GTD算法可以看做是线性GTD算法的推广，两者的更新公式大同小异，后面只做简要介绍。在这之前先介绍一些基础算法和基础理论：线性TD(0)算法、梯度上升法中目标函数、off-policy中的重要采样。</p>
 <p>另外，使用价值梯度、策略梯度的RL算法的主要逻辑为：</p>
 <hr>

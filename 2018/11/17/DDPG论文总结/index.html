@@ -310,7 +310,7 @@
 </table>
 </div>
 <p>注：实验b)中时间差分程度$\delta$的不同，导致了参数$\gamma,\lambda,\alpha_\theta,\alpha_v$的不同，这是为了确保reward在单位时间内的权重保持相同，实验c)中应用的算法自动计算了步长，所以参数$\alpha_\theta,\alpha_v$没有取值。</p>
-<p><img src="assets/DDPG-P_N_.png" alt="DDPG-P_N_"></p>
+<p><img src="/images/RL/DDPG-P_N_.png" alt=""></p>
 <p>上图中，横轴为episode number，纵轴为average reward。实线和虚线分别表示使用了上表中所示的不同噪声过程参数。</p>
 <p>通过上述实验，在保证一定随机性水平（状态条件方差相等）的条件下，即对于具有相同功效$P_\mathcal{N}=I\sigma^2\delta M$的自相关噪声过程，有以下结论：</p>
 <ul>
@@ -327,7 +327,7 @@
 <p><strong>The Ornstein Uhlenbeck过程</strong>：在数学中，Ornstein Uhlenbeck过程是一个随机过程，粗略地说，它模拟了一个带有摩擦的布朗粒子的速度，具有以0为中心的时间相关值。这个过程是一个<strong>平稳高斯马尔可夫过程</strong>，这意味着它既是一个高斯过程，又是一个马尔科夫过程，并且是暂时的齐次的。Ornstein Uhlenbeck过程是满足这三个条件的唯一非平凡的过程，它允许空间和时间变量的<strong>线性变换</strong>。随着时间的推移，这个过程趋向于<strong>向长期均值偏移</strong>，这样的过程称为均值回归。该过程可以被看作是修改到连续时间上的随机漫步，或是一个过程性质已经改变了的维纳过程（布朗运动），这样漫步就会有回到中心位置的倾向，且当过程是远离中心时，中心会有更大的吸引力。Ornstein Uhlenbeck过程还可以被认为是离散时间自回归（AR）过程的在连续时间上的类比。</p>
 <p><strong>Ornstein Uhlenbeck过程实例</strong>：</p>
 <p>$x_t$是一Ornstein Uhlenbeck过程，则$dx_t=\theta(\mu-x_t)dt+\sigma dW_t$，其中，$\theta&gt;0,\sigma&gt;0,\mu$是参数，$W_t$是一维纳过程（布朗运动）。求解微分方程得$x_t=x_0e^{-\theta t}+\mu(1-e^{-\theta t})+\sigma\int_0^te^{-\theta(t-s)}dW_s$ ，故$var(x_t)=\frac{\sigma^2}{2\theta}$ 。下图显示了给定参数下的Ornstein Uhlenbeck过程</p>
-<p><img src="assets/DDPG-OrnsteinUhlenbeck.png" alt="DDPG-OrnsteinUhlenbeck"></p>
+<p><img src="/images/RL/DDPG-OrnsteinUhlenbeck.png" alt=""></p>
 <p>注：横坐标为$t$，纵坐标为$x_t$，参数：$\theta=1,\mu=1.2,\sigma=0.3$，绿、红、蓝线分别表示取$x_0=2、x_0\sim N(\mu,\frac{\sigma^2}{2\theta})、x_0=0$情形下的Ornstein Uhlenbeck过程。</p>
 <p>分析可发现Ornstein Uhlenbeck过程具有和自相关噪声过程相似的性质，且可能比其拥有更多优良的性质。</p>
 <h2 id="2-2-RL算法"><a href="#2-2-RL算法" class="headerlink" title="2.2 RL算法"></a>2.2 RL算法</h2><p>论文中使用的核心算法，就是在DPAC算法的基础上，使用了DQN算法中的经验回放和利用神经网络表征 action-value function的方法，然后进行了改进：</p>
@@ -338,7 +338,7 @@
 </ol>
 <p>对于以上三点改进，本节只对第一点进行着重讨论。因为第二点在上节中已经进行了详细介绍，而第三点类似于DQN中的延迟更新，只是方式有些许不同，但效果基本一样。</p>
 <p>因此，DDPG算法的主要逻辑为：第一，进行探索以获取经验，使用control policy生成轨迹进行探索，通过在确定策略中加入从随机过程采样得到的噪声，确保了轨迹的随机性；第二，采样，使用DQN中的replay buffer进行经验回放和bootstrapping，以使样本更加独立同分布；第三，迭代更新，使用off-policy DPAC算法更新确定策略，并使用两个target网络，通过加权方法小幅度更新Critic和Actor中两个网络的参数，以增加网络的稳定性。下图展示了完整的算法过程。</p>
-<p><img src="../../../RL%E8%AE%BA%E6%96%87/policy-based/policy_gradient/assets/DDPG.png" alt="DDPG"></p>
+<p><img src="/images/RL/DDPG.png" alt=""></p>
 <p>注意：</p>
 <ul>
 <li>TD target：$y_i=r_i+\gamma Q’(s_{i+1},\mu’(s_{i+1}|\theta^{\mu‘}))$中使用的不是$a_{i+1}$，而是$\mu’(s_{i+1})$，故为off-policy；</li>
@@ -349,7 +349,7 @@
 <p><strong>批标准化</strong></p>
 <p>（此部分参考Ioffe和Szegedy的论文《Batch Normalization: Accelerating Deep Network Training by Reducing Internal Covariate Shift》）</p>
 <p>对高维观测空间问题，我们在RL算法中使用了神经网络从观测中提取状态特征，而当这些观测有不同的物理单位，且取值范围随环境变化时，会使得神经网络的泛化能力大大降低。为解决该问题，可以人为使观测在不同的环境和单位上处于类似的范围，一种更好的方法是使用批标准化，该方法将采样得到的小批次样本的每个维度进行标准化，使其具有单位均值和方差。而且，在探索或评估（测试）过程中，采用的是移动平均的方法。对高维行动空间问题，批标准化被用于保证每层的输入都经过了白化处理，以此来最小化协方差。对于低维行动空间，优先于标准化行动输入，先对观测输入、$\mu$网络和$Q$网络中的所有层进行批标准化。下图展示了对神经网络进行批标准化的过程：</p>
-<p><img src="assets/DDPG-批标准化.png" alt="DDPG-批标准化"></p>
+<p><img src="/images/RL/DDPG-批标准化.png" alt=""></p>
 <p><strong>NFQCA算法</strong></p>
 <p>NFQCA算法：即原始DPG算法，它使用DPG算法进行更新，并使用神经网络近似值函数，且在神经网络中使用了批标准化。NFQCA算法的局限性：由于DPG算法只有策略评估，没有策略改进，而在大型网络中需使用批方法，即对一批一批的样本进行策略评估，故此时若不使用target network，就无法针对每个样本及时更新策略，使得学到的策略不可行。</p>
 <p><strong>iLQG方法</strong></p>
@@ -460,26 +460,26 @@
 </table>
 </div>
 <p>备注：$f$表示该层的扇入数（fall-in），各个任务环境的状态、行动及观测维度见下表。</p>
-<p><img src="assets/DDPG-T2.png" alt="DDPG-T2"></p>
+<p><img src="/images/RL/DDPG-T2.png" alt=""></p>
 <h2 id="2-5-训练结果"><a href="#2-5-训练结果" class="headerlink" title="2.5 训练结果"></a>2.5 训练结果</h2><p>在一些简单的任务中，使用高维观测（像素图片）和低维的状态描述学习得一样快，可能是动作重叠使得问题更简单了，也可能是卷积层将状态空间在各个维度上的表示划分得足够分明，使得更深的layer可以学得很快。针对不同的目的，本文进行了以下4个实验：</p>
 <ol>
 <li>为证明DDPG算法的有效性，将其应用到了Torcs上，实验表明，在低维观测空间和高维像素观测空间上，DDPG都能学到合理的策略。</li>
 </ol>
-<p><img src="assets/DDPG-Torcs.png" alt="DDPG-Torcs"></p>
+<p><img src="/images/RL/DDPG-Torcs.png" alt=""></p>
 <ol>
 <li>为比较target network和批标准化的重要性，基于原始DPG算法进行以下对照实验，效果如下图：</li>
 </ol>
-<p><img src="assets/DDPG算法表现.png" alt="DDPG算法表现"></p>
+<p><img src="/images/RL/DDPG算法表现.png" alt=""></p>
 <p>上图中，横轴表示step，纵轴表示标准化后的reward。浅灰色代表使用了批标准化的minibatch NFQCA算法，深灰色代表使用了target 网络的minibatch NFQCA算法，绿色代表同时使用批标准化和target网络的minibatch NFQCA算法，蓝色代表使用target网络且神经网络输入仅为像素的minibatch NFQCA算法。由上图可知，target network是关键。</p>
 <ol>
 <li>为验证DDPG策略评估的准确性（由于过估计等问题，通过策略评估学得准确的value往往是有困难的），对3个任务使用DDPG算法进行了5次重复实验，其中前两个任务比较简单，最后一个任务较难。本文通过比较在轨迹中看到的真实return和用训练得到的Q估计的value来在线检测DDPG的评估是否准确，策略评估的value和真实return的关系见下图：</li>
 </ol>
-<p><img src="assets/DDPG-F3.png" alt="DDPG-F3"></p>
+<p><img src="/images/RL/DDPG-F3.png" alt=""></p>
 <p>上图中，横轴表示在轨迹中看到的真实return，纵轴表示用DDPG策略评估得到的value，是对真实return的估计。由上图可知，对于简单任务，DDPG对return的估计比较准确，没有系统偏差；而对于较难的任务，DDPG的策略评估虽然很不准确，但学得的策略仍然较好。</p>
 <ol>
 <li>为讨论DDPG在低维观测空间和高维像素观测空间上的表现，进行如下对照实验：从以下环境中分别获得低维观测空间（人为获取）和高维像素观测空间表示，使用DDPG算法和 NFQCA算法在两种观测空间下训练最多2.5亿个step，得到5次重复实验下的平均标准得分和最佳标准得分，其中NFQCA算法为使用了reply buffer和批标准化的minibatch NFQCA算法，两种算法的表现见下表。</li>
 </ol>
-<p><img src="assets/DDPG-.png" alt="DDPG-"></p>
+<p><img src="/images/RL/DDPG-.png" alt=""></p>
 <p>上表中，$R_{av}$ 代表Average Return，$R_{best}$ 代表Best Return，$R_{lowd}$代表使用：输入为低维观测空间的DDPG算法，$R_{lowd}$代表使用：输入为高维像素观测空间的DDPG算法，$R_{cntrl}$代表使用：使用了reply buffer和批标准化的minibatch NFQCA算法。注意，除torcs外，其它实验的得分都进行了标准化。实际上，针对DDPG和iLQG方法有不同的标准化方式，DDPG是计算navie policy 的平均return，navie policy为行动空间上的均匀分布，如此进行标准化后navie policy的得分期望为0；而iLQG方法进行标准化后的得分期望为1。</p>
 
     </div>

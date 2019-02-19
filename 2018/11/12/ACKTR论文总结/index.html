@@ -226,7 +226,7 @@
 <p>解得：$\pi_i^<em>=\underset{\pi_i}{argmin}\;(F’_{i,i}-F_{i,i})=\sqrt{\frac{tr(\bar{A}_{i-1,i-1})/(d_{i-1}+1)}{tr(G_{i,i})/d_i}}$，其中$d_i$是第$i$层的维度（单元数），于是有：$\stackrel\frown {F}^{-1}_{i,i}\approx (\bar{A}_{i-1,i-1}+\pi_i^</em>\sqrt{\lambda+\eta}\;I)^{-1}\otimes (G_{i,i}+\frac{1}{\pi_i^<em>}\sqrt{\lambda+\eta}\;I)^{-1}$。故有梯度：$vec(\Delta W_i)=\stackrel\frown F_i^{-1}vec(\nabla_{W_l} J)= (\bar{A}_{i-1,i-1}+\pi_i^</em>\sqrt{\lambda+\eta}\;I)^{-1}\nabla_{W_l}J (G_{i,i}+\frac{1}{\pi_i^*}\sqrt{\lambda+\eta}\;I)^{-1}$ </p>
 <h2 id="2-3-distributed-K-FAC"><a href="#2-3-distributed-K-FAC" class="headerlink" title="2.3 distributed K-FAC"></a>2.3 distributed K-FAC</h2><p>由2.2节知，求梯度$vec(\Delta W_i)$，需要计算$\bar{A}_{i-1,i-1}+\pi_i^*\sqrt{\lambda+\eta}\;I$等因子的逆或者它们的特征分解，这些因子的大小可能只是几百或上千，但深度网络可能有成百上千个这样的因子矩阵，从而使得在GPU上计算这些矩阵逆或者特征分解很吃力。于是使用异步的方式在CPU上计算它们，且作者发现偶尔使用这些因子的旧值来计算Fisher矩阵的逆，对每次迭代的平均进度只产生了很小的有害影响。</p>
 <p><strong>Asynchronous computation</strong></p>
-<p><img src="assets/ACKTR-Distributed computation.png" alt="ACKTR-Distributed computation"></p>
+<p><img src="/images/RL/ACKTR-Distributed computation.png" alt=""></p>
 <p>在作者的实验中，异步计算这些逆通常能使K-FAC算法加速40%~50%，且分布式K-FAC在训练大型现代分类卷积网络时能加速2到3倍。</p>
 <h2 id="2-4-Gauss-Netwon-Method"><a href="#2-4-Gauss-Netwon-Method" class="headerlink" title="2.4 Gauss-Netwon Method"></a>2.4 Gauss-Netwon Method</h2><p><strong>高斯牛顿法和牛顿法的关系</strong></p>
 <p>高斯牛顿法是解决非线性最小二乘问题的一种基本方法，它只能处理二次函数。</p>
@@ -240,7 +240,7 @@
 <p>当使用自然梯度法时，网络更新方式为：$\theta\gets\theta-\eta F^{-1}\nabla_\theta L$，令$\Delta\theta=\eta F^{-1}\nabla_\theta L=\eta\Delta$ ，则$D_{KL}[P(y|x,\theta)||P(y|x,\theta+\eta\Delta)]\approx\eta^2\Delta^T F \Delta\leq2\epsilon$ ，即$\eta\leq\sqrt{\frac{2\epsilon}{\Delta^T F \Delta}}$，进一步对$\eta$进行clipping有：$\eta=\min\{\eta_{max},\sqrt{\frac{2\epsilon}{\Delta^T F \Delta}}\}$，其中$\Delta=F^{-1}\nabla_\theta L$。</p>
 <h2 id="2-6-ACKTR-Algorithm"><a href="#2-6-ACKTR-Algorithm" class="headerlink" title="2.6 ACKTR Algorithm"></a>2.6 ACKTR Algorithm</h2><p>这里称A3C算法的同步和批次化版本为A2C算法，ACKTR算法就是在A2C算法中使用自然梯度而不是一般的梯度，且加入了TRPO方法。实验证明，ACKTR是一种样本效率高且计算不昂贵的二阶梯度算法，且相比一阶梯度算法A2C，ACKTR在平均样本效率上有2-至3-fold的改进。</p>
 <p>ACKTR算法的RL背景以及模型架构和A3C类似：考虑discounted MDP$(S,A,\gamma,P,r)$，agent的目标是最大化：$J(\theta)=E_{\pi_\theta}[\displaystyle\sum_{i\geq0}^{\infty}\gamma^i r(s_{t+i},a_{t+i})]$。the actor通过最大化目标函数$J(\theta)$来更新参数$\theta$，其中策略梯度定义为：$\nabla_\theta J(\theta)=E_{\pi_\theta}[\displaystyle\sum_{i\geq0}^{\infty}A^\pi(s_t,a_t)\nabla_\theta\log\pi_\theta(a_t|s_t)]$，ACKTR参考A3C算法使用了k-step return来近似优势函数：$A^\pi(s_t,a_t)=\displaystyle\sum_{i=0}^{k-1}(\gamma^ir_(s_{t+i},a_{t+i})+\gamma^kV_{\phi}^\pi(s_{t+k}))-V_{\phi}^\pi(s_t)$，其中$V_{\phi}^\pi(s_t)=E_\pi[R_t]$。为了训练the critic，按照A3C算法进行TD更新，即最小化均方误差$\frac{1}{2}\parallel\hat R_t-V^\pi_\phi(s_t)\parallel^2$，其中$\hat R_t$为bootstrap得到的k-step returns。A3C的伪代码如下：</p>
-<p><img src="assets/ACKTR-A3C-pseudocode.png" alt="ACKTR-A3C-pseudocode"></p>
+<p><img src="/images/RL/ACKTR-A3C-pseudocode.png" alt=""></p>
 <p>与A3C不同，ACKTR使用自然梯度优化the actor，于是使用策略函数定义RL目标函数$J(\theta)$下的Fisher信息矩阵：$F=E_{p(\tau)}[\nabla_\theta\log\pi(a_t|s_t)\nabla_\theta\log\pi(a_t|s_t)^T]$，其中$p(\tau)=p(s_0)\prod_{t=0}^T\pi(a_t|s_t)p(s_{t+1}|s_t,a_t)$表示轨迹分布。</p>
 <p>此外，ACKTR还在the critic中使用自然梯度法，因此设the critic的输出$v$是一高斯分布：$p_\nu(v_t|s_t)\sim\mathcal{N}(v_t;V(s_t),\sigma^2)$，$v_t=V(s_t)\pm\sigma$，实际中常取$\sigma=1$。由于高斯分布属于指数分布族，the critic的Fisher矩阵就是高斯牛顿矩阵。此时，the critic使用的自然梯度法相当于高斯牛顿法。</p>
 <p>若the actor和the critic是不相交的，可分别应用K-FAC方法来计算 它们的Fisher信息逆矩阵，然而为保证训练的稳定性，A3C和ACER使用了一种效果很好的网络架构，即：the actor和the critic共享低层网络结构，但有不同的输出层。此时，我们可假设两者输出的分布相互独立来定义它们的联合分布：$p(a,v|s)=\pi(a|s)p(v|s)$，然后对分布$p(a,v|s)$定义Fisher信息矩阵，并使用K-FAC方法进行计算：$F=E_{p(\tau)}[\nabla\log p(a,v|s)\nabla\log p(a,v|s)^T]$。此时，和标准K-FAC方法唯一不同的地方就是需要对网络的两个输出进行独立采样。</p>
@@ -484,37 +484,37 @@
 <h1 id="4-训练结果"><a href="#4-训练结果" class="headerlink" title="4 训练结果"></a>4 训练结果</h1><h2 id="4-1-离散型控制任务"><a href="#4-1-离散型控制任务" class="headerlink" title="4.1 离散型控制任务"></a>4.1 离散型控制任务</h2><ul>
 <li>对于离散型控制任务，作者使用ACKTR算法训练6个Atari 2600游戏，并与A2C和TRPO$^2​$算法进行对比，各个游戏1千万个时间步的训练效果如图1所示：</li>
 </ul>
-<p><img src="assets/ACKTR-F1.png" alt="ACKTR-F1"></p>
+<p><img src="/images/RL/ACKTR-F1.png" alt=""></p>
 <p>图1中，横轴表示Timesteps，纵轴表示Episode Rewards。由图可知，ACKTR的样本效率在所有游戏中都明显超过了A2C，而TRPO在1千万个时间步内只能训练两个游戏，比A2C的样本效率还要低。</p>
 <p>在表1中，作者计算出了训练5千万个时间步后最后100个episodes的平均reward，还显示了平均reward初次达到人类水平时的episode，其中N/A表示在5千万个时间步算法的平均reward未能达到人类水平。</p>
-<p><img src="assets/ACKTR-T1.png" alt="ACKTR-T1"></p>
+<p><img src="/images/RL/ACKTR-T1.png" alt=""></p>
 <p>由表1可知，对于前四个游戏，相比ACKTR，A2C分别多花费了2.7,3.5,5.3,3.0倍个episode才能达到人类水准，且ACKTR最终的平均reward要分别比A2C高出26%,5%,35%,67%倍。A2C在最后一个游戏中最终没能达到人类水准，而ACKTR达到了，且两者最终的平均reward差距极大（1757.2:19723.0）。</p>
 <ul>
 <li>此外，作者还将使用ACKTR训练了剩余的Atari游戏，并将ACKTR与Q-learning方法（DQN,DDQN,DUEL,PRIOR,PRIOR&amp;DUEL）的样本效率进行了对比，结果见表4：</li>
 </ul>
-<p><img src="assets/ACKTR-T4.png" alt="ACKTR-T4"></p>
+<p><img src="/images/RL/ACKTR-T4.png" alt=""></p>
 <p>由表4可知，在以上44个游戏中的36个游戏中，ACKTR的样本效率与Q-learning方法具有同等水平，且花费的计算时间要少很多。特别在Atlantis游戏中，ACKTR的样本效率比A2C高10倍，效果如图2所示：</p>
-<p><img src="assets/ACKTR-F2.png" alt="ACKTR-F2"></p>
+<p><img src="/images/RL/ACKTR-F2.png" alt=""></p>
 <h2 id="4-2-连续型控制任务"><a href="#4-2-连续型控制任务" class="headerlink" title="4.2 连续型控制任务"></a>4.2 连续型控制任务</h2><ul>
 <li>对于连续型控制任务，作者分别使用低维状态空间和原始像素作为输出，用ACKTR算法训练8个MuJoCo任务1亿个时间步，并与A2C和TRPO算法进行对比，结果如图3所示：</li>
 </ul>
-<p><img src="assets/ACKTR-F3.png" alt="ACKTR-F3"></p>
+<p><img src="/images/RL/ACKTR-F3.png" alt=""></p>
 <p>图3中，横轴表示Timesteps，纵轴表示Episode Rewards。由图可知，ACKTR在6个任务中明显优于A2C，在另外2个任务中表现与A2C相当。</p>
 <p>在表2中，训练这8个任务至3千万个时间步，计算训练过程中最高10个(top 10)连续episodes的平均reward以及到达一确定临界值（threshold）的episode序号，结果见表2：</p>
-<p><img src="C:\Users\Administrator\Pictures\ACKTR-T2.PNG" alt="ACKTR-T2"></p>
+<p><img src="/images/RL/ACKTR-T2.PNG" alt=""></p>
 <p>由表4可知，除了在Swimmer中TRPO的样本效率高出4.1倍，ACKTR在所有任务中最早到达确定临界值。特别在Ant中，ACKTR的样本效率要比TRPO高4.1倍。关于平均reward，3种算法的效果相当。</p>
 <ul>
 <li>考虑直接从原始像素中学习连续控制策略，此时，最好的A3C算法也只在Pendulum、Pointmass2D和 Gripper这样的简单任务上表现满意，而ACKTR在训练4千万个时间步后，在最后episode的表现要明显优于A2C，效果如图4所示：</li>
 </ul>
-<p><img src="assets/ACKTR-F4.png" alt="ACKTR-F4"></p>
+<p><img src="/images/RL/ACKTR-F4.png" alt=""></p>
 <p>图4中，横轴表示Timesteps，纵轴表示Episode Rewards。由图可知，在以上3个任务中ACKTR最后的reward要比A2C分别好1.6、2.8和1.7倍。</p>
 <h2 id="4-3-其他讨论"><a href="#4-3-其他讨论" class="headerlink" title="4.3 其他讨论"></a>4.3 其他讨论</h2><p><strong>二阶优化方法和Batch Size对算法的影响</strong></p>
 <p>A2C使用的是一阶优化方法，首先在ACKTR中只对actor使用二阶优化方法，然后同时对actor和critic使用二阶优化方法，对比它们的效果。此外，还对比不同batch size（160和640）下，A2C和ACKTR的效果，如图5所示：</p>
-<p><img src="assets/ACKTR-F5.png" alt="ACKTR-F5"></p>
+<p><img src="/images/RL/ACKTR-F5.png" alt=""></p>
 <p>图5中，横轴表示Timesteps，纵轴表示Episode Rewards。由图5的前两图可知，在A2C基础上对actor使用二阶优化方法，训练效果有改进。但对critic使用二阶优化方法在样本效率和训练最后的episode reward上带来的改进更大。而且作者观察到一阶优化方法得到的结果方差更大，因此二阶优化方法更加稳定。由图5的后两图可知，ACKTR在更大的batch size下也表现得很好，而A2C的样本效率会明显降低。特别在(d)图中将每次迭代更新的reward大小表示出来，可以发现使用更大batch size时，相较于A2C，ACKTR的收益增加明显。这意味着，在使用异步更新时，ACKTR有潜力来更大程度地提高计算效率，而A2C可能需要更大的batch size来达到相同的计算效率。</p>
 <p><strong>各算法在wall-clock time上的对比</strong></p>
 <p>计算不同batch size下ACKTR、A2C以及TRPO在前面6个Atari游戏和8个MuJuCo任务上每个时间步的平均计算时间的倒数，结果如表3所示：</p>
-<p><img src="assets/ACKTR-T3.png" alt="ACKTR-T3"></p>
+<p><img src="/images/RL/ACKTR-T3.png" alt=""></p>
 <p>由表3可知，ACKTR每个时间步的计算时间最多比A2C高25%。</p>
 
     </div>

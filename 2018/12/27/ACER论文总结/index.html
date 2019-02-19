@@ -295,16 +295,16 @@
 </table>
 </div>
 <h3 id="2-1-3-训练结果"><a href="#2-1-3-训练结果" class="headerlink" title="2.1.3 训练结果"></a>2.1.3 训练结果</h3><p>为了比较不同的agent，在所有57个Atari游戏中，作者使用人为标准化得分的中值。标准化方法为：首先，对于每一个游戏，人类的分数和随机的分数分别被评估为1和0；第二，计算过去100万个连续帧中标准得分的平均值。对于每个agent，作者将其累积最大中值得分关于时间的变化展示出来，总结后的结果如图1所示。</p>
-<p><img src="/home/joy/hexo/source/imges/RL/ACER-F1.png" alt="ACER-F1"></p>
+<p><img src="/images/RL/ACER-F1.png" alt=""></p>
 <p>图1：on-policy下ACER算法在采样（左图）和计算复杂度（右图）上的改进，纵轴代表人为标准化的得分中值。其中，实线代表使用了efficient TRPO方法，虚线代表没有使用。不同颜色的曲线代表使用了不同replay比率的ACER算法，其中0 replay就是on-policy A3C算法。此外，灰色曲线代表DQN算法，黑色曲线代表使用了优先回放的Double DQN算法。</p>
 <p>由左图可知，replay可以有效增加数据有效性，若对得分取平均，平均reward会随replay比率而增加，这种增加有递减的return，但只要足够的replay，ACER可以和最好的DQN agent（优先回放DDQN）相当，且off-policy ACER的样本效率会明显高于on-policy A3C。</p>
 <p>由右图可知，按时间进行度量，ACER和A3C表现相似。因此，对于这种情况，ACER在没有牺牲计算时间的条件下，可能提高了数据有效性。特别值得一提的是，replay比率为4的ACER算法是很好的替代Prioritized DQN或A3C的算法。</p>
 <h2 id="2-2-连续的ACER算法"><a href="#2-2-连续的ACER算法" class="headerlink" title="2.2 连续的ACER算法"></a>2.2 连续的ACER算法</h2><h3 id="2-2-1-连续RL算法"><a href="#2-2-1-连续RL算法" class="headerlink" title="2.2.1 连续RL算法"></a>2.2.1 连续RL算法</h3><p>论文中针对连续行动问题使用的连续RL算法，就是在离散ACER算法的基础上，在critic部分使用Retrace$Q^{ret}$，在actor部分使用没有加入重要采样的Retrace$Q^{opc}$，并添加了Stochastic Dueling Networks。本节会着重讨论这两个部分，另外还会介绍一下实验中用到的TIS算法，该算法只使用了截断重要性采样。下图中的伪代码展示了off-policy下完整的连续ACER算法过程：</p>
-<p><img src="/home/joy/hexo/source/imges/RL/ACER_C.png" alt="ACER_C"></p>
+<p><img src="/images/RL/ACER_C.png" alt=""></p>
 <p><strong>（1）Stochastic Dueling Networks</strong></p>
 <p>由于计算Retrace需要$Q^\pi$和$V^\pi$的估计$Q_{\theta_v}$和$V_{\theta_v}$，而在连续行动空间上，难以求得期望$V_{\theta_v}(x)=E_{a\sim\pi}Q_{\theta_v}(x,a)$。为解决该问题，我们使用Stochastic Dueling Networks（SDNs）同时输出$V^\pi$和$A^\pi$的估计$V_{\theta_v}$和$A_{\theta_v}$，增加一层可求得$Q^\pi$的估计$\widetilde{Q}_{\theta_v}$：<br>$\widetilde{Q}_{\theta_v}(x_t,a_t)\sim V_{\theta_v}(x_t)+A_{\theta_v}(x_t,a_t)-\frac{1}{n}\displaystyle\sum_{i=1}^nA_{\theta_v}(x_t,u_i)，u_i\sim\pi_\theta(.|x_t)$ </p>
 <p>其中，$n$是一个超参。SDNs结构如下图：</p>
-<p><img src="/home/joy/hexo/source/imges/RL/ACER-F2.png" alt="ACER-F2"></p>
+<p><img src="/images/RL/ACER-F2.png" alt=""></p>
 <p>为了学习The critic $V_{\theta_v}(x_t)$，由$E_{a\sim \pi(.|x_t)}[E_{u_{1:n}\sim\pi(.|x_t)}(\widetilde{Q}_{\theta_v}(x_t,a_t))]=V_{\theta_v}(x_t)$知，我们可通过学习$\widetilde{Q}_{\theta_v}$来估计$V^\pi$。设$E_{u_{1:n}\sim\pi(.|x_t)}(\widetilde{Q}_{\theta_v}(x_t,a_t))=Q^\pi(x_t,a_t)$，则有$V^\pi(x_t)=E_{a\sim \pi(.|x_t)}[Q^\pi(x_t,a_t)]=E_{a\sim \pi(.|x_t)}[E_{u_{1:n}\sim\pi(.|x_t)}(\widetilde{Q}_{\theta_v}(x_t,a_t))]$。因此，使用$\widetilde{Q}_{\theta_v}$的target会引入误差，故构建另一target：$V^{target}(x_t)=\min \{1,\frac{\pi(a_t|x_t)}{\mu(a_t|x_t)}\}(Q_t^{ret}-\widetilde {Q}_{\theta_v}(x_{t},a_{t}))+V_{\theta_v}(x_{t})$。显然有：$V^\pi(x_t)=E_{a_t\sim\mu}[V^{target}(x_t)]$，故使用$V^{target}​$不会引入偏差。</p>
 <p>因此，通过最小化$Q_t^{ret}$和$\widetilde {Q}_{\theta_v}(x_{t},a_{t})$的均方误差以及$V^{target}$和$V_{\theta_v}(x_t)$的均方误差来更新$\theta_v$，故有以下两个梯度：</p>
 <p>$\nabla_{\theta_v}J_1(\theta_v)=(Q_t^{ret}-\widetilde {Q}_{\theta_v}(x_{t},a_{t}))\nabla_{\theta_v}\widetilde {Q}_{\theta_v}(x_{t},a_{t})\\\nabla_{\theta_v}J_2(\theta_v)=\bar{\rho}_t(Q_t^{ret}-\widetilde {Q}_{\theta_v}(x_{t},a_{t}))\nabla_{\theta_v}V_{\theta_v}(x_{t})$</p>
@@ -320,15 +320,15 @@
 <p><strong>TIS算法</strong></p>
 <p>首先，A3C算法使用单一轨迹采样得到的策略梯度近似公式如下：<br>$\hat{g}^{a3c}=\displaystyle\sum_{t\geq0}(\displaystyle\sum_{i=0}^{k-1}\gamma^ir_{t+i}+\gamma^kV_{\theta_v}(x_{t+k})-V_{\theta_v}(x_t))\nabla_\theta\log\pi_\theta(a_t|x_t)$ </p>
 <p>TIS算法就是在A3C算法的基础上，加入了截断重要性采样，其更新方式如下：</p>
-<p><img src="/home/joy/hexo/source/imges/RL/ACER-TIS.png" alt="ACER-TIS"></p>
+<p><img src="/images/RL/ACER-TIS.png" alt=""></p>
 <h3 id="2-2-2-训练细节"><a href="#2-2-2-训练细节" class="headerlink" title="2.2.2 训练细节"></a>2.2.2 训练细节</h3><p>作者在6个连续控制任务中评估了他们的算法，实验中的策略网络和状态价值网络都共享相同的网络架构，并有如下参数设置：在所有的SDN中，使用n=5；注意，连续ACER算法是完全off-policy的，当使用回放时，每个线程的reply memory大小设为50000；每条轨迹的长度为50个step，即取$k=50$；重要性权重截断参数设为$c=5$；TRPO参数设为$\delta\sim U[0.1,2],\alpha=0.995$，其中$U$为均匀分布。此外，作者使用带有固定对角协方差的高斯策略，对角线标准差被设为0.3，学习率的从区间$[10^{-4},10^{-3.3}]$中均匀采样得到。在所有参数设置中，作者使用了30个采样的超参数。</p>
 <h3 id="2-2-3-训练结果"><a href="#2-2-3-训练结果" class="headerlink" title="2.2.3 训练结果"></a>2.2.3 训练结果</h3><p>图3展示了所有连续控制任务的实验结果，在对30个超参数进行探索后，作者将5次最佳实验结果的均值和标准差展示在了图3的下面那幅图中。</p>
-<p><img src="/home/joy/hexo/source/imges/RL/ACER-F3.png" alt="ACER-F3"></p>
+<p><img src="/images/RL/ACER-F3.png" alt=""></p>
 <p>图3：上面为连续控制任务的截图，下面为不同任务中不同算法的表现。横轴为Million Steps，纵轴为Episode Reward。不同颜色的曲线代表不同算法（A3C、TIS、ACER）的效果，其中实线为使用了TRPO的算法，虚线为没有使用了TRPO的算法。</p>
 <p>该实验表明，在连续控制问题中，ACER优于其他所有方法，且在更高维度任务（humanoid, cheetah, walker and fish）上表现出明显优势。efficient TRPO方法可以显著地改善TIS和A3C算法，且相对离散行动领域，它在高维连续控制领域上效果更好。</p>
 <p><strong>技术消融分析</strong></p>
 <p>为了进一步区分ACER中不同技术的贡献程度，作者进行了消融分析：在ACER基础上分别移除Retrace/Q(λ) off-policy corrections、SDNs、TRPO和带有偏差纠正的重要权重截断，效果如图4所示。</p>
-<p><img src="/home/joy/hexo/source/imges/RL/ACER-F4.png" alt="ACER-F4"></p>
+<p><img src="/images/RL/ACER-F4.png" alt=""></p>
 <p>图4：使用消融分析评估ACER中各个技术的效果。每一行代表在ACER中移除了同一技术，每一列代表同一控制任务。在所有的图中，红线代表的是ACER，而绿线则是缺少某一技术的ACER，故红线在所有行中是相同的。</p>
 <p>该实验表明，ACER中的4个技术都提高了算法性能，其中Retrace/Q(λ) off-policy corrections、SDN和efficient TRPO三个技术至关重要，删除其中任何一个，都会导致性能明显恶化。带有偏差纠正的重要性权重截断并没有改变Fish和Walker2d两个任务的结果。然而，在Humanoid中，动作空间的维数要高得多，带有偏差纠正的重要权重截断也带来了显著的提升。可以推测，动作空间的高维度增加了重要性权重的方差，因而使得带有偏差纠正的重要权重截断也很重要。</p>
 
